@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
 <style>
+
     .content{
         background-color: #eee;
         /*margin-top: -10px;*/
@@ -25,18 +26,6 @@
         /*font-size: 16px;*/
     }
 
-    .nav li{
-        display: inline;
-        color: #5a5a5a;
-        font-size: 11px;
-        font-weight: bold;
-        /*padding-top: 14px;*/
-        /*padding-bottom:5px;*/
-        padding-left: 10px;
-        padding-right:10px;
-        text-transform:uppercase;
-    }
-
     #allCourses{
         margin-bottom: -15px;
     }
@@ -55,9 +44,24 @@
 
     .navbar{
         border-radius: 0px;
-        background-color: #eee;
+        background-color: #E6E6E6;
         color: #5a5a5a;
+        font-size: 11px;
+        font-weight: bold;
+        text-transform:uppercase;
         /*margin-bottom: 0px;*/
+    }
+
+    .navbar form{
+        padding-top: 10px;
+    }
+    .navbar #title{
+        font-size: 12px;
+    }
+
+
+    .active1 {
+        background-color: #ddd;
     }
 
     </style>
@@ -67,22 +71,19 @@
 
 <div class="nav">
     <div class="container">
- <!--    	<ul class="pull-right">
-            <li>Login</li>
-            <li>Help</li>
-	    </ul> -->
-    </div>
+
+    
     <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
-            <ul class="nav navbar-nav">
-            <li id="title">student tracking project</li>
-                <li><a href="#">Link</a></li>
+            <ul class="nav navbar-nav pull-left">
+                <li id="title"><a href="#">Software Project</a></li>
+                <li class="active1"><a href="#">Home</a></li>
                 <li><a href="#">Link</a></li>
             </ul>
-            <ul class="pull-right">
-                <li>Login</li>
-                <li>Help</li>
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Help</a></li>
             </ul>
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
@@ -93,6 +94,7 @@
 
         </div>    
     </nav>
+    </div>
 </div>
 
 <div class="content">
@@ -141,17 +143,7 @@
                         </thead>
                         <tbody>
                         <?php
-                            include('connect.php');
-                            // change to mysqli
-                            $result = mysql_query("SELECT * FROM course WHERE courseLevel = 1") or die(mysql_error());
-                            // store the record of the "tblstudent" table into $row
-                            while ($row = mysql_fetch_array($result)) {
-                            // Print out the contents of the entry
-                                  echo '<tr>';
-                                  echo '<td>' . $row['courseCode'] . '</td>';
-                                  echo '<td>' . $row['courseName'] . '</td> ';
-                                  echo '<td><input type="checkbox"> </td> </tr>';
-                            }
+
                         ?>
                         </tbody>
                     </table>
@@ -191,7 +183,7 @@
 
     $(document).ready(function(){
         // init page for viewing grades  
-        MODULE.GradePage.init()
+        //MODULE.GradePage.init()
         MODULE.Menu.init();
     });
 
