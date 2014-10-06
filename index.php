@@ -5,6 +5,7 @@
 <style>
     .content{
         background-color: #eee;
+        /*margin-top: -10px;*/
         border-radius: 5px;
     }
 
@@ -20,6 +21,10 @@
         text-transform:uppercase;
     }
 
+    .nav #title{
+        /*font-size: 16px;*/
+    }
+
     .nav li{
         display: inline;
         color: #5a5a5a;
@@ -32,12 +37,6 @@
         text-transform:uppercase;
     }
 
-
-    .nav #title{
-        /*font-size: 16px;*/
-    }
-
-    
     #allCourses{
         margin-bottom: -15px;
     }
@@ -54,6 +53,13 @@
         width:10em;
     }
 
+    .navbar{
+        border-radius: 0px;
+        background-color: #eee;
+        color: #5a5a5a;
+        /*margin-bottom: 0px;*/
+    }
+
     </style>
 </head>
 
@@ -61,14 +67,32 @@
 
 <div class="nav">
     <div class="container">
-        <ul class="pull-left">
-            <li id="title">softwawe project</li>
-    	</ul>
-    	<ul class="pull-right">
+ <!--    	<ul class="pull-right">
             <li>Login</li>
             <li>Help</li>
-	    </ul>
+	    </ul> -->
     </div>
+    <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+            <li id="title">student tracking project</li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+            </ul>
+            <ul class="pull-right">
+                <li>Login</li>
+                <li>Help</li>
+            </ul>
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+        </div>    
+    </nav>
 </div>
 
 <div class="content">
@@ -161,11 +185,14 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
 <script src="js/GradePage.js"></script>
 
+<script src="js/Menu.js"></script>
+
 <script>
 
     $(document).ready(function(){
         // init page for viewing grades  
         MODULE.GradePage.init()
+        MODULE.Menu.init();
     });
 
 </script>
