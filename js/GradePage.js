@@ -5,14 +5,18 @@ var MODULE = MODULE || {};
 MODULE.GradePage = {};
 
 // code for grading page
-MODULE.GradePage.init = function(){
+MODULE.GradePage.init = function(makeGradeTable){
 	"use strict";
     
     // get request data to limit the students returned
     var selectLimt = 100;
+    // var JSONdata;
 
     // get request data to select the level; 
     var selectLevel = 6;
+
+    makeBSTable();
+    makeStudentTable();
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
@@ -33,14 +37,16 @@ MODULE.GradePage.init = function(){
         data: { limit: selectLimt},
         success: function(data){
             console.log("success");
+            $('#student-table-javascript').bootstrapTable('load', data);
 
-            makeStudentList(data);
         },
         error:function(textStatus, errorThrown){
             console.log("error");
             console.log(errorThrown);
         }
     });
+
+
 
     // makes a list element per student based on json data
     // assign it to the list-group-item bootstrap class 
@@ -59,7 +65,7 @@ MODULE.GradePage.init = function(){
                 click: function(){
                     var name = $(this).text();
                     console.log(name);
-                    getGrades(selectLevel, name);
+                    // getGrades(selectLevel, name);
                 },
                 // http://api.jquery.com/hover/#hover1
                 mouseenter: function() {
@@ -88,16 +94,89 @@ MODULE.GradePage.init = function(){
             data: { studentName: name, level: level},
             success: function(data){
                 console.log( "Data Loaded: " , data );
-                if(data.length === 0){
-                    console.log(" no data");
-                    // work around until we have a way to select a level
-                    getGrades(level-1, name);
-                    return;
-                }
-                // pass in json info about grades
-                showStudentGrades(data);
+                $('#grade-table-javascript').bootstrapTable('load', data);
             }
         });
+    }
+
+    function makeStudentTable(){
+        $('#student-table-javascript').bootstrapTable({
+                // data: data,
+                // search: true,
+                // minimumCountColumns: 2,
+                // showColumns: true,
+                onClickRow: function (name) {
+                    console.log(name.studentName);
+                    getGrades(selectLevel, name.studentName);
+                },
+                columns: [
+                {
+                    field: 'studentName',
+                    title: 'Name',
+                    align: 'center',
+                    valign: 'middle',
+                }
+                ]
+            });
+    }
+
+    function makeBSTable(){
+        // http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html
+        // http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html
+            $('#grade-table-javascript').bootstrapTable({
+                // cache: true,
+                pageSize: 10,
+                // height: 500,
+                striped : true,
+                classes: 'table-condensed',
+                pagination: true,
+                // pageList: [10, 25, 50, 100, 200],
+                showColumns: true,
+                // search: true,
+                minimumCountColumns: 2,
+                clickToSelect: true,
+                columns: [
+                {
+                    field: 'courseName',
+                    title: 'Name',
+                    align: 'center',
+                    valign: 'middle',
+                    sortable: true,
+                },
+                {
+                    field: 'grade',
+                    title: 'Grade',
+                    align: 'left',
+                    valign: 'top',
+                    sortable: true,
+                },
+                {
+                    field: 'aLevel',
+                    title: 'Level',
+                    align: 'center',
+                    valign: 'middle',
+                    clickToSelect: false,
+                }
+                ]
+            });
+        }
+
+    function getGradesJson(level, name){
+        // var level = level;
+        var json;
+        $.ajax({
+            type: "GET",
+            url: 'selectGrades.php',
+            dataType: 'json',
+            // get request for student name
+            data: { studentName: name, level: level},
+            success: function(data){
+                console.log( "Data Loaded: " , data );
+                // pass in json info about grades
+                makeGradeTable(data);
+            }
+        });
+        // return json;
     }
    
     // pass in json info about grades
@@ -115,4 +194,8 @@ MODULE.GradePage.init = function(){
             $("#gradeList").html(html);
         });
     }
+
+    return {
+        getGradesJson : getGradesJson
+    };
 };

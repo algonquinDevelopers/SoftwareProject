@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
+    <!-- <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
 <style>
 
     .content{
@@ -34,10 +36,7 @@
         margin-top: 0px;
     }
 
-    .panel-heading{
-        background-color: #ffffff;
-        color: #00b0ff;
-    }
+
     #studentList{
         width:10em;
     }
@@ -63,6 +62,14 @@
     .active1 {
         background-color: #ddd;
     }
+    .panel-heading{
+        background-color: #ddd;
+        color: #00b0ff;
+    }
+
+    .search{
+        width: 100px;
+    }
 
     </style>
 </head>
@@ -85,12 +92,12 @@
                 <li><a href="#">Login</a></li>
                 <li><a href="#">Help</a></li>
             </ul>
-            <form class="navbar-form navbar-left" role="search">
+         <!--    <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            </form> -->
 
         </div>    
     </nav>
@@ -99,32 +106,22 @@
 
 <div class="content">
     <div class="container">
-    <h1>Students</h1>
+    <!-- <h1>Students</h1> -->
     <div class="row">
         <div class="col-md-3">
-            <div id="students">
-                <ul class="list-group" id="studentList">
+            <div class="panel">
+                <div  class="panel-heading">Students</div>
+                <div id="students">
+                    <table id="student-table-javascript"></table>
+                </div>
                 </ul>
             </div>
         </div>
         <div class="col-md-5">
             <div id="gradeContent">
                 <div class="panel">
-                    <div class="panel-heading">Current Grades</div>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Grade</th>
-                            <th>Level</th>
-                        </tr>
-                        </thead>
-                        <tbody id="gradeList">
-
-                        </tbody>
-                        
-                    </table>
+                    <div class="panel-heading">Grades</div>
+                    <table id="grade-table-javascript"></table>
                 </div>
             </div>
         </div>
@@ -133,19 +130,14 @@
                 <div class="panel-heading">Courses</div>
                 <!-- maybe change id to c -->
                 <div id="allCourses">
-                    <table class= "table" >
+                    <table id="table">
                         <thead>
                             <tr>
-                                <th>Code</th>
-                                <th>Name</th>
-                                <th>Select</th>
+                                <th data-field="id">Item ID</th>
+                                <th data-field="name">Item Name</th>
+                                <th data-field="price">Item Price</th>
                             </tr>
                         </thead>
-                        <tbody>
-                        <?php
-
-                        ?>
-                        </tbody>
                     </table>
                     <div class="row">
                         <div class="col-md-12">
@@ -158,8 +150,8 @@
                               <li><a href="#">6</a></li>
                         </ul>
                             <!-- http://bootsnipp.com/snippets/featured/collection-of-bootstrap-buttons -->
-                           <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span>
-                           <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span>
+                           <!-- <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span> -->
+                           <!-- <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span> -->
                         </div>
                     </div>
                 </div>
@@ -175,6 +167,8 @@
 
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
+<script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
+
 <script src="js/GradePage.js"></script>
 
 <script src="js/Menu.js"></script>
@@ -183,8 +177,13 @@
 
     $(document).ready(function(){
         // init page for viewing grades  
-        //MODULE.GradePage.init()
-        MODULE.Menu.init();
+        //MODULE.Menu.init();
+
+
+        //courseNumber , courseName, grade , aLevel
+        
+        var gradePage = MODULE.GradePage.init();
+
     });
 
 </script>

@@ -6,8 +6,9 @@
 	// $error = $name;
 	$level = $_GET['level'];
 	// add A to level
+	//AND aLevel = 'A$level'
 	$result = mysql_query("SELECT courseNumber , courseName, grade , aLevel
-							from studentStats WHERE studentName = '$name' AND aLevel = 'A$level' ");
+							from studentStats WHERE studentName = '$name'");
 	$rows = array();
 
 	while($r = mysql_fetch_array($result)) {
