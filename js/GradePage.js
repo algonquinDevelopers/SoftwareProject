@@ -15,9 +15,7 @@ MODULE.GradePage.init = function(makeGradeTable){
     // get request data to select the level; 
     var selectLevel = 6;
 
-    makeBSTable();
-    makeStudentTable();
-
+    var currentRow;
     //http://rocha.la/jQuery-slimScroll
     $(function(){
         $('#students').slimScroll({
@@ -28,6 +26,13 @@ MODULE.GradePage.init = function(makeGradeTable){
             alwaysVisible: true
         });
     });
+
+    makeBSTable();
+    makeStudentTable();
+    makeCourseTable();
+    makeButton();
+
+    
 
     //get the students names
     $.ajax({
@@ -46,41 +51,83 @@ MODULE.GradePage.init = function(makeGradeTable){
         }
     });
 
+    $.ajax({
+        type: "GET",
+        url: 'selectCourse.php',
+        dataType: 'json',
+        success: function(data){
+            console.log("success");
+            $('#course-table-javascript').bootstrapTable('load', data);
 
+        },
+        error:function(textStatus, errorThrown){
+            console.log("error");
+            console.log(errorThrown);
+        }
+    });
 
-    // makes a list element per student based on json data
-    // assign it to the list-group-item bootstrap class 
-    function makeStudentList(data){
-        // the previous hover and on click functions don't work for some reason.
-        // assigning them as attributes does 
-
-        //https://api.jquery.com/jquery.each/
-        $.each(data, function(key, val){
-            var $student =
-            $("<li>",
-            {
-                id: "name",
-                class: "list-group-item",
-                html: val.studentName,
-                click: function(){
-                    var name = $(this).text();
-                    console.log(name);
-                    // getGrades(selectLevel, name);
-                },
-                // http://api.jquery.com/hover/#hover1
-                mouseenter: function() {
-                    $(this).css({"background-color": "grey"});
-                    $(this).css({"color":"lightgreen"});
-                },
-                mouseleave: function(){
-                    $(this).css({"background-color": "white"});
-                    $(this).css({"color":"black"});
-                }
-            },"</li>");
+    function makeButton(){
+        var $button =
+        $("<span>",
+        {
+            id: "name",
+            class: "btn btn-success btn-md center pull-right",
+            html: '<i class="glyphicon"></i>Assign',
+            click: function(){
+                currentRow.bgColor = '#AED4E9';
+            },
             
-            $("#studentList").append($student);
+        },"</span>");
+
+        $("#course-table-javascript").append($button);
+        console.log('ok');
+                console.log('ok');
+
+    }
+
+    // mouseenter: function() {
+    //             $(this).css({"background-color": "grey"});
+    //             $(this).css({"color":"lightgreen"});
+    //         },
+    // mouseleave: function(){
+    //     $(this).css({"background-color": "white"});
+    //     $(this).css({"color":"black"});
+    // }
+
+
+    function makeCourseTable(){
+        $('#course-table-javascript').bootstrapTable({
+            pageSize: 7,
+            pagination: true,
+            striped : true,
+            // showColumns: true,
+            // showRefresh: true,
+            // minimumCountColumns: 2,
+            clickToSelect: true,
+            columns: [
+            {
+                field: 'state',
+                checkbox: true
+            },
+            {
+                field: 'courseName',
+                title: 'Name',
+                align: 'center',
+                valign: 'middle',
+                // sortable: true,
+            },
+            {
+                field: 'courseCode',
+                title: 'Code',
+                align: 'center',
+                valign: 'middle',
+                clickToSelect: false,
+            }
+            ]
         });
     }
+
+
     
     // get info about the grades as json, 
     // this return courseNum , courseName, grade , aLevel for the student
@@ -93,7 +140,7 @@ MODULE.GradePage.init = function(makeGradeTable){
             // get request for student name
             data: { studentName: name, level: level},
             success: function(data){
-                console.log( "Data Loaded: " , data );
+                // console.log( "Data Loaded: " , data );
                 $('#grade-table-javascript').bootstrapTable('load', data);
             }
         });
@@ -102,12 +149,16 @@ MODULE.GradePage.init = function(makeGradeTable){
     function makeStudentTable(){
         $('#student-table-javascript').bootstrapTable({
                 // data: data,
-                // search: true,
+                search: true,
                 // minimumCountColumns: 2,
                 // showColumns: true,
-                onClickRow: function (name) {
-                    console.log(name.studentName);
-                    getGrades(selectLevel, name.studentName);
+                onClickRow: function (row, index) {
+                    console.log(index);
+                    currentRow = index[0];
+                    // index[0].bgColor = '#eee';
+                    // index[0].bgColor = '#AED4E9';
+
+                    getGrades(selectLevel, row.studentName);
                 },
                 columns: [
                 {
@@ -125,15 +176,15 @@ MODULE.GradePage.init = function(makeGradeTable){
         // http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html
             $('#grade-table-javascript').bootstrapTable({
                 // cache: true,
-                pageSize: 10,
+                pageSize: 7,
                 // height: 500,
                 striped : true,
-                classes: 'table-condensed',
+                // classes: 'table-condensed',
                 pagination: true,
                 // pageList: [10, 25, 50, 100, 200],
-                showColumns: true,
+                //showColumns: true,
                 // search: true,
-                minimumCountColumns: 2,
+                // minimumCountColumns: 2,
                 clickToSelect: true,
                 columns: [
                 {
@@ -144,18 +195,20 @@ MODULE.GradePage.init = function(makeGradeTable){
                     sortable: true,
                 },
                 {
+                    width: 1,
                     field: 'grade',
                     title: 'Grade',
-                    align: 'left',
+                    align: 'center',
                     valign: 'top',
                     sortable: true,
                 },
                 {
+                    width: 1,
                     field: 'aLevel',
                     title: 'Level',
                     align: 'center',
                     valign: 'middle',
-                    clickToSelect: false,
+                    sortable: true,
                 }
                 ]
             });
@@ -195,7 +248,39 @@ MODULE.GradePage.init = function(makeGradeTable){
         });
     }
 
-    return {
-        getGradesJson : getGradesJson
-    };
+    // makes a list element per student based on json data
+    // assign it to the list-group-item bootstrap class 
+    function makeStudentList(data){
+        // the previous hover and on click functions don't work for some reason.
+        // assigning them as attributes does 
+
+        //https://api.jquery.com/jquery.each/
+        $.each(data, function(key, val){
+            var $student =
+            $("<li>",
+            {
+                id: "name",
+                class: "list-group-item",
+                html: val.studentName,
+                click: function(){
+                    var name = $(this).text();
+                    console.log(name);
+                    // getGrades(selectLevel, name);
+                },
+                // http://api.jquery.com/hover/#hover1
+                mouseenter: function() {
+                    $(this).css({"background-color": "grey"});
+                    $(this).css({"color":"lightgreen"});
+                },
+                mouseleave: function(){
+                    $(this).css({"background-color": "white"});
+                    $(this).css({"color":"black"});
+                }
+            },"</li>");
+            
+            $("#studentList").append($student);
+        });
+    }
+
+
 };

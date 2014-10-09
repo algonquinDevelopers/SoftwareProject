@@ -31,15 +31,6 @@
     #allCourses{
         margin-bottom: -15px;
     }
-    /* this is for the course level selection*/
-    #myPager{
-        margin-top: 0px;
-    }
-
-
-    #studentList{
-        width:10em;
-    }
 
     .navbar{
         border-radius: 0px;
@@ -62,15 +53,15 @@
     .active1 {
         background-color: #ddd;
     }
-    .panel-heading{
+   /* .panel-heading{
         background-color: #ddd;
         color: #00b0ff;
     }
+*/
 
-    .search{
-        width: 100px;
+    #students{
+        margin-left: 10px;
     }
-
     </style>
 </head>
 
@@ -92,13 +83,6 @@
                 <li><a href="#">Login</a></li>
                 <li><a href="#">Help</a></li>
             </ul>
-         <!--    <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form> -->
-
         </div>    
     </nav>
     </div>
@@ -108,8 +92,8 @@
     <div class="container">
     <!-- <h1>Students</h1> -->
     <div class="row">
-        <div class="col-md-3">
-            <div class="panel">
+        <div class="col-md-2">
+            <div class="panel panel-default">
                 <div  class="panel-heading">Students</div>
                 <div id="students">
                     <table id="student-table-javascript"></table>
@@ -119,41 +103,26 @@
         </div>
         <div class="col-md-5">
             <div id="gradeContent">
-                <div class="panel">
+                <div class="panel panel-default">
                     <div class="panel-heading">Grades</div>
                     <table id="grade-table-javascript"></table>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="panel panel-default">
                 <div class="panel-heading">Courses</div>
                 <!-- maybe change id to c -->
                 <div id="allCourses">
-                    <table id="table">
-                        <thead>
-                            <tr>
-                                <th data-field="id">Item ID</th>
-                                <th data-field="name">Item Name</th>
-                                <th data-field="price">Item Price</th>
-                            </tr>
-                        </thead>
+                    <table id="course-table-javascript">
+                        
                     </table>
-                    <div class="row">
-                        <div class="col-md-12">
-                        <ul class="pagination pagination-md pull-left"   id="myPager">
-                              <li><a href="#">1</a></li>
-                              <li><a href="#">2</a></li>
-                              <li><a href="#">3</a></li>
-                              <li><a href="#">4</a></li>
-                              <li><a href="#">5</a></li>
-                              <li><a href="#">6</a></li>
-                        </ul>
-                            <!-- http://bootsnipp.com/snippets/featured/collection-of-bootstrap-buttons -->
-                           <!-- <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span> -->
-                           <!-- <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span> -->
-                        </div>
-                    </div>
+                    <!-- <table >
+                        <tfoot>
+                            <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span>
+                            <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span>
+                        </tfoot>
+                    </table> -->
                 </div>
 
             <!-- </div> -->
