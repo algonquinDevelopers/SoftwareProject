@@ -4,11 +4,11 @@ $dbname = 'sproject';
 $username = 'root';
 $pass = 'root';
 
-$db = mysql_connect($dbhost,$username,$pass)
+$db = mysqli_connect($dbhost,$username,$pass)
 or die('<div align="center">Warning: Could not connect to the database</div>');
 if (!$db) {
     printf("Error: %s\n", mysqli_error($db));
     exit();
 }
-mysql_select_db($dbname);
+mysqli_select_db($db, $dbname);
 ?>
