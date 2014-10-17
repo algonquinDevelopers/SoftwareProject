@@ -59,6 +59,8 @@
 
 <body>
 
+
+
 <div class="nav">
     <div class="container">
         <ul class="pull-left">
@@ -117,11 +119,13 @@
                         </thead>
                         <tbody>
                         <?php
+			    
                             include('connect.php');
+				
                             // change to mysqli
-                            $result = mysql_query("SELECT * FROM course WHERE courseLevel = 1") or die(mysql_error());
+                            $result = mysqli_query($db, "SELECT * FROM course WHERE courseLevel = 1") or die(mysqli_error($db));
                             // store the record of the "tblstudent" table into $row
-                            while ($row = mysql_fetch_array($result)) {
+                            while ($row = mysqli_fetch_array($result)) {
                             // Print out the contents of the entry
                                   echo '<tr>';
                                   echo '<td>' . $row['courseCode'] . '</td>';
@@ -156,6 +160,7 @@
 
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
