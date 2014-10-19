@@ -5,10 +5,10 @@ include("connect.php");
 
 $sql = "SELECT courseName, courseCode FROM course";
 
-$result = mysql_query($sql);
+$result = mysqli_query($db,$sql);
 
 $rows = array();
-while($r = mysql_fetch_array($result)) {
+while($r = mysqli_fetch_array($result)) {
 	    array_push($rows, $r);
     }
 

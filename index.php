@@ -67,6 +67,8 @@
 
 <body>
 
+
+
 <div class="nav">
     <div class="container">
 
@@ -115,7 +117,6 @@
                 <!-- maybe change id to c -->
                 <div id="allCourses">
                     <table id="course-table-javascript">
-                        
                     </table>
                     <!-- <table >
                         <tfoot>
@@ -133,6 +134,7 @@
 
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
