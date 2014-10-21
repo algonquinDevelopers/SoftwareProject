@@ -79,11 +79,7 @@
             <ul class="nav navbar-nav pull-left">
                 <li id="title"><a href="#">Software Project</a></li>
                 <li class="active1"><a href="#">Home</a></li>
-                <li><a href="#">Link</a></li>
-            </ul>
-            <ul class="nav navbar-nav pull-right">
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Help</a></li>
+                <li data-toggle="dropdown"><a href="#">Programs</a></li>
             </ul>
         </div>    
     </nav>
@@ -113,20 +109,50 @@
         </div>
         <div class="col-md-5">
             <div class="panel panel-default">
-                <div class="panel-heading">Courses</div>
+
                 <!-- maybe change id to c -->
-                <div id="allCourses">
+                <ul class="nav nav-tabs" role="tablist" id="course-tabs">
+                  <li class="active"><a href="#course" role="tab" data-toggle="tab">Course</a></li>
+                  <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
+                </ul>
+
+                <div class="tab-content">
+                  <div class="tab-pane active" id="course">
+
                     <table id="course-table-javascript">
                     </table>
-                    <!-- <table >
-                        <tfoot>
+
+                  </div>
+                  <div class="tab-pane" id="history">
+                    <table class="table">
+                      <tr>
+                        <td>Jill</td>
+                        <td>Smith</td>
+                        <td>50</td>
+                      </tr>
+                      <tr>
+                        <td>Eve</td>
+                        <td>Jackson</td>
+                        <td>94</td>
+                      </tr>
+                      <tr>
+                        <td>Jill</td>
+                        <td>Smith</td>
+                        <td>50</td>
+                      </tr>
+                      <tr>
+                        <td>Eve</td>
+                        <td>Jackson</td>
+                        <td>94</td>
+                      </tr>        
+                       <!--  <tfoot>
                             <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span>
                             <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span>
-                        </tfoot>
-                    </table> -->
+                        </tfoot> -->
+                    </table>
+                  </div>
                 </div>
 
-            <!-- </div> -->
           </div>
 
         </div>
@@ -137,6 +163,7 @@
 
 
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
 
@@ -154,6 +181,10 @@
         //courseNumber , courseName, grade , aLevel
         
         var gradePage = MODULE.GradePage.init();
+        $('#course-tabs a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+        })
 
     });
 
