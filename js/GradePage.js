@@ -27,7 +27,7 @@ MODULE.GradePage.init = function(makeGradeTable){
         });
     });
 
-    makeBSTable();
+    makeGradeTable();
     makeStudentTable();
     makeCourseTable();
     makeButton();
@@ -84,15 +84,6 @@ MODULE.GradePage.init = function(makeGradeTable){
                 console.log('ok');
 
     }
-
-    // mouseenter: function() {
-    //             $(this).css({"background-color": "grey"});
-    //             $(this).css({"color":"lightgreen"});
-    //         },
-    // mouseleave: function(){
-    //     $(this).css({"background-color": "white"});
-    //     $(this).css({"color":"black"});
-    // }
 
 
     function makeCourseTable(){
@@ -171,20 +162,13 @@ MODULE.GradePage.init = function(makeGradeTable){
             });
     }
 
-    function makeBSTable(){
+    function makeGradeTable(){
         // http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html
         // http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html
             $('#grade-table-javascript').bootstrapTable({
-                // cache: true,
                 pageSize: 7,
-                // height: 500,
                 striped : true,
-                // classes: 'table-condensed',
                 pagination: true,
-                // pageList: [10, 25, 50, 100, 200],
-                //showColumns: true,
-                // search: true,
-                // minimumCountColumns: 2,
                 clickToSelect: true,
                 columns: [
                 {
@@ -230,22 +214,6 @@ MODULE.GradePage.init = function(makeGradeTable){
             }
         });
         // return json;
-    }
-   
-    // pass in json info about grades
-    function showStudentGrades(gradeJson){
-        var html = '';
-        $.each(gradeJson, function(key, val){
-            console.log(key);
-
-            html += '<tr>'+
-                    '<td>'+ val.courseNumber + '</td>'+
-                    '<td>'+ val.courseName +'</td>'+
-                    '<td>'+ val.grade + '</td>'+
-                    '<td>'+ val.aLevel +'</td>'+
-                    '</tr>';
-            $("#gradeList").html(html);
-        });
     }
 
     // makes a list element per student based on json data
