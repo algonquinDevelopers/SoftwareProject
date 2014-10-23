@@ -35,8 +35,6 @@ MODULE.GradePage.init = function(){
 
     function courseSelect(level, name){
         var fail_cases = ["F", "W", "B-"];
-
-        // var grades = getGradesJson2(level, name);
         var grades;
 
         $.ajax({
@@ -47,14 +45,9 @@ MODULE.GradePage.init = function(){
             data: { studentName: name, level: level},
             success: function(data){
                 grades = data;
-                // console.log(grades);
-                // /makeGradeTable(data);
-                // console.log(grades + 'json');
                 for(var i in grades){
                     var row = grades[i];
-                    // console.log(row);
                     if(row.aLevel == "A1" && checkForFailed(fail_cases, row)) {
-                        // console.log(row);
                         console.log("passed");
                         courseTableSelect(row);
                     }
@@ -69,28 +62,16 @@ MODULE.GradePage.init = function(){
 
     function checkForFailed(fail_cases, row){
         for(var i in fail_cases){
-
             var gradeLetter = row.grade;
-            // console.log(gradeLetter);
-            // if(gradeLetter == "A+"){
-            //     console.log('this was a plus' + gradeLetter);
-            // }
-            // if(gradeLetter !== fail_cases[i]){
-            //     // console.log('true');
-            //     return true;
-            // }
             if(gradeLetter == fail_cases[i]){
                return false;
             }
-            // console.log('false')
             return true;
         }
     }
 
     function courseTableSelect(row){
         var data = $('#course-table-javascript').bootstrapTable('getData');    
-        // var data = $('table#course-table-javascript > tbody > tr'); 
-        // $("table#course-table-javascript > tbody > tr[data-index='1']");
         var studentCourse = row.courseName;
         console.log(studentCourse);
         //$('table#course-table-javascript > tbody > tr');
@@ -98,7 +79,6 @@ MODULE.GradePage.init = function(){
         for(var i in data){
             var row = data[i];
             if(studentCourse === row.courseName){
-                // console.log('ok');
                 console.log(row.courseName, i);
                 // var $tr = $("table#course-table-javascript > tbody > tr[data-index='"+ i +"']");
                 var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']");
