@@ -62,6 +62,7 @@
     #students{
         margin-left: 10px;
     }
+
     </style>
 </head>
 
@@ -71,8 +72,6 @@
 
 <div class="nav">
     <div class="container">
-
-    
     <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
@@ -172,21 +171,24 @@
 <script src="js/Menu.js"></script>
 
 <script>
-
+    var gradePage;
     $(document).ready(function(){
         // init page for viewing grades  
-        //MODULE.Menu.init();
-
-
-        //courseNumber , courseName, grade , aLevel
         
-        var gradePage = MODULE.GradePage.init();
+        gradePage = MODULE.GradePage.init();
+
+
         $('#course-tabs a').click(function (e) {
           e.preventDefault()
           $(this).tab('show')
-        })
+        });
+
+        // get data 
+
+
 
     });
+
 
 </script>
 

@@ -5,15 +5,15 @@ var MODULE = MODULE || {};
 MODULE.GradePage = {};
 
 // code for grading page
-MODULE.GradePage.init = function(makeGradeTable){
-	"use strict";
+MODULE.GradePage.init = function(){
+	// "use strict";
     
     // get request data to limit the students returned
     var selectLimt = 100;
     // var JSONdata;
 
     // get request data to select the level; 
-    var selectLevel = 6;
+    var selectLevel = 1;
 
     var currentRow;
     //http://rocha.la/jQuery-slimScroll
@@ -31,8 +31,84 @@ MODULE.GradePage.init = function(makeGradeTable){
     makeStudentTable();
     makeCourseTable();
     makeButton();
+    courseSelect();
 
-    
+    function courseSelect(level, name){
+        var fail_cases = ["F", "W", "B-"];
+
+        // var grades = getGradesJson2(level, name);
+        var grades;
+
+        $.ajax({
+            type: "GET",
+            url: 'selectGrades.php',
+            dataType: 'json',
+            // get request for student name
+            data: { studentName: name, level: level},
+            success: function(data){
+                grades = data;
+                // console.log(grades);
+                // /makeGradeTable(data);
+                // console.log(grades + 'json');
+                for(var i in grades){
+                    var row = grades[i];
+                    // console.log(row);
+                    if(row.aLevel == "A1" && checkForFailed(fail_cases, row)) {
+                        // console.log(row);
+                        console.log("passed");
+                        courseTableSelect(row);
+                    }
+                }
+            }
+        });
+    };
+
+    function selectCoursesCheckBox(row, index){
+        var courseName = row.courseName;
+    }
+
+    function checkForFailed(fail_cases, row){
+        for(var i in fail_cases){
+
+            var gradeLetter = row.grade;
+            // console.log(gradeLetter);
+            // if(gradeLetter == "A+"){
+            //     console.log('this was a plus' + gradeLetter);
+            // }
+            // if(gradeLetter !== fail_cases[i]){
+            //     // console.log('true');
+            //     return true;
+            // }
+            if(gradeLetter == fail_cases[i]){
+               return false;
+            }
+            // console.log('false')
+            return true;
+        }
+    }
+
+    function courseTableSelect(row){
+        var data = $('#course-table-javascript').bootstrapTable('getData');    
+        // var data = $('table#course-table-javascript > tbody > tr'); 
+        // $("table#course-table-javascript > tbody > tr[data-index='1']");
+        var studentCourse = row.courseName;
+        console.log(studentCourse);
+        //$('table#course-table-javascript > tbody > tr');
+        //.prop( "checked", true );
+        for(var i in data){
+            var row = data[i];
+            if(studentCourse === row.courseName){
+                // console.log('ok');
+                console.log(row.courseName, i);
+                // var $tr = $("table#course-table-javascript > tbody > tr[data-index='"+ i +"']");
+                var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']");
+                
+                $tr.prop( "checked", true ); 
+            }
+        }
+    }
+
+
 
     //get the students names
     $.ajax({
@@ -62,7 +138,7 @@ MODULE.GradePage.init = function(makeGradeTable){
         },
         error:function(textStatus, errorThrown){
             console.log("error");
-            console.log(errorThrown);
+            console.log(errorThrown);           
         }
     });
 
@@ -80,25 +156,29 @@ MODULE.GradePage.init = function(makeGradeTable){
         },"</span>");
 
         $("#course-table-javascript").append($button);
-        console.log('ok');
-                console.log('ok');
-
     }
 
 
     function makeCourseTable(){
         $('#course-table-javascript').bootstrapTable({
+            height: 600,
             pageSize: 7,
-            pagination: true,
             striped : true,
-            // showColumns: true,
-            // showRefresh: true,
-            // minimumCountColumns: 2,
             clickToSelect: true,
+            onLoadSuccess: function(data){
+                console.log(data);
+            },
             columns: [
             {
                 field: 'state',
                 checkbox: true
+            },
+            {
+                field: 'courseCode',
+                title: 'Code',
+                align: 'center',
+                valign: 'middle',
+                clickToSelect: false,
             },
             {
                 field: 'courseName',
@@ -108,11 +188,11 @@ MODULE.GradePage.init = function(makeGradeTable){
                 // sortable: true,
             },
             {
-                field: 'courseCode',
-                title: 'Code',
+                field: 'courseLevel',
+                title: 'Level',
                 align: 'center',
                 valign: 'middle',
-                clickToSelect: false,
+                // sortable: true,
             }
             ]
         });
@@ -139,16 +219,12 @@ MODULE.GradePage.init = function(makeGradeTable){
 
     function makeStudentTable(){
         $('#student-table-javascript').bootstrapTable({
-                // data: data,
                 search: true,
-                // minimumCountColumns: 2,
-                // showColumns: true,
                 onClickRow: function (row, index) {
+                    $('#course-table-javascript').bootstrapTable('uncheckAll');
                     console.log(index);
                     currentRow = index[0];
-                    // index[0].bgColor = '#eee';
-                    // index[0].bgColor = '#AED4E9';
-
+                    courseSelect(selectLevel, row.studentName);
                     getGrades(selectLevel, row.studentName);
                 },
                 columns: [
@@ -199,7 +275,6 @@ MODULE.GradePage.init = function(makeGradeTable){
         }
 
     function getGradesJson(level, name){
-        // var level = level;
         var json;
         $.ajax({
             type: "GET",
@@ -209,46 +284,29 @@ MODULE.GradePage.init = function(makeGradeTable){
             data: { studentName: name, level: level},
             success: function(data){
                 console.log( "Data Loaded: " , data );
-                // pass in json info about grades
                 makeGradeTable(data);
             }
         });
-        // return json;
     }
 
-    // makes a list element per student based on json data
-    // assign it to the list-group-item bootstrap class 
-    function makeStudentList(data){
-        // the previous hover and on click functions don't work for some reason.
-        // assigning them as attributes does 
-
-        //https://api.jquery.com/jquery.each/
-        $.each(data, function(key, val){
-            var $student =
-            $("<li>",
-            {
-                id: "name",
-                class: "list-group-item",
-                html: val.studentName,
-                click: function(){
-                    var name = $(this).text();
-                    console.log(name);
-                    // getGrades(selectLevel, name);
-                },
-                // http://api.jquery.com/hover/#hover1
-                mouseenter: function() {
-                    $(this).css({"background-color": "grey"});
-                    $(this).css({"color":"lightgreen"});
-                },
-                mouseleave: function(){
-                    $(this).css({"background-color": "white"});
-                    $(this).css({"color":"black"});
-                }
-            },"</li>");
-            
-            $("#studentList").append($student);
+    function getGradesJson2(level, name){
+        var json;
+        $.ajax({
+            type: "GET",
+            url: 'selectGrades.php',
+            dataType: 'json',
+            // get request for student name
+            data: { studentName: name, level: level},
+            success: function(data){
+                console.log("gg 2");
+                json = data;
+                console.log(json);
+                // /makeGradeTable(data);
+            }
         });
+        return json; 
     }
 
+    return {courseSelect: courseSelect };
 
 };
