@@ -50,8 +50,10 @@
     }
 
 
-    .active1 {
-        background-color: #ddd;
+    .selected {
+        /*font-size: 15px;*/
+        color:;
+        font-weight: bold;
     }
    /* .panel-heading{
         background-color: #ddd;

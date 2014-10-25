@@ -3,7 +3,9 @@
 // Connect to the MySQL database
 include("connect.php");
 
-$sql = "SELECT courseName, courseCode, courseLevel FROM course WHERE courseLevel = 2";
+$name = $_GET['name'];
+
+$sql = "SELECT courseName, courseCode, courseLevel FROM course WHERE studentName = '$name'";
 
 $result = mysqli_query($db,$sql);
 
@@ -12,7 +14,9 @@ while($r = mysqli_fetch_array($result)) {
 	    array_push($rows, $r);
     }
 
+
 // CLOSE CONNECTION
 	header('Content-type: application/json');
 	echo json_encode($rows); 
+
 ?>

@@ -99,8 +99,9 @@ MODULE.GradePage.init = function(){
                 // last character of n
                 // console.log(drow.courseCode, target_course, ccl, ccn);
                 // var $tr = $("table#course-table-javascript > tbody > tr[data-index='"+ i +"']");
-                var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']");
-                console.log($tr.css("color", "blue"));
+                var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']").addClass("active1");
+                // $tr.addClass("active1"); 
+                // console.log($tr.css("color", "blue"));
 
                 //triiger the click event so the libary will know its selected prop doesn't work
                 $tr.trigger("click");

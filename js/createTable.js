@@ -7,13 +7,8 @@ MODULE.createCourseTable = function(){
 	$('#course-table-javascript').bootstrapTable({
         height: 600,
         pageSize: 7,
-        striped : true,
+        // striped : true,
         clickToSelect: true,
-        onCheck: function(element){
-            console.log(element);
-            $(this).css("background-color", "yellow");
-            // $element.css("background-color", "yellow");
-        },
         columns: [
         {
             field: 'state',
@@ -61,19 +56,20 @@ MODULE.createStudentTable = function(){
 MODULE.createGradeTable = function(){
     $('#grade-table-javascript').bootstrapTable({
         pageSize: 7,
-        striped : true,
-        pagination: true,
+        // striped : true,
+        // pagination: true,
         clickToSelect: true,
         columns: [
         {
             field: 'courseNumber',
-            title: 'code',
+            title: 'code ',
             align: 'center',
             valign: 'middle',
+            class: "",
         },
         {
             field: 'courseName',
-            title: 'Name',
+            title: 'Name <span class="glyphicon glyphicon-chevron-down"></span>',
             align: 'center',
             valign: 'middle',
             sortable: true,
@@ -81,7 +77,7 @@ MODULE.createGradeTable = function(){
         {
             width: 1,
             field: 'grade',
-            title: 'Grade',
+            title: 'Grade <span class="glyphicon glyphicon-chevron-down"></span>',
             align: 'center',
             valign: 'top',
             sortable: true,
@@ -89,7 +85,7 @@ MODULE.createGradeTable = function(){
         {
             width: 1,
             field: 'aLevel',
-            title: 'Level',
+            title: 'Level <span class="glyphicon glyphicon-chevron-down"></span>',
             align: 'center',
             valign: 'middle',
             sortable: true,
