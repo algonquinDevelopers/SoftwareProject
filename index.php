@@ -166,27 +166,19 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
 
+<script src="js/createTable.js"></script>
 <script src="js/GradePage.js"></script>
 
-<script src="js/Menu.js"></script>
-
 <script>
-    var gradePage;
     $(document).ready(function(){
         // init page for viewing grades  
         
-        gradePage = MODULE.GradePage.init();
-
+        MODULE.GradePage.init();
 
         $('#course-tabs a').click(function (e) {
           e.preventDefault()
           $(this).tab('show')
         });
-
-        // get data 
-
-
-
     });
 
 
