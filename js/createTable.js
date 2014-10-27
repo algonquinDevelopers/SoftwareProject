@@ -19,6 +19,7 @@ MODULE.createCourseTable = function(){
             title: 'Code',
             align: 'center',
             valign: 'middle',
+            sortable: true,
             clickToSelect: false,
         },
         {
@@ -65,7 +66,7 @@ MODULE.createGradeTable = function(){
             title: 'code ',
             align: 'center',
             valign: 'middle',
-            class: "",
+            sortable: true,
         },
         {
             field: 'courseName',

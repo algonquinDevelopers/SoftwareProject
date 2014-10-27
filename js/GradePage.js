@@ -9,7 +9,7 @@ MODULE.GradePage.init = function(){
 	// "use strict";
     
     // get request data to limit the students returned
-    var selectLimt = 100;
+    var selectLimt = 300;
     // var JSONdata;
 
     // get request data to select the level; 
@@ -92,7 +92,14 @@ MODULE.GradePage.init = function(){
             var ccl = studentCourseCode.slice(0, -1);
 
             if(isNaN(ccn)) continue;
-            ccn++;
+            console.log(studentCourseCode);
+            // CAD8407 Architectural CAD I goes from 07 to 09 at level 2
+            if(studentCourseCode == "CAD8407"){
+                ccn+=2;
+                console.log('plus 2');
+            }else{
+                ccn++;
+            } 
 
             var target_course = ccl + ccn;
             if(table_row.courseCode === target_course){
