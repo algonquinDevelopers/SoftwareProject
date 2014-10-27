@@ -75,7 +75,6 @@ MODULE.GradePage.init = function(){
         }
     }
 
-    // select 
     function courseTableSelect(row){
         //gets table data its a array of objects every object reps a row
         var data = $('#course-table-javascript').bootstrapTable('getData');    
@@ -105,14 +104,11 @@ MODULE.GradePage.init = function(){
             if(table_row.courseCode === target_course){
                 // last character of n
                 // console.log(drow.courseCode, target_course, ccl, ccn);
-                // var $tr = $("table#course-table-javascript > tbody > tr[data-index='"+ i +"']");
-                var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']").addClass("active1");
-                // $tr.addClass("active1"); 
-                // console.log($tr.css("color", "blue"));
+                var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']");
 
+                // $tr.prop( "checked", true ); 
                 //triiger the click event so the libary will know its selected prop doesn't work
                 $tr.trigger("click");
-                // $tr.prop( "checked", true ); 
             }
         }
     }

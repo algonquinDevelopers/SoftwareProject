@@ -107,6 +107,9 @@
                     <table id="grade-table-javascript"></table>
                 </div>
             </div>
+        <div>
+            <p> search for izglu to see it work with F</p>
+        </div>
         </div>
         <div class="col-md-5">
             <div class="panel panel-default">
