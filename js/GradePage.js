@@ -34,7 +34,7 @@ MODULE.GradePage.init = function(){
     courseSelect();
 
     function courseSelect(level, name){
-        var fail_cases = ["F", "W", "B-"];
+        var fail_cases = ["F", "W"];
         var grades;
 
         $.ajax({
