@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tabs example1</title>
+	<style type="text/css">
+		/* whole area */
+		div.tabbox { margin: 0px; padding: 0px; width: 400px; }
+		
+		/* for all tabs */
+		p.tabs { margin: 0px; padding: 0px; }
+		p.tabs a {
+			/* make it look like tabs */
+			display: block; width: 5em; float: left;
+			margin: 0px 1px 0px 0px; padding: 3px;
+			text-align: center;
+		}
+
+		/* color coordinates for all tabs */
+		p.tabs a.tab1 { background-color: blue;  color: white; }
+		p.tabs a.tab2 { background-color: #aaaa00; color:white;}
+		p.tabs a.tab3 { background-color: red;   color: white; }
+		p.tabs a:hover { color: yellow; }
+
+		/* context of tabs */
+		div.tab {
+			/* design of box */
+			height: 150px; overflow: auto; clear: left;
+		}
+
+		/* color coordinates for each box */
+		div#tab1 { border: 2px solid blue; background-color: #ccffff; }
+		div#tab2 { border: 2px solid #aaaa00; background-color: #ffffcc; }
+		div#tab3 { border: 2px solid red; background-color: #ffcccc; }
+		div.tab p { margin: 0.5em; }
+	</style>
+	
+	<script type="text/javascript">
+		
+		function ChangeTabs(tabname){
+			//delete all from the screen
+			document.getElementById('tab1').style.display = 'none';
+			document.getElementById('tab2').style.display = 'none';
+			document.getElementById('tab3').style.display = 'none';
+			
+			//display only the selected one
+			document.getElementById(tabname).style.display = 'block';
+		}
+		
+	</script>
+</head>
+<body>
+	
+	<h1>Example of tab with javascript</h1>
+	
+	<div class="tabBox">
+		<p class="tabs">
+			<a href="#tab1" class="tab1" onclick="ChangeTabs('tab1'); return false;">tab1</a>
+			<a href="#tab2" class="tab2" onclick="ChangeTabs('tab2'); return false;">tab2</a>
+			<a href="#tab3" class="tab3" onclick="ChangeTabs('tab3'); return false;">tab3</a>
+		</p>
+		
+		<div id="tab1" class="tab">
+			<p>anything for tab1 here</p>
+		</div>
+		
+		<div id="tab2" class="tab">
+			<p>anything for tab2</p>
+			<p>you can add anything appropriate in div for tab2</p>
+		</div>
+		
+		<div id="tab3" class="tab">
+			<p>anything for tab3 (you can add as much as you want)</p>
+		</div>
+		
+		<script type="text/javascript">
+			ChangeTabs('tab1');
+		</script>
+	</div>
+	
+</body>
+</html>

@@ -79,7 +79,21 @@
             <ul class="nav navbar-nav pull-left">
                 <li id="title"><a href="#">Software Project</a></li>
                 <li class="active1"><a href="#">Home</a></li>
-                <li data-toggle="dropdown"><a href="#">Programs</a></li>
+                <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
+						<?php
+							include("connect.php");
+							
+							$sql = "SELECT distinct pgmName from studentstats";
+							$result = mysqli_query($db,$sql);
+							while ( $row = mysqli_fetch_array($result))
+							{
+								echo "<li><a role=\"menuitem\" href=\"javascript:void(0)\" value=\"$row[0]\">$row[0]</a></li>";
+							}
+						?>
+					</ul>
+				</li>
             </ul>
         </div>    
     </nav>
@@ -190,6 +204,25 @@
 
 </script>
 
+<script type="text/javascript">
+	$(function(){
+		$('.dropdown-menu a').click(function(){
+			var visible = $(this).parents('ul').attr('visibleTag');
+			$(visible).html($(this).attr('value'));
+			
+			var programName = $(this).html();
+			$.ajax({
+				type: 'post',
+				url: 'selectStudents.php',
+				data: { name: programName},
+				success: function(data){
+					console.log("success")
+				}
+			});
+			
+		});
+	});
+</script>
 
 </body>
 </html>
