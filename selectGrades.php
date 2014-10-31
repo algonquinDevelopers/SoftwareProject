@@ -7,7 +7,7 @@
 	$level = $_GET['level'];
 	// add A to level
 
-	$result = mysqli_query($db,"SELECT courseNumber , courseName, grade , aLevel
+	$result = mysqli_query($db,"SELECT courseNumber, courseName, grade , aLevel
 							from studentStats WHERE studentName = '$name' AND aLevel = 'A$level' AND grade != '' ORDER BY aLevel ");
 
 	$rows = array();
