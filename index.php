@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
 <style>
 
-    .stephen{
+    .content{
         background-color: #eee;
         /*margin-top: -10px;*/
         border-radius: 5px;
