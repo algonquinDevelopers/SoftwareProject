@@ -12,8 +12,6 @@ $faker = Faker\Factory::create();
 //SELECT DISTINCT studentNumber from studentStats LIMIT 715, 1000
 $result = mysql_query("SELECT DISTINCT studentNumber from studentStats");
 
-
-
 while ($row = mysql_fetch_array($result)) {
 	$studentNum = $row['studentNumber'];
 
