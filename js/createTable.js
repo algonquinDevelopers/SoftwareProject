@@ -48,6 +48,46 @@ MODULE.createStudentTable = function(){
             title: 'Name',
             align: 'center',
             valign: 'middle',
+        },
+        {
+            field: 'studentNumber',
+            title: 'Number',
+            align: 'center',
+            valign: 'middle',
+        }
+        ]
+    });
+}
+
+MODULE.createPlanHistoryTable = function(){
+    $('#history-table').bootstrapTable({
+        // pageSize: 7,
+        striped : true,
+        // pagination: true,
+        // clickToSelect: true,
+        columns: [
+        {
+            field: 'course_no',
+            title: 'Course Number',
+            align: 'center',
+            valign: 'middle',
+            sortable: true
+        },
+        {
+            width: 1,
+            field: 'student_no',
+            title: 'Student Number',
+            align: 'center',
+            valign: 'top',
+            sortable: true
+        },
+        {
+            width: 1,
+            field: 'plan_version',
+            title: 'Plan Version',
+            align: 'center',
+            valign: 'middle',
+            sortable: true
         }
         ]
     });

@@ -10,6 +10,7 @@ MODULE.GradePage.init = function(){
     
     // get request data to limit the students returned
     var selectLimt = 300;
+    var studentNum;
     // var JSONdata;
 
     // get request data to select the level; 
@@ -28,21 +29,60 @@ MODULE.GradePage.init = function(){
     });
 
 
+    //get the students names
+    $.ajax({
+        type: "GET",
+        url: 'selectStudents.php',
+        dataType: 'json',
+        data: { limit: selectLimt},
+        success: function(data){
+            $('#student-table-javascript').bootstrapTable('load', data);
+
+        },
+        error:function(textStatus, errorThrown){
+            // console.log("error");
+            console.log(errorThrown);
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: 'selectCourse.php',
+        dataType: 'json',
+        success: function(data){
+            // console.log("student get success");
+            $('#course-table-javascript').bootstrapTable('load', data);
+
+        },
+        error:function(textStatus, errorThrown){
+            console.log("error");
+            console.log(errorThrown);           
+        }
+    });
+
 
     MODULE.createCourseTable();
     MODULE.createStudentTable();
     MODULE.createGradeTable();
+    MODULE.createPlanHistoryTable();
     makeButton();
 
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
 
-
     function onStudentRowClick(row, index){
+            studentNum = index.studentNumber;
+            console.log(studentNum);     
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             checkAndSelect(selectLevel, index.studentName);
+
+            
             getGrades(selectLevel, index.studentName);
     }
+
+    function activaTab(tab){
+        $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+    };
 
     function checkAndSelect(level, name){
         var fail_cases = ["F"];
@@ -92,11 +132,11 @@ MODULE.GradePage.init = function(){
             var ccl = studentCourseCode.slice(0, -1);
 
             if(isNaN(ccn)) continue;
-            console.log(studentCourseCode);
+            // console.log(studentCourseCode);
             // CAD8407 Architectural CAD I goes from 07 to 09 at level 2
             if(studentCourseCode == "CAD8407"){
                 ccn+=2;
-                console.log('plus 2');
+                // console.log('plus 2');
             }else{
                 ccn++;
             } 
@@ -113,43 +153,6 @@ MODULE.GradePage.init = function(){
             }
         }
     }
-    // i is data index number
-    function selectNextLevelCourse(i, target_course, table_row){
-
-    }
-
-
-
-    //get the students names
-    $.ajax({
-        type: "GET",
-        url: 'selectStudents.php',
-        dataType: 'json',
-        data: { limit: selectLimt},
-        success: function(data){
-            $('#student-table-javascript').bootstrapTable('load', data);
-
-        },
-        error:function(textStatus, errorThrown){
-            console.log("error");
-            console.log(errorThrown);
-        }
-    });
-
-    $.ajax({
-        type: "GET",
-        url: 'selectCourse.php',
-        dataType: 'json',
-        success: function(data){
-            console.log("student get success");
-            $('#course-table-javascript').bootstrapTable('load', data);
-
-        },
-        error:function(textStatus, errorThrown){
-            console.log("error");
-            console.log(errorThrown);           
-        }
-    });
 
     function makeButton(){
         var $button =
@@ -159,7 +162,10 @@ MODULE.GradePage.init = function(){
             class: "btn btn-success btn-md center pull-right",
             html: '<i class="glyphicon"></i>Assign',
             click: function(){
-                currentRow.bgColor = '#AED4E9';
+                console.log("clicked assign");
+                assignStudentPlan();
+                activaTab('history');
+                // currentRow.bgColor = '#AED4E9';
             },
             
         },"</span>");
@@ -169,7 +175,7 @@ MODULE.GradePage.init = function(){
    
     function getGrades(level, name){
         // var level = level;
-       console.log("grades top"+ level + name);
+       // console.log("grades top"+ level + name);
         $.ajax({
             type: "GET",
             url: 'selectGrades.php',
@@ -177,9 +183,40 @@ MODULE.GradePage.init = function(){
             // get request for student name
             data: { studentName: name, level: level},
             success: function(data){
-                console.log("grades success");
+                // console.log("grades success");
                 $('#grade-table-javascript').bootstrapTable('load', data);
+
             }
         });
     }
+    
+
+
+    function insertPlanTable(courseCode) {
+        $.ajax({
+            type: "GET",
+            url: 'planInsert.php',
+            dataType: 'json',
+            // get request for student name
+            data: { courseCode: courseCode, studentNum: studentNum},
+            success: function(data){
+                // console.log( "Data Loaded: " , data );
+                $('#history-table').bootstrapTable('load', data);
+
+            }
+        });
+
+    }
+
+    function assignStudentPlan() {
+        var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
+        console.log(selectedData);
+        for(var i in selectedData) {
+            var courseCode = selectedData[i].courseCode;
+            console.log(studentNum);
+            insertPlanTable(courseCode);
+        }
+    }
+
+
 };

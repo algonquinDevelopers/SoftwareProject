@@ -88,7 +88,7 @@
 </div>
 
 <div class="content">
-    <div class="container">
+    <div class="container-fulid">
     <!-- <h1>Students</h1> -->
     <div class="row">
         <div class="col-md-2">
@@ -128,32 +128,7 @@
 
                   </div>
                   <div class="tab-pane" id="history">
-                    <table class="table">
-                      <tr>
-                        <td>Jill</td>
-                        <td>Smith</td>
-                        <td>50</td>
-                      </tr>
-                      <tr>
-                        <td>Eve</td>
-                        <td>Jackson</td>
-                        <td>94</td>
-                      </tr>
-                      <tr>
-                        <td>Jill</td>
-                        <td>Smith</td>
-                        <td>50</td>
-                      </tr>
-                      <tr>
-                        <td>Eve</td>
-                        <td>Jackson</td>
-                        <td>94</td>
-                      </tr>        
-                       <!--  <tfoot>
-                            <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span>
-                            <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span>
-                        </tfoot> -->
-                    </table>
+                        <table id="history-table"></table>
                   </div>
                 </div>
 
