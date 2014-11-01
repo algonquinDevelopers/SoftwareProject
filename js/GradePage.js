@@ -29,6 +29,31 @@ MODULE.GradePage.init = function(){
         });
     });
 
+	//drop down menu
+	$('.dropdown-menu a').click(function(){
+		var visible = $(this).parents('ul').attr('visibleTag');
+		$(visible).html($(this).attr('value'));
+		
+		var programName = $(this).html();
+		$.ajax({
+			type: "GET",
+			url: 'selectStudents.php',
+			dataType: 'json',
+			data: { name: programName },
+			success: function(data){
+				console.log("success")
+				//$('#student-table-javascript').bootstrapTable('load', data);
+			},
+			error:function(textStatus, errorThrown, error){
+				console.log(errorThrown);
+				console.log(error);
+				console.log(textStatus);
+				console.log(errorThrown.message);
+				console.log(programName);
+				console.log(typeof programName);
+			}
+		});
+	});
 
     //get the students names
     $.ajax({

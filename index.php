@@ -78,7 +78,6 @@
         width: 1400px;
       }
     }
-
     </style>
 </head>
 
@@ -89,15 +88,20 @@
 <div class="nav">
     <div class="container">
     <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav pull-left">
-                <li id="title"><a href="#">Software Project</a></li>
-                <li class="active1"><a href="#">Home</a></li>
-                <li data-toggle="dropdown"><a href="#">Programs</a></li>
-            </ul>
-        </div>    
-    </nav>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<ul class="nav navbar-nav pull-left">
+					<li id="title"><a href="#">Software Project</a></li>
+					<li class="active1"><a href="#">Home</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
+							<?php include("dropDown.php"); ?>
+						</ul>
+					</li>
+				</ul>
+			</div>    
+		</nav>
     </div>
 </div>
 
@@ -111,7 +115,6 @@
                 <div id="students">
                     <table id="student-table-javascript"></table>
                 </div>
-                </ul>
             </div>
         </div>
         <div class="col-md-5 nopadding">
@@ -163,7 +166,8 @@
 <script src="js/createTable.js"></script>
 <script src="js/GradePage.js"></script>
 
-<script>
+<script type="text/javascript">
+
     $(document).ready(function(){
         // init page for viewing grades  
         
@@ -177,7 +181,6 @@
 
 
 </script>
-
 
 </body>
 </html>
