@@ -32,7 +32,28 @@ MODULE.GradePage.init = function(makeGradeTable){
     makeCourseTable();
     makeButton();
 
-    
+	
+	$('.dropdown-menu a').click(function(){
+		var visible = $(this).parents('ul').attr('visibleTag');
+		$(visible).html($(this).attr('value'));
+		
+		var programName = $(this).html();
+		$.ajax({
+			type: 'post',
+			url: 'selectStudents.php',
+			dataType: 'json',
+			data: { name: programName},
+			success: function(data){
+				console.log("success")
+			},
+			error:function(textStatus, errorThrown){
+				console.log("error");
+				console.log(errorThrown);
+			}
+		});
+		
+	});
+	
 
     //get the students names
     $.ajax({

@@ -8,7 +8,7 @@ $sql = "";
 
 if (!empty($_POST['name'])){
 	$programName = $_POST['name'];
-	$sql = "SELECT DISTINCT studentName from studentStats where pgmName like \"$programName\" LIMIT $limit";
+	$sql = "SELECT DISTINCT studentName from studentStats where pgmName = '$programName' LIMIT $limit";
 } else {
 	$sql = "SELECT DISTINCT studentName from studentStats LIMIT $limit";
 }

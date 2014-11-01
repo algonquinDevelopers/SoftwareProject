@@ -204,25 +204,5 @@
 
 </script>
 
-<script type="text/javascript">
-	$(function(){
-		$('.dropdown-menu a').click(function(){
-			var visible = $(this).parents('ul').attr('visibleTag');
-			$(visible).html($(this).attr('value'));
-			
-			var programName = $(this).html();
-			$.ajax({
-				type: 'post',
-				url: 'selectStudents.php',
-				data: { name: programName},
-				success: function(data){
-					console.log("success")
-				}
-			});
-			
-		});
-	});
-</script>
-
 </body>
 </html>

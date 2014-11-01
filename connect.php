@@ -2,7 +2,7 @@
 $dbhost = 'localhost';
 $dbname = 'sproject';
 $username = 'root';
-$pass = '';
+$pass = 'roo';
 
 $db = mysqli_connect($dbhost,$username,$pass)
 or die('<div align="center">Warning: Could not connect to the database</div>');
