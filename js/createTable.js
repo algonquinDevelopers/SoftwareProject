@@ -4,8 +4,8 @@ var MODULE = MODULE || {};
 // http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html
 MODULE.createCourseTable = function(){
 	$('#course-table-javascript').bootstrapTable({
-        height: 600,
-        pageSize: 7,
+        // height: 600,
+        // pageSize: 7,
         // striped : true,
         clickToSelect: true,
         columns: [
@@ -42,18 +42,23 @@ MODULE.createCourseTable = function(){
 MODULE.createStudentTable = function(){
     $('#student-table-javascript').bootstrapTable({
         search: true,
+        onClickRow: function(row, element){
+            // element[0].bgColor = '#AED4E9';
+        },
         columns: [
         {
             field: 'studentName',
             title: 'Name',
             align: 'center',
             valign: 'middle',
+            sortable: true,
         },
         {
             field: 'studentNumber',
             title: 'Number',
             align: 'center',
             valign: 'middle',
+            sortable: true,
         }
         ]
     });
@@ -96,7 +101,7 @@ MODULE.createPlanHistoryTable = function(){
 MODULE.createGradeTable = function(){
     $('#grade-table-javascript').bootstrapTable({
         pageSize: 7,
-        // striped : true,
+        striped : true,
         // pagination: true,
         clickToSelect: true,
         columns: [

@@ -21,7 +21,8 @@ MODULE.GradePage.init = function(){
     $(function(){
         $('#students').slimScroll({
             position: 'left',
-            height: '550px',
+            // height: '650px',
+            height: '' + (window.innerHeight - 150),
             railVisible: true,
             allowPageScroll: false,
             alwaysVisible: true
@@ -76,7 +77,8 @@ MODULE.GradePage.init = function(){
 
     function onStudentRowClick(row, index){
             studentNum = index.studentNumber;
-            console.log(row[0]);     
+            // console.log();
+            // $(this).css("background-color" , "white);
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             checkAndSelect(selectLevel, index.studentName);
                

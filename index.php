@@ -68,6 +68,17 @@
         margin-left: 10px;
     }
 
+    .nopadding {
+       padding: 0 !important;
+       margin: 0 !important;
+    }
+
+    @media (min-width: 1200px) {
+      .container-fluid {
+        width: 1400px;
+      }
+    }
+
     </style>
 </head>
 
@@ -91,7 +102,7 @@
 </div>
 
 <div class="content">
-    <div class="container-fulid">
+    <div class="container-fluid">
     <!-- <h1>Students</h1> -->
     <div class="row">
         <div class="col-md-2">
@@ -103,7 +114,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 nopadding">
             <div id="gradeContent">
                 <div class="panel panel-default">
                     <div class="panel-heading">Grades</div>
@@ -114,7 +125,7 @@
             <p> search for izglu to see it work with F</p>
         </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 nopadding">
             <div class="panel panel-default">
 
                 <!-- maybe change id to c -->
