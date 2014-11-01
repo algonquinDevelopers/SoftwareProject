@@ -9,7 +9,7 @@ MODULE.GradePage.init = function(){
 	// "use strict";
     
     // get request data to limit the students returned
-    var selectLimt = 300;
+    var selectLimit = 300;
     var studentNum;
     // var JSONdata;
 
@@ -36,22 +36,19 @@ MODULE.GradePage.init = function(){
 		
 		var programName = $(this).html();
 		$.ajax({
-			type: "GET",
-			url: 'selectStudents.php',
-			dataType: 'json',
-			data: { name: programName },
-			success: function(data){
-				console.log("success")
-				//$('#student-table-javascript').bootstrapTable('load', data);
-			},
-			error:function(textStatus, errorThrown, error){
-				console.log(errorThrown);
-				console.log(error);
-				console.log(textStatus);
-				console.log(errorThrown.message);
-				console.log(programName);
-				console.log(typeof programName);
-			}
+            type: "GET",
+            url: 'selectStudents.php',
+            dataType: 'json',
+            data: { name: programName, limit: selectLimit},
+            success: function(data){
+                console.log("success");
+                $('#student-table-javascript').bootstrapTable('load', data);
+
+            },
+            error:function(textStatus, errorThrown){
+                // console.log("error");
+                console.log(errorThrown);
+        }
 		});
 	});
 
@@ -60,7 +57,7 @@ MODULE.GradePage.init = function(){
         type: "GET",
         url: 'selectStudents.php',
         dataType: 'json',
-        data: { limit: selectLimt},
+        data: { limit: selectLimit},
         success: function(data){
             $('#student-table-javascript').bootstrapTable('load', data);
 
@@ -96,9 +93,6 @@ MODULE.GradePage.init = function(){
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
 
-    $('#student-table-javascript  tr').on('click', function(){
-        console.log("ok");
-    });
 
     function onStudentRowClick(row, index){
             studentNum = index.studentNumber;
