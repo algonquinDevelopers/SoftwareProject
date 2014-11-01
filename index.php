@@ -52,8 +52,11 @@
 
     .selected {
         /*font-size: 15px;*/
-        color:;
         font-weight: bold;
+    }
+    .student-selected{
+        background-color: #ff0000;
+        font-weight: bold;  
     }
    /* .panel-heading{
         background-color: #ddd;

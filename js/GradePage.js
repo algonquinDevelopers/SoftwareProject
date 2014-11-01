@@ -70,13 +70,19 @@ MODULE.GradePage.init = function(){
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
 
+    $('#student-table-javascript  tr').on('click', function(){
+        console.log("ok");
+    });
+
     function onStudentRowClick(row, index){
             studentNum = index.studentNumber;
-            console.log(studentNum);     
+            console.log(row[0]);     
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             checkAndSelect(selectLevel, index.studentName);
 
-            
+            index[0];
+            // $(this).addClass('student-selected');
+            // $(this).siblings().removeClass('student-selected');    
             getGrades(selectLevel, index.studentName);
     }
 
