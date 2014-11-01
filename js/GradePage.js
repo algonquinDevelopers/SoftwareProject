@@ -79,10 +79,7 @@ MODULE.GradePage.init = function(){
             console.log(row[0]);     
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             checkAndSelect(selectLevel, index.studentName);
-
-            index[0];
-            // $(this).addClass('student-selected');
-            // $(this).siblings().removeClass('student-selected');    
+               
             getGrades(selectLevel, index.studentName);
     }
 
