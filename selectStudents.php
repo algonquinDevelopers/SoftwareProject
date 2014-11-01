@@ -6,9 +6,12 @@ include("connect.php");
 $limit = $_GET['limit'];
 $sql = "";
 
-if (!empty($_POST['name'])){
-	$programName = $_POST['name'];
+
+if (!empty($_GET['name'])){
+	$programName = $_GET['name'];
+	//echo $programName;
 	$sql = "SELECT DISTINCT studentName from studentStats where pgmName = '$programName' LIMIT $limit";
+	//echo $sql;
 } else {
 	$sql = "SELECT DISTINCT studentName from studentStats LIMIT $limit";
 }

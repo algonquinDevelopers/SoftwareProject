@@ -71,8 +71,6 @@
 
 <div class="nav">
     <div class="container">
-
-    
     <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
