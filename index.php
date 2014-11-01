@@ -4,64 +4,54 @@
     <!-- <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
-<style>
+	<style type="text/css">
 
-    .content{
-        background-color: #eee;
-        /*margin-top: -10px;*/
-        border-radius: 5px;
-    }
+		.content{
+			background-color: #eee;
+			border-radius: 5px;
+		}
 
-    .content #grades{
-        font-size: 14px;
-        color: #00b0ff;
-    }
+		.content #grades{
+			font-size: 14px;
+			color: #00b0ff;
+		}
 
-    .content h1{
-        font-size: 16px;
-        padding-bottom:5px;
-        margin-left: -10px;
-        text-transform:uppercase;
-    }
+		.content h1{
+			font-size: 16px;
+			padding-bottom:5px;
+			margin-left: -10px;
+			text-transform:uppercase;
+		}
 
-    .nav #title{
-        /*font-size: 16px;*/
-    }
+		#allCourses{
+			margin-bottom: -15px;
+		}
 
-    #allCourses{
-        margin-bottom: -15px;
-    }
+		.navbar{
+			border-radius: 0px;
+			background-color: #E6E6E6;
+			color: #5a5a5a;
+			font-size: 11px;
+			font-weight: bold;
+			text-transform:uppercase;
+		}
 
-    .navbar{
-        border-radius: 0px;
-        background-color: #E6E6E6;
-        color: #5a5a5a;
-        font-size: 11px;
-        font-weight: bold;
-        text-transform:uppercase;
-        /*margin-bottom: 0px;*/
-    }
-
-    .navbar form{
-        padding-top: 10px;
-    }
-    .navbar #title{
-        font-size: 12px;
-    }
+		.navbar form{
+			padding-top: 10px;
+		}
+		
+		.navbar #title{
+			font-size: 12px;
+		}
 
 
-    .active1 {
-        background-color: #ddd;
-    }
-   /* .panel-heading{
-        background-color: #ddd;
-        color: #00b0ff;
-    }
-*/
+		.active1 {
+			background-color: #ddd;
+		}
 
-    #students{
-        margin-left: 10px;
-    }
+		#students{
+			margin-left: 10px;
+		}
     </style>
 </head>
 
@@ -72,29 +62,20 @@
 <div class="nav">
     <div class="container">
     <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav pull-left">
-                <li id="title"><a href="#">Software Project</a></li>
-                <li class="active1"><a href="#">Home</a></li>
-                <li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
-						<?php
-							include("connect.php");
-							
-							$sql = "SELECT distinct pgmName from studentstats";
-							$result = mysqli_query($db,$sql);
-							while ( $row = mysqli_fetch_array($result))
-							{
-								echo "<li><a role=\"menuitem\" href=\"javascript:void(0)\" value=\"$row[0]\">$row[0]</a></li>";
-							}
-						?>
-					</ul>
-				</li>
-            </ul>
-        </div>    
-    </nav>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<ul class="nav navbar-nav pull-left">
+					<li id="title"><a href="#">Software Project</a></li>
+					<li class="active1"><a href="#">Home</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
+							<?php include("dropDown.php"); ?>
+						</ul>
+					</li>
+				</ul>
+			</div>    
+		</nav>
     </div>
 </div>
 
@@ -108,7 +89,6 @@
                 <div id="students">
                     <table id="student-table-javascript"></table>
                 </div>
-                </ul>
             </div>
         </div>
         <div class="col-md-5">
@@ -157,10 +137,12 @@
                         <td>Jackson</td>
                         <td>94</td>
                       </tr>        
-                       <!--  <tfoot>
+						<!--  
+						<tfoot>
                             <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span>
                             <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span>
-                        </tfoot> -->
+                        </tfoot> 
+						-->
                     </table>
                   </div>
                 </div>
@@ -183,7 +165,7 @@
 
 <script src="js/Menu.js"></script>
 
-<script>
+<script type="text/javascript">
 
     $(document).ready(function(){
         // init page for viewing grades  
