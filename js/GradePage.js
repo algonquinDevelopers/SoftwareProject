@@ -10,24 +10,30 @@ MODULE.GradePage.init = function(){
     
     // get request data to limit the students returned
     var selectLimit = 300;
+
+    //used for make the student plan
     var studentNum;
     // var JSONdata;
 
     // get request data to select the level; 
     var selectLevel = 1;
 
-    var currentRow;
     //http://rocha.la/jQuery-slimScroll
     $(function(){
         $('#students').slimScroll({
             position: 'left',
-            // height: '650px',
             height: '' + (window.innerHeight - 150),
             railVisible: true,
             allowPageScroll: false,
             alwaysVisible: true
         });
     });
+
+    MODULE.createCourseTable();
+    MODULE.createStudentTable();
+    MODULE.createGradeTable();
+    MODULE.createPlanHistoryTable();
+    makeButton();
 
 	//drop down menu
 	$('.dropdown-menu a').click(function(){
@@ -84,11 +90,7 @@ MODULE.GradePage.init = function(){
     });
 
 
-    MODULE.createCourseTable();
-    MODULE.createStudentTable();
-    MODULE.createGradeTable();
-    MODULE.createPlanHistoryTable();
-    makeButton();
+
 
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);

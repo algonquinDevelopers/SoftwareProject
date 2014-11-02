@@ -68,10 +68,10 @@
             <div class="panel panel-default">
                 <div  class="panel-heading">
                     Students
-                    <button type="submit" class="btn btn-sm pull-right"><span class="glyphicon glyphicon glyphicon-list-alt icon-list-alt "></span></button>
+                    <button type="submit" class="btn btn-sm pull-right" id="st-format"><span class="glyphicon glyphicon glyphicon-list-alt icon-list-alt "></span></button>
                 </div>
                 <div id="students">
-                    <table id="student-table-javascript"></table>
+                    <table id="student-table-javascript" data-card-view="false"></table>
                 </div>
             </div>
         </div>
@@ -138,8 +138,9 @@
           $(this).tab('show');
         });
 
-
-
+        // $("#st-format").click(function(){
+        //     console.log('click');
+            
     });
     //http://jsfiddle.net/taditdash/9Fh4c/
     function openfileDialog() {
