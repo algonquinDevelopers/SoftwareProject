@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css"> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css">
+
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
-    <link rel="stylesheet" href="css/custom.css">
+    <!-- <link rel="stylesheet" href="css/custom.css"> -->
 </head>
 
 <body>
@@ -57,7 +58,7 @@
                 </div>
             </div>
         <div>
-            <p> search for izglu to see it work with F</p>
+            <!-- <p> search for izglu to see it work with F</p> -->
         </div>
         </div>
         <div class="col-md-5 nopadding">

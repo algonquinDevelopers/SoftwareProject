@@ -140,14 +140,14 @@ MODULE.createGradeTable = function(){
         columns: [
         {
             field: 'courseNumber',
-            title: 'code ',
+            title: 'Code ',
             align: 'center',
             valign: 'middle',
             sortable: true,
         },
         {
             field: 'courseName',
-            title: 'Name <span class="glyphicon glyphicon-chevron-down"></span>',
+            title: 'Name',
             align: 'center',
             valign: 'middle',
             sortable: true,
@@ -155,7 +155,7 @@ MODULE.createGradeTable = function(){
         {
             width: 1,
             field: 'grade',
-            title: 'Grade <span class="glyphicon glyphicon-chevron-down"></span>',
+            title: 'Grade',
             align: 'center',
             valign: 'top',
             sortable: true,
@@ -163,7 +163,7 @@ MODULE.createGradeTable = function(){
         {
             width: 1,
             field: 'aLevel',
-            title: 'Level <span class="glyphicon glyphicon-chevron-down"></span>',
+            title: 'Level',
             align: 'center',
             valign: 'middle',
             sortable: true,

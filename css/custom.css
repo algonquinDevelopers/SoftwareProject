@@ -1,13 +1,13 @@
 
 .content{
-    background-color: #eee;
+    /*background-color: #eee;*/
     /*margin-top: -10px;*/
     border-radius: 5px;
 }
 
 .content #grades{
-    font-size: 14px;
-    color: #00b0ff;
+    /*font-size: 14px;*/
+    /*color: #00b0ff;*/
 }
 
 .content h1{
@@ -25,7 +25,7 @@
     margin-bottom: -15px;
 }
 
-.navbar{
+/*.navbar{
     border-radius: 0px;
     background-color: #E6E6E6;
     color: #5a5a5a;
@@ -33,7 +33,7 @@
     font-weight: bold;
     text-transform:uppercase;
     /*margin-bottom: 0px;*/
-}
+}*/
 
 .navbar form{
     padding-top: 10px;
@@ -48,7 +48,7 @@
     font-weight: bold;
 }
 .student-selected{
-    background-color: #ff0000;
+    /*background-color: #ff0000;*/
     font-weight: bold;  
 }
 /* .panel-heading{
@@ -73,6 +73,6 @@
 }
 
 .active{
-    color: #5a5a5a;
+    /*color: #5a5a5a;*/
     font-size: 14px;
 }
