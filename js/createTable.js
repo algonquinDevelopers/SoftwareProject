@@ -41,7 +41,7 @@ MODULE.createCourseTable = function(){
 
 MODULE.createStudentTable = function(){
     $('#student-table-javascript').bootstrapTable({
-        search: true,
+        // search: true,
         onClickRow: function(row, element){
             // element[0].bgColor = '#AED4E9';
         },
@@ -63,6 +63,39 @@ MODULE.createStudentTable = function(){
         ]
     });
 }
+
+MODULE.createEmailTable = function(){
+    $('#student-table-javascript').bootstrapTable({
+        // search: true,
+        onClickRow: function(row, element){
+            // element[0].bgColor = '#AED4E9';
+        },
+        columns: [
+        {
+            field: 'studentName',
+            title: 'Name',
+            align: 'center',
+            valign: 'middle',
+            sortable: true,
+        },
+        {
+            field: 'studentName',
+            title: 'Email',
+            align: 'center',
+            valign: 'middle',
+            sortable: true,
+        },
+        {
+            field: 'studentNumber',
+            title: 'Number',
+            align: 'center',
+            valign: 'middle',
+            sortable: true,
+        }
+        ]
+    });
+}
+
 
 MODULE.createPlanHistoryTable = function(){
     $('#history-table').bootstrapTable({

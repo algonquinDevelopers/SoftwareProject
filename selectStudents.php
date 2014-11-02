@@ -13,7 +13,7 @@ $limit = $_GET['limit'];
 if (!empty($_GET['name'])){
 	$programName = $_GET['name'];
 	//echo $programName;
-	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where aLevel = 'A1' and pgmName = '$programName' LIMIT $limit";
+	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where pgmName = '$programName' LIMIT $limit";
 	//echo $sql;
 } else {
 	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where aLevel = 'A1' LIMIT $limit";

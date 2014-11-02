@@ -4,86 +4,10 @@
     <!-- <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
-<style>
-
-    .content{
-        background-color: #eee;
-        /*margin-top: -10px;*/
-        border-radius: 5px;
-    }
-
-    .content #grades{
-        font-size: 14px;
-        color: #00b0ff;
-    }
-
-    .content h1{
-        font-size: 16px;
-        padding-bottom:5px;
-        margin-left: -10px;
-        text-transform:uppercase;
-    }
-
-    .nav #title{
-        /*font-size: 16px;*/
-    }
-
-    #allCourses{
-        margin-bottom: -15px;
-    }
-
-    .navbar{
-        border-radius: 0px;
-        background-color: #E6E6E6;
-        color: #5a5a5a;
-        font-size: 11px;
-        font-weight: bold;
-        text-transform:uppercase;
-        /*margin-bottom: 0px;*/
-    }
-
-    .navbar form{
-        padding-top: 10px;
-    }
-    .navbar #title{
-        font-size: 12px;
-    }
-
-
-    .selected {
-        /*font-size: 15px;*/
-        font-weight: bold;
-    }
-    .student-selected{
-        background-color: #ff0000;
-        font-weight: bold;  
-    }
-   /* .panel-heading{
-        background-color: #ddd;
-        color: #00b0ff;
-    }
-*/
-
-    #students{
-        margin-left: 10px;
-    }
-
-    .nopadding {
-       padding: 0 !important;
-       margin: 0 !important;
-    }
-
-    @media (min-width: 1200px) {
-      .container-fluid {
-        width: 1450px;
-      }
-    }
-    </style>
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 
 <body>
-
-
 
 <div class="nav">
     <div class="container">
@@ -92,7 +16,8 @@
 			<div class="container-fluid">
 				<ul class="nav navbar-nav pull-left">
 					<li id="title"><a href="#">Software Project</a></li>
-					<li class="active1"><a href="#">Home</a></li>
+					<li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="email-page.html">Email</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
@@ -101,12 +26,12 @@
 					</li>
 
 				</ul>
-                <form class="navbar-form navbar-left" role="search">
+<!--                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                       <input type="text" id="search" class="form-control" placeholder="Search">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>
-                </form>
+                </form> -->
 			</div>    
 		</nav>
     </div>
@@ -177,39 +102,18 @@
 
     $(document).ready(function(){
         // init page for viewing grades  
-           searchForStudent(name);
-
-        $( "#search" ).keypress(function() {
-            console.log( "Handler for .keypress() called." );
-            var name = $('#search').val();
- 
-        });
+          
 
         MODULE.GradePage.init();
+        
 
         $('#course-tabs a').click(function (e) {
           e.preventDefault();
           $(this).tab('show');
         });
 
-        function searchForStudent(name){
-            console.log(name);
-            $.ajax({
-                type: "POST",
-                url: 'search.php',
-                dataType: 'json',
-                data: { searchInput: "ok"},
-                success: function(data){
-                    console.log("ok");
-                    // $('#student-table-javascript').bootstrapTable('load', data);
-                    console.log(data);
-                },
-                error:function(textStatus, errorThrown){
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            });
-        }
+
+
     });
 
 
