@@ -1,113 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
-<style>
-
-    .content{
-        background-color: #eee;
-        /*margin-top: -10px;*/
-        border-radius: 5px;
-    }
-
-    .content #grades{
-        font-size: 14px;
-        color: #00b0ff;
-    }
-
-    .content h1{
-        font-size: 16px;
-        padding-bottom:5px;
-        margin-left: -10px;
-        text-transform:uppercase;
-    }
-
-    .nav #title{
-        /*font-size: 16px;*/
-    }
-
-    #allCourses{
-        margin-bottom: -15px;
-    }
-
-    .navbar{
-        border-radius: 0px;
-        background-color: #E6E6E6;
-        color: #5a5a5a;
-        font-size: 11px;
-        font-weight: bold;
-        text-transform:uppercase;
-        /*margin-bottom: 0px;*/
-    }
-
-    .navbar form{
-        padding-top: 10px;
-    }
-    .navbar #title{
-        font-size: 12px;
-    }
-
-
-    .active1 {
-        background-color: #ddd;
-    }
-   /* .panel-heading{
-        background-color: #ddd;
-        color: #00b0ff;
-    }
-*/
-
-    #students{
-        margin-left: 10px;
-    }
-    </style>
+    <!-- <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css"> -->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cosmo/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 
 <body>
 
-
-
 <div class="nav">
     <div class="container">
-
-    
     <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav pull-left">
-                <li id="title"><a href="#">Software Project</a></li>
-                <li class="active1"><a href="#">Home</a></li>
-                <li data-toggle="dropdown"><a href="#">Programs</a></li>
-            </ul>
-        </div>    
-    </nav>
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="container-fluid">
+				<ul class="nav navbar-nav pull-left">
+					<li class="navbar-brand-sm"><a href="#">Software Project</a></li>
+					<li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="email-page.html">Email</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
+							<?php include("dropDown.php"); ?>
+						</ul>
+					</li>
+
+
+				</ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="" data-toggle="modal" data-target=".bs-upload-modal-sm">Upload</a></li>
+                </ul>
+
+<!--                 <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                      <input type="text" id="search" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form> -->
+			</div>    
+		</nav>
+
+<!-- MODEL CONTENT -->
+        <div class="modal fade bs-upload-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Upload your file
+                </div>
+                <div class="modal-body">
+                    select your .csv data file to update to the database
+                    <input type="file" id="fileLoader" name="files" title="Load File" style="display:none;"/>
+                     <button type="load" class="btn btn-sm" onclick="openfileDialog();">Upload</button>
+                </div>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
 
 <div class="content">
-    <div class="container">
+    <div class="container-fluid">
     <!-- <h1>Students</h1> -->
     <div class="row">
         <div class="col-md-2">
             <div class="panel panel-default">
-                <div  class="panel-heading">Students</div>
+                <div  class="panel-heading">
+                    Students
+                    <button type="submit" class="btn btn-sm pull-right"><span class="glyphicon glyphicon glyphicon-list-alt icon-list-alt "></span></button>
+                </div>
                 <div id="students">
                     <table id="student-table-javascript"></table>
                 </div>
-                </ul>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 nopadding">
             <div id="gradeContent">
                 <div class="panel panel-default">
                     <div class="panel-heading">Grades</div>
                     <table id="grade-table-javascript"></table>
                 </div>
             </div>
+        <div>
+            <!-- <p> search for izglu to see it work with F</p> -->
         </div>
-        <div class="col-md-5">
+        </div>
+        <div class="col-md-5 nopadding">
             <div class="panel panel-default">
 
                 <!-- maybe change id to c -->
@@ -124,32 +103,7 @@
 
                   </div>
                   <div class="tab-pane" id="history">
-                    <table class="table">
-                      <tr>
-                        <td>Jill</td>
-                        <td>Smith</td>
-                        <td>50</td>
-                      </tr>
-                      <tr>
-                        <td>Eve</td>
-                        <td>Jackson</td>
-                        <td>94</td>
-                      </tr>
-                      <tr>
-                        <td>Jill</td>
-                        <td>Smith</td>
-                        <td>50</td>
-                      </tr>
-                      <tr>
-                        <td>Eve</td>
-                        <td>Jackson</td>
-                        <td>94</td>
-                      </tr>        
-                       <!--  <tfoot>
-                            <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span>
-                            <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span>
-                        </tfoot> -->
-                    </table>
+                        <table id="history-table"></table>
                   </div>
                 </div>
 
@@ -167,29 +121,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
 
+<script src="js/createTable.js"></script>
 <script src="js/GradePage.js"></script>
 
-<script src="js/Menu.js"></script>
-
-<script>
+<script type="text/javascript">
 
     $(document).ready(function(){
         // init page for viewing grades  
-        //MODULE.Menu.init();
+          
 
-
-        //courseNumber , courseName, grade , aLevel
+        MODULE.GradePage.init();
         
-        var gradePage = MODULE.GradePage.init();
+
         $('#course-tabs a').click(function (e) {
-          e.preventDefault()
-          $(this).tab('show')
-        })
+          e.preventDefault();
+          $(this).tab('show');
+        });
+
+
 
     });
+    //http://jsfiddle.net/taditdash/9Fh4c/
+    function openfileDialog() {
+        $("#fileLoader").click();
+    }
 
 </script>
-
 
 </body>
 </html>

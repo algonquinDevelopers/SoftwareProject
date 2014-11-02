@@ -1,0 +1,67 @@
+
+.content{
+    /*background-color: #eee;*/
+    /*margin-top: -10px;*/
+    border-radius: 5px;
+}
+
+
+.content h1{
+    font-size: 16px;
+    text-transform:uppercase;
+}
+
+/*.navbar{
+    border-radius: 0px;
+    background-color: #E6E6E6;
+    color: #5a5a5a;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform:uppercase;
+    /*margin-bottom: 0px;
+}
+*/
+
+.navbar form{
+    /*padding-top: 10px;*/
+}
+
+
+.selected {
+    /*font-size: 15px;*/
+    font-weight: bold;
+}
+/*.student-selected{
+    background-color: #ff0000;
+    font-weight: bold;  
+}*/
+/* .panel-heading{
+    background-color: #ddd;
+    color: #00b0ff;
+}
+*/
+
+#students{
+    margin-left: 10px;
+}
+
+/*.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+}*/
+
+/*@media (min-width: 1200px) {
+  .container-fluid {
+    width: 1450px;
+  }
+}*/
+
+.active{
+    /*color: #5a5a5a;*/
+    /*font-size: 14px;*/
+}
+
+.failed-course{
+    color: #FF5900;
+    /*background-color: #FFFF80;*/
+}
