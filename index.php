@@ -75,7 +75,7 @@
 
     @media (min-width: 1200px) {
       .container-fluid {
-        width: 1400px;
+        width: 1450px;
       }
     }
     </style>
@@ -99,7 +99,14 @@
 							<?php include("dropDown.php"); ?>
 						</ul>
 					</li>
+
 				</ul>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                      <input type="text" id="search" class="form-control" placeholder="Search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
 			</div>    
 		</nav>
     </div>
@@ -170,13 +177,39 @@
 
     $(document).ready(function(){
         // init page for viewing grades  
-        
+           searchForStudent(name);
+
+        $( "#search" ).keypress(function() {
+            console.log( "Handler for .keypress() called." );
+            var name = $('#search').val();
+ 
+        });
+
         MODULE.GradePage.init();
 
         $('#course-tabs a').click(function (e) {
-          e.preventDefault()
-          $(this).tab('show')
+          e.preventDefault();
+          $(this).tab('show');
         });
+
+        function searchForStudent(name){
+            console.log(name);
+            $.ajax({
+                type: "POST",
+                url: 'search.php',
+                dataType: 'json',
+                data: { searchInput: "ok"},
+                success: function(data){
+                    console.log("ok");
+                    // $('#student-table-javascript').bootstrapTable('load', data);
+                    console.log(data);
+                },
+                error:function(textStatus, errorThrown){
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                }
+            });
+        }
     });
 
 

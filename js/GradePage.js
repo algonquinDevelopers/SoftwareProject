@@ -56,7 +56,7 @@ MODULE.GradePage.init = function(){
     $.ajax({
         type: "GET",
         url: 'selectStudents.php',
-        dataType: 'json',
+        // dataType: 'json',
         data: { limit: selectLimit},
         success: function(data){
             $('#student-table-javascript').bootstrapTable('load', data);
