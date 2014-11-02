@@ -95,13 +95,11 @@ MODULE.GradePage.init = function(){
 
     function onStudentRowClick(row, $element){
             studentNum = $element.studentNumber;
-            // console.log("this is the row", index);
-            // $(this).css("background-color" , "white);
+
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             checkAndSelect(selectLevel, $element.studentName);
                
             getGrades(selectLevel, $element.studentName);
-            // console.log(row);
     }
 
     function activaTab(tab){
@@ -130,12 +128,12 @@ MODULE.GradePage.init = function(){
         });
     };
 
+    // change color for failed courses
     function highlightFailed(){
         var data = $('#grade-table-javascript').bootstrapTable('getData');
 
         for(var i in data){
             var table_row = data[i];
-            // console.log(table_row);
             if(table_row.grade == "F"){
                 // $("#grade-table-javascript tr[data-index='"+ i +"']").css("color", "red" );
                 $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
@@ -202,10 +200,8 @@ MODULE.GradePage.init = function(){
             class: "btn btn-success btn-md center pull-right",
             html: '<i class="glyphicon"></i>Assign',
             click: function(){
-                // console.log("clicked assign");
                 assignStudentPlan();
                 activaTab('history');
-                // currentRow.bgColor = '#AED4E9';
             },
             
         },"</span>");
@@ -214,8 +210,6 @@ MODULE.GradePage.init = function(){
     }
    
     function getGrades(level, name){
-        // var level = level;
-       // console.log("grades top"+ level + name);
         $.ajax({
             type: "GET",
             url: 'selectGrades.php',
@@ -251,7 +245,6 @@ MODULE.GradePage.init = function(){
 
     function assignStudentPlan() {
         var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
-        // console.log(selectedData);
         for(var i in selectedData) {
             var courseCode = selectedData[i].courseCode;
             // console.log(studentNum);
