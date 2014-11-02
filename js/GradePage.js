@@ -6,7 +6,7 @@ MODULE.GradePage = {};
 
 // code for grading page
 MODULE.GradePage.init = function(){
-	// "use strict";
+	 "use strict";
     
     // get request data to limit the students returned
     var selectLimit = 300;
