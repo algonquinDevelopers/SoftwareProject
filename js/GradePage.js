@@ -92,17 +92,16 @@ MODULE.GradePage.init = function(){
 
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
-    // $('#grade-table-javascript').bootstrapTable().on('all.bs.table', highlightFailed);
 
-    function onStudentRowClick(row, index){
-            studentNum = index.studentNumber;
-            // console.log();
+    function onStudentRowClick(row, $element){
+            studentNum = $element.studentNumber;
+            // console.log("this is the row", index);
             // $(this).css("background-color" , "white);
             $('#course-table-javascript').bootstrapTable('uncheckAll');
-            checkAndSelect(selectLevel, index.studentName);
+            checkAndSelect(selectLevel, $element.studentName);
                
-            getGrades(selectLevel, index.studentName);
-            
+            getGrades(selectLevel, $element.studentName);
+            // console.log(row);
     }
 
     function activaTab(tab){

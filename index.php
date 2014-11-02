@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
+    <!-- <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css"> -->
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cosmo/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
 </head>
 
@@ -51,7 +52,7 @@
                 <div class="modal-body">
                     select your .csv data file to update to the database
                     <input type="file" id="fileLoader" name="files" title="Load File" style="display:none;"/>
-                     <button type="submit" class="btn btn-sm" onclick="openfileDialog();">Upload</button>
+                     <button type="load" class="btn btn-sm" onclick="openfileDialog();">Upload</button>
                 </div>
             </div>
           </div>
@@ -65,7 +66,10 @@
     <div class="row">
         <div class="col-md-2">
             <div class="panel panel-default">
-                <div  class="panel-heading">Students</div>
+                <div  class="panel-heading">
+                    Students
+                    <button type="submit" class="btn btn-sm pull-right"><span class="glyphicon glyphicon glyphicon-list-alt icon-list-alt "></span></button>
+                </div>
                 <div id="students">
                     <table id="student-table-javascript"></table>
                 </div>

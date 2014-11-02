@@ -1,5 +1,6 @@
 var MODULE = MODULE || {};
 
+MODULE.currentRow = null;
 // http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html
 // http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html
 MODULE.createCourseTable = function(){
@@ -42,10 +43,15 @@ MODULE.createCourseTable = function(){
 MODULE.createStudentTable = function(){
     $('#student-table-javascript').bootstrapTable({
         // search: true,
+        smartDisplay: true,
+        // cardView: true,
+        // showToggle: true,
         onClickRow: function(row, element){
             $('#student-table-javascript tr').attr("bgColor", "#fff");
             element[0].bgColor = '#AED4E9';
-            console.log(element);
+            // MODULE.currentRow = element.context;
+            // MODULE.currentRow = element;
+            // MODULE.currentRow.addClass("glyphicon glyphicon glyphicon-list-alt icon-list-alt ");
         },
         columns: [
         {
