@@ -4,54 +4,80 @@
     <!-- <link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
-	<style type="text/css">
+<style>
 
-		.content{
-			background-color: #eee;
-			border-radius: 5px;
-		}
+    .content{
+        background-color: #eee;
+        /*margin-top: -10px;*/
+        border-radius: 5px;
+    }
 
-		.content #grades{
-			font-size: 14px;
-			color: #00b0ff;
-		}
+    .content #grades{
+        font-size: 14px;
+        color: #00b0ff;
+    }
 
-		.content h1{
-			font-size: 16px;
-			padding-bottom:5px;
-			margin-left: -10px;
-			text-transform:uppercase;
-		}
+    .content h1{
+        font-size: 16px;
+        padding-bottom:5px;
+        margin-left: -10px;
+        text-transform:uppercase;
+    }
 
-		#allCourses{
-			margin-bottom: -15px;
-		}
+    .nav #title{
+        /*font-size: 16px;*/
+    }
 
-		.navbar{
-			border-radius: 0px;
-			background-color: #E6E6E6;
-			color: #5a5a5a;
-			font-size: 11px;
-			font-weight: bold;
-			text-transform:uppercase;
-		}
+    #allCourses{
+        margin-bottom: -15px;
+    }
 
-		.navbar form{
-			padding-top: 10px;
-		}
-		
-		.navbar #title{
-			font-size: 12px;
-		}
+    .navbar{
+        border-radius: 0px;
+        background-color: #E6E6E6;
+        color: #5a5a5a;
+        font-size: 11px;
+        font-weight: bold;
+        text-transform:uppercase;
+        /*margin-bottom: 0px;*/
+    }
+
+    .navbar form{
+        padding-top: 10px;
+    }
+    .navbar #title{
+        font-size: 12px;
+    }
 
 
-		.active1 {
-			background-color: #ddd;
-		}
+    .selected {
+        /*font-size: 15px;*/
+        font-weight: bold;
+    }
+    .student-selected{
+        background-color: #ff0000;
+        font-weight: bold;  
+    }
+   /* .panel-heading{
+        background-color: #ddd;
+        color: #00b0ff;
+    }
+*/
 
-		#students{
-			margin-left: 10px;
-		}
+    #students{
+        margin-left: 10px;
+    }
+
+    .nopadding {
+       padding: 0 !important;
+       margin: 0 !important;
+    }
+
+    @media (min-width: 1200px) {
+      .container-fluid {
+        width: 1400px;
+      }
+    }
     </style>
 </head>
 
@@ -80,7 +106,7 @@
 </div>
 
 <div class="content">
-    <div class="container">
+    <div class="container-fluid">
     <!-- <h1>Students</h1> -->
     <div class="row">
         <div class="col-md-2">
@@ -91,15 +117,18 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 nopadding">
             <div id="gradeContent">
                 <div class="panel panel-default">
                     <div class="panel-heading">Grades</div>
                     <table id="grade-table-javascript"></table>
                 </div>
             </div>
+        <div>
+            <p> search for izglu to see it work with F</p>
         </div>
-        <div class="col-md-5">
+        </div>
+        <div class="col-md-5 nopadding">
             <div class="panel panel-default">
 
                 <!-- maybe change id to c -->
@@ -116,34 +145,7 @@
 
                   </div>
                   <div class="tab-pane" id="history">
-                    <table class="table">
-                      <tr>
-                        <td>Jill</td>
-                        <td>Smith</td>
-                        <td>50</td>
-                      </tr>
-                      <tr>
-                        <td>Eve</td>
-                        <td>Jackson</td>
-                        <td>94</td>
-                      </tr>
-                      <tr>
-                        <td>Jill</td>
-                        <td>Smith</td>
-                        <td>50</td>
-                      </tr>
-                      <tr>
-                        <td>Eve</td>
-                        <td>Jackson</td>
-                        <td>94</td>
-                      </tr>        
-						<!--  
-						<tfoot>
-                            <span class="btn btn-success btn-md center pull-right"><i class="glyphicon"></i>Assign </span>
-                            <span class="btn btn-primary btn-md pull-right"><i class="glyphicon glyphicon-envelope"></i> Email</span>
-                        </tfoot> 
-						-->
-                    </table>
+                        <table id="history-table"></table>
                   </div>
                 </div>
 
@@ -161,26 +163,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
 
+<script src="js/createTable.js"></script>
 <script src="js/GradePage.js"></script>
-
-<script src="js/Menu.js"></script>
 
 <script type="text/javascript">
 
     $(document).ready(function(){
         // init page for viewing grades  
-        //MODULE.Menu.init();
-
-
-        //courseNumber , courseName, grade , aLevel
         
-        var gradePage = MODULE.GradePage.init();
+        MODULE.GradePage.init();
+
         $('#course-tabs a').click(function (e) {
           e.preventDefault()
           $(this).tab('show')
-        })
-
+        });
     });
+
 
 </script>
 
