@@ -4,17 +4,12 @@
 include("connect.php");
 
 $limit = $_GET['limit'];
-// $sql = "";
-
-
 
 //$sql = mysqli_query($db, "SELECT DISTINCT studentName, studentNumber from studentStats where aLevel = 'A1' LIMIT $limit");
 
 if (!empty($_GET['name'])){
 	$programName = $_GET['name'];
-	//echo $programName;
 	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where pgmName = '$programName' LIMIT $limit";
-	//echo $sql;
 } else {
 	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where aLevel = 'A1' LIMIT $limit";
 }
