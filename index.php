@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
-    <!-- <link rel="stylesheet" href="css/custom.css"> -->
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 
 <body>
@@ -13,10 +13,10 @@
 <div class="nav">
     <div class="container">
     <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
-		<nav class="navbar navbar-default" role="navigation">
+		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="container-fluid">
 				<ul class="nav navbar-nav pull-left">
-					<li id="title"><a href="#">Software Project</a></li>
+					<li class="navbar-brand-sm"><a href="#">Software Project</a></li>
 					<li class="active"><a href="index.php">Home</a></li>
                     <li><a href="email-page.html">Email</a></li>
 					<li class="dropdown">
@@ -26,7 +26,12 @@
 						</ul>
 					</li>
 
+
 				</ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a href="" data-toggle="modal" data-target=".bs-upload-modal-sm">Upload</a></li>
+                </ul>
+
 <!--                 <form class="navbar-form navbar-left" role="search">
                     <div class="form-group">
                       <input type="text" id="search" class="form-control" placeholder="Search">
@@ -35,6 +40,22 @@
                 </form> -->
 			</div>    
 		</nav>
+
+<!-- MODEL CONTENT -->
+        <div class="modal fade bs-upload-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Upload your file
+                </div>
+                <div class="modal-body">
+                    select your .csv data file to update to the database
+                    <input type="file" id="fileLoader" name="files" title="Load File" style="display:none;"/>
+                     <button type="submit" class="btn btn-sm" onclick="openfileDialog();">Upload</button>
+                </div>
+            </div>
+          </div>
+        </div>
     </div>
 </div>
 
@@ -116,7 +137,10 @@
 
 
     });
-
+    //http://jsfiddle.net/taditdash/9Fh4c/
+    function openfileDialog() {
+        $("#fileLoader").click();
+    }
 
 </script>
 

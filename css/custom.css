@@ -18,7 +18,7 @@
 }
 
 .nav #title{
-    /*font-size: 16px;*/
+    font-size: 22px;
 }
 
 #allCourses{
@@ -32,8 +32,9 @@
     font-size: 11px;
     font-weight: bold;
     text-transform:uppercase;
-    /*margin-bottom: 0px;*/
-}*/
+    /*margin-bottom: 0px;
+}
+*/
 
 .navbar form{
     padding-top: 10px;
@@ -61,18 +62,23 @@
     margin-left: 10px;
 }
 
-.nopadding {
+/*.nopadding {
    padding: 0 !important;
    margin: 0 !important;
-}
+}*/
 
-@media (min-width: 1200px) {
+/*@media (min-width: 1200px) {
   .container-fluid {
     width: 1450px;
   }
-}
+}*/
 
 .active{
     /*color: #5a5a5a;*/
-    font-size: 14px;
+    /*font-size: 14px;*/
+}
+
+.failed-course{
+    color: #FF5900;
+    /*background-color: #FFFF80;*/
 }

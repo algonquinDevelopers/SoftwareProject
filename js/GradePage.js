@@ -92,7 +92,7 @@ MODULE.GradePage.init = function(){
 
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
-
+    // $('#grade-table-javascript').bootstrapTable().on('all.bs.table', highlightFailed);
 
     function onStudentRowClick(row, index){
             studentNum = index.studentNumber;
@@ -102,6 +102,7 @@ MODULE.GradePage.init = function(){
             checkAndSelect(selectLevel, index.studentName);
                
             getGrades(selectLevel, index.studentName);
+            
     }
 
     function activaTab(tab){
@@ -130,10 +131,26 @@ MODULE.GradePage.init = function(){
         });
     };
 
+    function highlightFailed(){
+        var data = $('#grade-table-javascript').bootstrapTable('getData');
+
+        for(var i in data){
+            var table_row = data[i];
+            // console.log(table_row);
+            if(table_row.grade == "F"){
+                // $("#grade-table-javascript tr[data-index='"+ i +"']").css("color", "red" );
+                $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
+            }
+        }
+
+
+    }
+
     function checkForFailed(fail_cases, row){
         for(var i in fail_cases){
             var gradeLetter = row.grade;
             if(gradeLetter == fail_cases[i]){
+
                return false;
             }
             return true;
@@ -186,7 +203,7 @@ MODULE.GradePage.init = function(){
             class: "btn btn-success btn-md center pull-right",
             html: '<i class="glyphicon"></i>Assign',
             click: function(){
-                console.log("clicked assign");
+                // console.log("clicked assign");
                 assignStudentPlan();
                 activaTab('history');
                 // currentRow.bgColor = '#AED4E9';
@@ -209,6 +226,7 @@ MODULE.GradePage.init = function(){
             success: function(data){
                 // console.log("grades success");
                 $('#grade-table-javascript').bootstrapTable('load', data);
+                highlightFailed();
 
             }
         });
@@ -234,10 +252,10 @@ MODULE.GradePage.init = function(){
 
     function assignStudentPlan() {
         var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
-        console.log(selectedData);
+        // console.log(selectedData);
         for(var i in selectedData) {
             var courseCode = selectedData[i].courseCode;
-            console.log(studentNum);
+            // console.log(studentNum);
             insertPlanTable(courseCode);
         }
     }

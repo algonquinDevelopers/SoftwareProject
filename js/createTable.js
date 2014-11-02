@@ -43,7 +43,9 @@ MODULE.createStudentTable = function(){
     $('#student-table-javascript').bootstrapTable({
         // search: true,
         onClickRow: function(row, element){
-            // element[0].bgColor = '#AED4E9';
+            $('#student-table-javascript tr').attr("bgColor", "#fff");
+            element[0].bgColor = '#AED4E9';
+            console.log(element);
         },
         columns: [
         {
