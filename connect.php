@@ -1,6 +1,8 @@
 <?php
 $dbhost = 'localhost';
 $dbname = 'softwareproject';
+//for fat table
+//$dbname = 'sproject';
 $username = 'root';
 $pass = 'root';
 
