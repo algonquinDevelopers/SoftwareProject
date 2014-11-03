@@ -39,16 +39,19 @@ MODULE.GradePage.init = function(){
             type: "GET",
             url: 'selectStudents.php',
             dataType: 'json',
-            data: { name: programName, limit: selectLimit},
+            data: { name: programName, limit: selectLimit },
             success: function(data){
                 console.log("success");
                 $('#student-table-javascript').bootstrapTable('load', data);
 
             },
-            error:function(textStatus, errorThrown){
-                // console.log("error");
+            error:function(textStatus, errorThrown, error){
+                console.log(error);
                 console.log(errorThrown);
-        }
+				console.log(errorThrown.message);
+				console.log(programName);
+				console.log(typeof programName);
+			}
 		});
 	});
 
