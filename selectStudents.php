@@ -5,13 +5,13 @@ include("connect.php");
 
 $limit = $_GET['limit'];
 
-//$sql = mysqli_query($db, "SELECT DISTINCT studentName, studentNumber from studentStats where aLevel = 'A1' LIMIT $limit");
-
 if (!empty($_GET['name'])){
 	$programName = $_GET['name'];
-	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where pgmName = '$programName' LIMIT $limit";
+	echo($programName);
+	$sql = "select distinct s.student_name, s.student_no from student s, program p where s.program_no = p.program_no and p.program_name = '$programName' LIMIT $limit";
+	echo($sql);
 } else {
-	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where aLevel = 'A1' LIMIT $limit";
+	$sql = "SELECT DISTINCT student_name, student_no from student LIMIT $limit";
 }
 
 $result = mysqli_query($db, $sql);

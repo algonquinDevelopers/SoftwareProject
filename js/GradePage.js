@@ -77,9 +77,11 @@ MODULE.GradePage.init = function(){
             $('#course-table-javascript').bootstrapTable('load', data);
 
         },
-        error:function(textStatus, errorThrown){
+        error:function(textStatus, errorThrown, error){
             console.log("error");
-            console.log(errorThrown);           
+            console.log(errorThrown);     
+			console.log(errorThrown.message);
+			console.log(error);
         }
     });
 

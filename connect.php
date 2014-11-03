@@ -1,6 +1,6 @@
 <?php
 $dbhost = 'localhost';
-$dbname = 'sproject';
+$dbname = 'softwareproject';
 $username = 'root';
 $pass = 'root';
 
