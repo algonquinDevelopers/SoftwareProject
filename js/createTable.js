@@ -47,14 +47,16 @@ MODULE.createStudentTable = function(){
         },
         columns: [
         {
-            field: 'studentName',
+            //field: 'studentName',//for fat table
+			field: 'student_name',
             title: 'Name',
             align: 'center',
             valign: 'middle',
             sortable: true,
         },
         {
-            field: 'studentNumber',
+            //field: 'studentNumber',//for fat table
+			field: 'student_no',
             title: 'Number',
             align: 'center',
             valign: 'middle',
