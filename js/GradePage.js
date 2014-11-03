@@ -46,11 +46,11 @@ MODULE.GradePage.init = function(){
 
             },
             error:function(textStatus, errorThrown, error){
-                console.log(error);
+                //console.log(error);
                 console.log(errorThrown);
-				console.log(errorThrown.message);
-				console.log(programName);
-				console.log(typeof programName);
+				//console.log(errorThrown.message);
+				//console.log(programName);
+				//console.log(typeof programName);
 			}
 		});
 	});
@@ -100,13 +100,16 @@ MODULE.GradePage.init = function(){
 
 
     function onStudentRowClick(row, index){
-            studentNum = index.studentNumber;
+            //studentNum = index.studentNumber;//fat table
+			studentNum = index.student_no;
             // console.log();
             // $(this).css("background-color" , "white);
             $('#course-table-javascript').bootstrapTable('uncheckAll');
-            checkAndSelect(selectLevel, index.studentName);
-               
-            getGrades(selectLevel, index.studentName);
+            //checkAndSelect(selectLevel, index.studentName); //fat table
+            checkAndSelect(selectLevel, index.student_name); 
+			
+            //getGrades(selectLevel, index.studentName);//fat table
+			getGrades(selectLevel, index.student_name);
     }
 
     function activaTab(tab){
