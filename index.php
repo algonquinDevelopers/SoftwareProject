@@ -68,7 +68,8 @@
             <div class="panel panel-default">
                 <div  class="panel-heading">
                     Students
-                    <button type="submit" class="btn btn-sm pull-right" id="st-format"><span class="glyphicon glyphicon glyphicon-list-alt icon-list-alt "></span></button>
+                    <!-- <button type="submit" class="btn btn-sm pull-right" id="st-format"><span class="glyphicon glyphicon glyphicon-list-alt icon-list-alt "></span></button> -->
+                    <input type="text" name="searchInput" id="searchInput" placeholder="search students" onkeyup="searchStudent();" />
                 </div>
                 <div id="students">
                     <table id="student-table-javascript" data-card-view="false"></table>
@@ -145,6 +146,26 @@
     //http://jsfiddle.net/taditdash/9Fh4c/
     function openfileDialog() {
         $("#fileLoader").click();
+    }
+
+    function searchStudent() {
+        var selectLimit = 300;
+        var searchInput = document.getElementById("searchInput").value;
+
+        $.ajax({
+            type: "GET",
+            url: 'selectStudentsC.php',
+            dataType: 'json',
+            data: {search: searchInput, limit: selectLimit},
+            success: function(data){
+                $('#student-table-javascript').bootstrapTable('load', data);
+
+            },
+            error:function(textStatus, errorThrown){
+                // console.log("error");
+                console.log(errorThrown);
+            }
+        });
     }
 
 </script>
