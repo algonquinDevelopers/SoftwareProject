@@ -14,7 +14,7 @@ MODULE.GradePage.init = function(){
     //used for make the student plan
     var studentNum;
     // var JSONdata;
-    var courseLevel= 2;
+    var courseLevel= 3;
     // get request data to select the level; 
     var selectLevel = 1;
 
@@ -37,17 +37,18 @@ MODULE.GradePage.init = function(){
     loadCourse(courseLevel);
 
 
-    $('.plink').click(function () { 
-        // console.log($(this).html());
-        loadCourse($(this).html());
-    });
+    // $('.plink').click(function () { 
+    //     // console.log($(this).html());
+    //     loadCourse($(this).html());
+    // });
 
 	//drop down menu
-	$('.dropdown-menu a').click(function(){
-		var visible = $(this).parents('ul').attr('visibleTag');
-		$(visible).html($(this).attr('value'));
-		var programName = $(this).html();
-		$.ajax({
+    $('.dropdown-menu a').click(function(){
+        var visible = $(this).parents('ul').attr('visibleTag');
+        $(visible).html($(this).attr('value'));
+        
+        var programName = $(this).html();
+        $.ajax({
             type: "GET",
             url: 'selectStudents.php',
             dataType: 'json',
@@ -55,13 +56,14 @@ MODULE.GradePage.init = function(){
             success: function(data){
                 console.log("success");
                 $('#student-table-javascript').bootstrapTable('load', data);
+
             },
             error:function(textStatus, errorThrown){
+                // console.log("error");
                 console.log(errorThrown);
         }
-		});
-	});
-
+        });
+    });
     //get the students names
     $.ajax({
         type: "GET",
@@ -99,9 +101,30 @@ MODULE.GradePage.init = function(){
 
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             checkAndSelect(selectLevel, $element.studentName);
-               
-            getGrades(selectLevel, $element.studentName);
+            getGrades($element.student_name);
+            highlightFailed();
     }
+
+    function getGrades(studentName){
+        $.ajax({
+            type: "GET",
+            url: 'selectGrades.php',
+            dataType: 'json',
+            data: { studentName: studentName},
+            success: function(data){
+                console.log("get grades success");
+                $('#grade-table-javascript').bootstrapTable('load', data);
+
+            },
+            error:function(textStatus, errorThrown){
+                // console.log("error");
+                console.log(errorThrown);
+        }
+        });
+    }
+
+    return;
+
 
     function activaTab(tab){
         $('.nav-tabs a[href="#' + tab + '"]').tab('show');
@@ -134,7 +157,8 @@ MODULE.GradePage.init = function(){
         var data = $('#grade-table-javascript').bootstrapTable('getData');
         for(var i in data){
             var table_row = data[i];
-            if(table_row.grade == "F"){
+            console.log(table_row.grade[0]);
+            if(table_row.grade[0] == "F"){
                 // $("#grade-table-javascript tr[data-index='"+ i +"']").css("color", "red" );
                 $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
             }
@@ -214,21 +238,7 @@ MODULE.GradePage.init = function(){
         $("#course-table-javascript").append($button);
     }
    
-    function getGrades(level, name){
-        $.ajax({
-            type: "GET",
-            url: 'selectGrades.php',
-            dataType: 'json',
-            // get request for student name
-            data: { studentName: name, level: level},
-            success: function(data){
-                // console.log("grades success");
-                $('#grade-table-javascript').bootstrapTable('load', data);
-                highlightFailed();
 
-            }
-        });
-    }
     
 
 

@@ -156,25 +156,25 @@
         $("#fileLoader").click();
     }
 
-    function searchStudent() {
-        var selectLimit = 300;
-        var searchInput = document.getElementById("searchInput").value;
+    // function searchStudent() {
+    //     var selectLimit = 300;
+    //     var searchInput = document.getElementById("searchInput").value;
 
-        $.ajax({
-            type: "GET",
-            url: 'searchStudents.php',
-            dataType: 'json',
-            data: {search: searchInput, limit: selectLimit},
-            success: function(data){
-                $('#student-table-javascript').bootstrapTable('load', data);
+    //     $.ajax({
+    //         type: "GET",
+    //         url: 'searchStudents.php',
+    //         dataType: 'json',
+    //         data: {search: searchInput, limit: selectLimit},
+    //         success: function(data){
+    //             $('#student-table-javascript').bootstrapTable('load', data);
 
-            },
-            error:function(textStatus, errorThrown){
-                // console.log("error");
-                console.log(errorThrown);
-            }
-        });
-    }
+    //         },
+    //         error:function(textStatus, errorThrown){
+    //             // console.log("error");
+    //             console.log(errorThrown);
+    //         }
+    //     });
+    // }
 
 </script>
 

@@ -7,6 +7,7 @@ MODULE.createCourseTable = function(){
         // height: 600,
         // pageSize: 7,
         // striped : true,
+
         clickToSelect: true,
         columns: [
         {
@@ -14,25 +15,26 @@ MODULE.createCourseTable = function(){
             checkbox: true
         },
         {
-            field: 'courseCode',
+            field: 'course_no',
             title: 'Code',
             align: 'center',
             valign: 'middle',
-            sortable: true,
             clickToSelect: false,
+            sortable: true,
         },
         {
-            field: 'courseName',
+            field: 'course_name',
             title: 'Name',
             align: 'center',
             valign: 'middle',
             // sortable: true,
         },
         {
-            field: 'courseLevel',
+            field: 'course_level',
             title: 'Level',
             align: 'center',
             valign: 'middle',
+            sortable: true,
             // sortable: true,
         }
         ]
@@ -51,14 +53,14 @@ MODULE.createStudentTable = function(){
         },
         columns: [
         {
-            field: 'studentName',
+            field: 'student_name',
             title: 'Name',
             align: 'center',
             valign: 'middle',
             sortable: true,
         },
         {
-            field: 'studentNumber',
+            field: 'student_no',
             title: 'Number',
             align: 'center',
             valign: 'middle',
@@ -143,14 +145,14 @@ MODULE.createGradeTable = function(){
         clickToSelect: true,
         columns: [
         {
-            field: 'courseNumber',
+            field: 'course_no',
             title: 'Code ',
             align: 'center',
             valign: 'middle',
             sortable: true,
         },
         {
-            field: 'courseName',
+            field: 'course_name',
             title: 'Name',
             align: 'center',
             valign: 'middle',
@@ -166,7 +168,7 @@ MODULE.createGradeTable = function(){
         },
         {
             width: 1,
-            field: 'aLevel',
+            field: 'a_level',
             title: 'Level',
             align: 'center',
             valign: 'middle',
