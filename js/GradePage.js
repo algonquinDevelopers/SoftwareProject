@@ -16,7 +16,7 @@ MODULE.GradePage.init = function(){
     // var JSONdata;
 
     // get request data to select the level; 
-    var selectLevel = 1;
+    var selectLevel = 2;
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
@@ -34,6 +34,7 @@ MODULE.GradePage.init = function(){
     MODULE.createGradeTable();
     MODULE.createPlanHistoryTable();
     makeButton();
+    pageNav();
 
 	//drop down menu
 	$('.dropdown-menu a').click(function(){
@@ -74,10 +75,12 @@ MODULE.GradePage.init = function(){
         }
     });
 
+    var courseL= 2;
     $.ajax({
         type: "GET",
         url: 'selectCourse.php',
         dataType: 'json',
+        data: {courseLevel: courseL},
         success: function(data){
             // console.log("student get success");
             $('#course-table-javascript').bootstrapTable('load', data);
@@ -192,6 +195,14 @@ MODULE.GradePage.init = function(){
                 $tr.trigger("click");
             }
         }
+    }
+
+    //pagination 
+                        // <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                        // <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+    function pageNav(){
+        var navElememt= '<nav><ul class="pagination"><li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li><li><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li></ul></nav>';
+         $("#course-table-javascript").append(navElememt);
     }
 
     function makeButton(){

@@ -100,6 +100,14 @@
                   <div class="tab-pane active" id="course">
 
                     <table id="course-table-javascript">
+                <nav>
+                    <ul class="pagination">
+                        <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                        <li><a href="#" class="plink">1</a></li>
+                        <li><a href="#" class="plink">2</a></li>
+                        <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+                      </ul>
+                    </nav> 
                     </table>
 
                   </div>
@@ -107,7 +115,7 @@
                         <table id="history-table"></table>
                   </div>
                 </div>
-
+      
           </div>
 
         </div>
@@ -139,6 +147,9 @@
           $(this).tab('show');
         });
 
+        $('.plink').click(function () { 
+            console.log($(this).html());
+        });
         // $("#st-format").click(function(){
         //     console.log('click');
             

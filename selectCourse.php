@@ -3,7 +3,9 @@
 // Connect to the MySQL database
 include("connect.php");
 
-$sql = "SELECT courseName, courseCode, courseLevel FROM course WHERE courseLevel = 2";
+$level = $_GET['courseLevel'];
+
+$sql = "SELECT courseName, courseCode, courseLevel FROM course WHERE courseLevel = $level";
 
 $result = mysqli_query($db,$sql);
 
