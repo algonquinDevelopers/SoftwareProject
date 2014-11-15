@@ -14,9 +14,9 @@ MODULE.GradePage.init = function(){
     //used for make the student plan
     var studentNum;
     // var JSONdata;
-
+    var courseLevel= 2;
     // get request data to select the level; 
-    var selectLevel = 2;
+    var selectLevel = 1;
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
@@ -34,13 +34,18 @@ MODULE.GradePage.init = function(){
     MODULE.createGradeTable();
     MODULE.createPlanHistoryTable();
     makeButton();
-    pageNav();
+    loadCourse(courseLevel);
+
+
+    $('.plink').click(function () { 
+        // console.log($(this).html());
+        loadCourse($(this).html());
+    });
 
 	//drop down menu
 	$('.dropdown-menu a').click(function(){
 		var visible = $(this).parents('ul').attr('visibleTag');
 		$(visible).html($(this).attr('value'));
-		
 		var programName = $(this).html();
 		$.ajax({
             type: "GET",
@@ -50,10 +55,8 @@ MODULE.GradePage.init = function(){
             success: function(data){
                 console.log("success");
                 $('#student-table-javascript').bootstrapTable('load', data);
-
             },
             error:function(textStatus, errorThrown){
-                // console.log("error");
                 console.log(errorThrown);
         }
 		});
@@ -63,37 +66,30 @@ MODULE.GradePage.init = function(){
     $.ajax({
         type: "GET",
         url: 'selectStudents.php',
-        // dataType: 'json',
         data: { limit: selectLimit},
         success: function(data){
             $('#student-table-javascript').bootstrapTable('load', data);
-
         },
         error:function(textStatus, errorThrown){
-            // console.log("error");
             console.log(errorThrown);
         }
     });
 
-    var courseL= 2;
-    $.ajax({
-        type: "GET",
-        url: 'selectCourse.php',
-        dataType: 'json',
-        data: {courseLevel: courseL},
-        success: function(data){
-            // console.log("student get success");
-            $('#course-table-javascript').bootstrapTable('load', data);
-
-        },
-        error:function(textStatus, errorThrown){
-            console.log("error");
-            console.log(errorThrown);           
-        }
-    });
-
-
-
+    function loadCourse(courseLevel){
+        $.ajax({
+            type: "GET",
+            url: 'selectCourse.php',
+            dataType: 'json',
+            data: {courseLevel: courseLevel},
+            success: function(data){
+                $('#course-table-javascript').bootstrapTable('load', data);
+            },
+            error:function(textStatus, errorThrown){
+                console.log("error");
+                console.log(errorThrown);           
+            }
+        });
+    }
 
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
@@ -136,7 +132,6 @@ MODULE.GradePage.init = function(){
     // change color for failed courses
     function highlightFailed(){
         var data = $('#grade-table-javascript').bootstrapTable('getData');
-
         for(var i in data){
             var table_row = data[i];
             if(table_row.grade == "F"){
@@ -144,15 +139,12 @@ MODULE.GradePage.init = function(){
                 $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
             }
         }
-
-
     }
 
     function checkForFailed(fail_cases, row){
         for(var i in fail_cases){
             var gradeLetter = row.grade;
             if(gradeLetter == fail_cases[i]){
-
                return false;
             }
             return true;

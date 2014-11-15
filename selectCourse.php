@@ -4,7 +4,7 @@
 include("connect.php");
 
 $level = $_GET['courseLevel'];
-
+// 
 $sql = "SELECT courseName, courseCode, courseLevel FROM course WHERE courseLevel = $level";
 
 $result = mysqli_query($db,$sql);

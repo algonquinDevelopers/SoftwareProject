@@ -19,7 +19,6 @@
 				<ul class="nav navbar-nav pull-left">
 					<li class="navbar-brand-sm"><a href="#">Software Project</a></li>
 					<li class="active"><a href="index.php">Home</a></li>
-                    <li><a href="email-page.html">Email</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
@@ -100,6 +99,8 @@
                   <div class="tab-pane active" id="course">
 
                     <table id="course-table-javascript">
+
+                    </table>
                 <nav>
                     <ul class="pagination">
                         <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
@@ -108,8 +109,6 @@
                         <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
                       </ul>
                     </nav> 
-                    </table>
-
                   </div>
                   <div class="tab-pane" id="history">
                         <table id="history-table"></table>
@@ -147,9 +146,7 @@
           $(this).tab('show');
         });
 
-        $('.plink').click(function () { 
-            console.log($(this).html());
-        });
+
         // $("#st-format").click(function(){
         //     console.log('click');
             
@@ -165,7 +162,7 @@
 
         $.ajax({
             type: "GET",
-            url: 'selectStudentsC.php',
+            url: 'searchStudents.php',
             dataType: 'json',
             data: {search: searchInput, limit: selectLimit},
             success: function(data){
