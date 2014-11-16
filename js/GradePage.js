@@ -13,6 +13,7 @@ MODULE.GradePage.init = function(){
 
     //used for make the student plan
     var studentNum;
+    var studentLevel;
     // var JSONdata;
     var courseLevel= 3;
     // get request data to select the level; 
@@ -98,11 +99,9 @@ MODULE.GradePage.init = function(){
 
     function onStudentRowClick(row, $element){
             studentNum = $element.studentNumber;
-
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             checkAndSelect(selectLevel, $element.studentName);
             getGrades($element.student_name);
-            highlightFailed();
     }
 
     function getGrades(studentName){
@@ -112,19 +111,22 @@ MODULE.GradePage.init = function(){
             dataType: 'json',
             data: { studentName: studentName},
             success: function(data){
-                console.log("get grades success");
-                $('#grade-table-javascript').bootstrapTable('load', data);
+                console.log(data[0].a_level);
+                // as long as json data doesn't have multiple a_level's this will work
+                var studentLevelString = data[0].a_level;
+                
+                var studentLevel = parseInt(studentLevelString.slice(-1));
+                console.log(levelNum + 1);
 
+                $('#grade-table-javascript').bootstrapTable('load', data);
+                                console.table(data); 
+                highlightFailed();
             },
             error:function(textStatus, errorThrown){
-                // console.log("error");
                 console.log(errorThrown);
-        }
+            }
         });
     }
-
-    return;
-
 
     function activaTab(tab){
         $('.nav-tabs a[href="#' + tab + '"]').tab('show');
@@ -157,7 +159,6 @@ MODULE.GradePage.init = function(){
         var data = $('#grade-table-javascript').bootstrapTable('getData');
         for(var i in data){
             var table_row = data[i];
-            console.log(table_row.grade[0]);
             if(table_row.grade[0] == "F"){
                 // $("#grade-table-javascript tr[data-index='"+ i +"']").css("color", "red" );
                 $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
@@ -184,7 +185,6 @@ MODULE.GradePage.init = function(){
         for(var i in data){
             var table_row = data[i];
             // get the char at the end as a int of incr and select the next course
-            //eg MAT8051 this get the 1
             var ccn = parseInt(studentCourseCode.slice(-1));
             // get the rest except the end 
             //eg MAT8051 this get the MAT805
@@ -213,9 +213,6 @@ MODULE.GradePage.init = function(){
         }
     }
 
-    //pagination 
-                        // <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
-                        // <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
     function pageNav(){
         var navElememt= '<nav><ul class="pagination"><li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li><li><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li></ul></nav>';
          $("#course-table-javascript").append(navElememt);
@@ -238,10 +235,6 @@ MODULE.GradePage.init = function(){
         $("#course-table-javascript").append($button);
     }
    
-
-    
-
-
     function insertPlanTable(courseCode) {
         $.ajax({
             type: "GET",

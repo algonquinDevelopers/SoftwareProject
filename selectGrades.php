@@ -1,5 +1,5 @@
 <?php
-include("connectNewDb.php");
+include("connect.php");
 
 // 'Caterina Roberts'
 	// $error = $name;

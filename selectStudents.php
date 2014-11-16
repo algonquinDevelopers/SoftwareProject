@@ -1,7 +1,7 @@
 <?php
 
 // Connect to the MySQL database
-include("connectNewDb.php");
+include("connect.php");
 
 $limit = $_GET['limit'];
 // $sql = "";
@@ -19,10 +19,11 @@ if (!empty($_GET['name'])){
 
 }
 
-	$sql = "SELECT DISTINCT student.student_name, student.student_no from student 
-			INNER JOIN `student_enrollment` on student_enrollment.student_no = student.student_no 
-			WHERE student_enrollment.a_level = 'A2' or student_enrollment.a_level = 'A3'
-			LIMIT 300";
+// 
+$sql = "SELECT DISTINCT student.student_name, student.student_no from student 
+		INNER JOIN `student_enrollment` on student_enrollment.student_no = student.student_no 
+		WHERE student_enrollment.a_level = 'A2' or student_enrollment.a_level = 'A3'
+		LIMIT 300";
 
 $result = mysqli_query($db, $sql);
 

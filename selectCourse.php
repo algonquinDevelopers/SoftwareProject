@@ -1,7 +1,7 @@
 <?php
 
 // Connect to the MySQL database
-include("connectNewDb.php");
+include("connect.php");
 
 $level = $_GET['courseLevel'];
 

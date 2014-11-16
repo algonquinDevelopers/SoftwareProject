@@ -4,8 +4,6 @@ VALUES ('MAT8050', '01', 'Geometry and Trigonometry');
 INSERT INTO `course`(`course_no`, `course_level`, `course_name`) 
 VALUES ('SAF8408', '01', 'Health and Safety');
 
-
-
 INSERT INTO `course`(`course_no`, `course_level`, `course_name`) 
 VALUES ('SUR8411', '01', 'Construction Surveying I');
 
