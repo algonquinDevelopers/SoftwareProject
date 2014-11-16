@@ -38,10 +38,10 @@ MODULE.GradePage.init = function(){
     loadCourse(courseLevel);
 
 
-    // $('.plink').click(function () { 
-    //     // console.log($(this).html());
-    //     loadCourse($(this).html());
-    // });
+    $('.plink').click(function () { 
+        // console.log($(this).html());
+        // loadCourse($(this).html());
+    });
 
 	//drop down menu
     $('.dropdown-menu a').click(function(){
@@ -115,9 +115,9 @@ MODULE.GradePage.init = function(){
                 // as long as json data doesn't have multiple a_level's this will work
                 var studentLevelString = data[0].a_level;
                 
-                var studentLevel = parseInt(studentLevelString.slice(-1));
-                console.log(levelNum + 1);
-
+                studentLevel = parseInt(studentLevelString.slice(-1));
+                console.log(studentLevel + 1);
+                loadCourse(studentLevel);
                 $('#grade-table-javascript').bootstrapTable('load', data);
                                 console.table(data); 
                 highlightFailed();
