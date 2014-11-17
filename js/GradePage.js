@@ -155,7 +155,8 @@ MODULE.GradePage.init = function(){
             checkAndSelect(selectLevel, index.student_name); 
 			
             //getGrades(selectLevel, index.studentName);//fat table
-			getGrades(selectLevel, index.student_name);
+			//getGrades(selectLevel, index.student_name);
+			getGrades(currentLevel, index.student_name);
     }
 
     function activaTab(tab){
