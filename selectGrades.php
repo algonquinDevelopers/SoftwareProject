@@ -18,6 +18,8 @@ include("connect.php");
 	    array_push($rows, $r);
 	}
 
+	
+
 	header('Content-type: application/json');
 	echo json_encode($rows); 
 ?>
