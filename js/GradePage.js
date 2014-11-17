@@ -30,8 +30,8 @@ MODULE.GradePage.init = function(){
     });
 
 	//variables needed to link drop down menu and student table
-	var currentProgram;
-	var currentLevel;
+	var currentProgram = null;
+	var currentLevel = null;
 	
 	//program drop down menu
 	$('#programDropDown a').click(function(){
@@ -50,6 +50,7 @@ MODULE.GradePage.init = function(){
             success: function(data){
                 console.log("success");
                 $('#student-table-javascript').bootstrapTable('load', data);
+				changeCourseTable();
             },
             error:function(textStatus, errorThrown, error){
                 console.log(error);
@@ -78,6 +79,7 @@ MODULE.GradePage.init = function(){
             success: function(data){
                 console.log("success");
                 $('#student-table-javascript').bootstrapTable('load', data);
+				changeCourseTable();
 
             },
             error:function(textStatus, errorThrown, error){
@@ -106,26 +108,33 @@ MODULE.GradePage.init = function(){
         }
     });
 
+	//called when program or level is selected
+	function changeCourseTable(){
 	
-    $.ajax({
-        type: "GET",
-        url: 'selectCourse.php',
-        dataType: 'json',
-		data: { name: currentProgram, level: currentLevel },
-        success: function(data){
-            // console.log("student get success");
-            $('#course-table-javascript').bootstrapTable('load', data);
+		$.ajax({
+			type: "GET",
+			url: 'selectCourse.php',
+			dataType: 'json',
+			data: { name: currentProgram, level: currentLevel },
+			success: function(data){
+				console.log("courses updated");
+				$('#course-table-javascript').bootstrapTable('load', data);
 
-        },
-        error:function(textStatus, errorThrown, error){
-            console.log("error");
-            console.log(errorThrown);     
-			console.log(errorThrown.message);
-			console.log(error);
-        }
-    });
-
-
+			},
+			error:function(textStatus, errorThrown, error){
+				console.log(currentLevel);
+				console.log(typeof currentLevel);
+				console.log(currentProgram);
+				console.log("error");
+				console.log(errorThrown);     
+				console.log(errorThrown.message);
+				console.log(error);
+			}
+		});
+	
+	}//changeCourseTable()
+	
+	
     MODULE.createCourseTable();
     MODULE.createStudentTable();
     MODULE.createGradeTable();
