@@ -94,10 +94,15 @@
 					<li id="title"><a href="#">Software Project</a></li>
 					<li class="active1"><a href="#">Home</a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedProgram">Programs<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" id="programDropDown" visibleTag="#selectedProgram">
 							<?php include("dropDown.php"); ?>
 						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedLevel">Levels<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" id="levelDropDown" visibleTag="#selectedLevel">
+							<?php include("dropDownALevel.php");?>
 					</li>
 				</ul>
 			</div>    
