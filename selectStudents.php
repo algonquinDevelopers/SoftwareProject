@@ -23,10 +23,24 @@ if( (!empty($_GET['name']) && $_GET['name'] != null) && (!empty($_GET['level']) 
 	$programName = $_GET['name'];
 	//echo($programName);
 	$sql = "select distinct s.student_name, s.student_no 
-			from student s, program p 
+			from student s, program p
 			where s.program_no = p.program_no 
 			and p.program_name = '$programName' 
 			LIMIT $limit";
+	
+	/**
+	//this sql will take distinct students name and numbers only for most recent level
+	$sql = "select distinct s.student_name, s.student_no 
+			from student s, program p, student_enrollment e
+			where s.program_no = p.program_no 
+			and s.program_no = e.program_no
+			and p.program_name = '$programName' 
+			and e.a_level = (select max(e.a_level) 
+								from student_enrollment e, program p 
+								where e.program_no = p.program_no
+								and p.program_name = '$programName')
+			LIMIT $limit";
+	**/
 	
 	//for fat table
 	//$sql = "select distinct studentName, studentNumber from studentstats where pgmName = '$programName' LIMIT $limit";
