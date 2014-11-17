@@ -5,7 +5,7 @@ include("connect.php");
 
 $level = $_GET['courseLevel'];
 
-if (!empty($_GET['course_Level'])){
+if (empty($_GET['course_Level'])){
 	$level = 6;
 }
 
