@@ -70,7 +70,22 @@
     $(document).ready(function(){
         
         function makeTables(){
-            
+            $.ajax({
+            type: "GET",
+            url: 'selectPlan.php',
+            dataType: 'json',
+            // get request for student name
+            data: { studentName: name, level: level},
+            success: function(data){
+                grades = data;
+                for(var i in grades){
+                    var row = grades[i];
+                    if(row.a_level == "A1" && checkForFailed(fail_cases, row)) {
+                        courseTableSelect(row);
+                    }
+                }
+            }
+        });
         }          
 
  
