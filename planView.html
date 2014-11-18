@@ -25,11 +25,6 @@
 				<ul class="nav navbar-nav pull-left">
 					<li class="navbar-brand-sm"><a href="#">Software Project</a></li>
 					<li class="active"><a href="index.php">Home</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
-							<?php include("dropDown.php"); ?>
-						</ul>
                     <li><a href="planView.html">View All Plans</a></li>
 					</li>
 
@@ -79,17 +74,18 @@
             // get request for student name
             success: function(data){
                 var prev_name;
-               data.forEach(function(element){
-                // console.log(element.student_name);
-                if(prev_name !==  element.student_name){
-                    console.log(prev_name);
-                    var dividerHtml = '<br>';
-                    // $('#plans').append(dividerHtml);
-                    $('#plans').append('<h3 style="padding-top: 20px; border-top: 1px solid #ccc;">' + element.student_name + '</h3>');
+                data.forEach(function(element){
+                    if(prev_name !==  element.student_name){
+                        console.log(prev_name);
 
-                }
-                $('#plans').append('<p>' + element.course_no + ' ' + element.course_name + '</p>');
-                prev_name = element.student_name;
+                        $('#plans').append('<h3 style="padding-top: 20px; border-top: 1px solid #ccc;">' + element.student_name +'</h3>');
+                        $('#plans').append('<h4>Program: Construction Engineering Technician</h4>');
+                        $('#plans').append('<h4>Student Number: ' + element.student_no + '</h4>');
+
+
+                    }
+                    $('#plans').append('<p>' + element.course_no + ' ' + element.course_name + '</p>');
+                    prev_name = element.student_name;
                }) 
             }
         });
