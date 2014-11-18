@@ -48,7 +48,9 @@
     <!-- <h1>Students</h1> -->
     <div class="row">
         <div class="col-md-6">
-            <div id="plans"></div>    
+            <div id="plans">
+            <h2> Plans for next semester</h2>
+            </div>    
         </div>
     </div>
 
