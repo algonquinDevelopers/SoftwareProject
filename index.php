@@ -24,6 +24,7 @@
 						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
 							<?php include("dropDown.php"); ?>
 						</ul>
+                    <li><a href="planView.html">View All Plans</a></li>
 					</li>
 
 

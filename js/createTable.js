@@ -4,10 +4,6 @@ var MODULE = MODULE || {};
 // http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html
 MODULE.createCourseTable = function(){
 	$('#course-table-javascript').bootstrapTable({
-        // height: 600,
-        // pageSize: 7,
-        // striped : true,
-
         clickToSelect: true,
         columns: [
         {
