@@ -11,6 +11,12 @@
 
 <body>
 
+    <style type="text/css">
+    #plans{
+       padding-left: 20px; 
+    }
+    </style>
+
 <div class="nav">
     <div class="container">
     <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
@@ -38,18 +44,11 @@
 </div>
 
 <div class="content">
-    <div class="container-fluid">
+    <div class="container">
     <!-- <h1>Students</h1> -->
     <div class="row">
-        <div class="col-md-8">
-            <div class="panel panel-default">
-                <div  class="panel-heading">
-                   Plans 
-                </div>
-                <div id="students">
-                    <table id="student-table-javascript" data-card-view="false"></table>
-                </div>
-            </div>
+        <div class="col-md-6">
+            <div id="plans"></div>    
         </div>
     </div>
 
@@ -69,21 +68,27 @@
 
     $(document).ready(function(){
         
+        makeTables();      
         function makeTables(){
             $.ajax({
             type: "GET",
             url: 'selectPlan.php',
             dataType: 'json',
             // get request for student name
-            data: { studentName: name, level: level},
             success: function(data){
-                grades = data;
-                for(var i in grades){
-                    var row = grades[i];
-                    if(row.a_level == "A1" && checkForFailed(fail_cases, row)) {
-                        courseTableSelect(row);
-                    }
+                var prev_name;
+               data.forEach(function(element){
+                // console.log(element.student_name);
+                if(prev_name !==  element.student_name){
+                    console.log(prev_name);
+                    var dividerHtml = '<br>';
+                    // $('#plans').append(dividerHtml);
+                    $('#plans').append('<h3 style="padding-top: 20px; border-top: 1px solid #ccc;">' + element.student_name + '</h3>');
+
                 }
+                $('#plans').append('<p>' + element.course_no + ' ' + element.course_name + '</p>');
+                prev_name = element.student_name;
+               }) 
             }
         });
         }          
