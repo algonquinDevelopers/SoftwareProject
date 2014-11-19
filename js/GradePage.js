@@ -73,7 +73,7 @@ MODULE.GradePage.init = function(){
             $('#student-table-javascript').bootstrapTable('load', data);
         },
         error:function(textStatus, errorThrown){
-            console.log(errorThrown);
+            console.log("loading student", errorThrown);
         }
     });
 
