@@ -13,11 +13,17 @@ $limit = $_GET['limit'];
 if (!empty($_GET['name'])){
 	$programName = $_GET['name'];
 	//echo $programName;
-	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where pgmName = '$programName' LIMIT $limit";
+	$sql = "SELECT DISTINCT student_name, student_no from student  LIMIT $limit";
 	//echo $sql;
 } else {
-	$sql = "SELECT DISTINCT studentName, studentNumber from studentStats where aLevel = 'A1' LIMIT $limit";
+
 }
+
+// 
+$sql = "SELECT DISTINCT student.student_name, student.student_no from student 
+		INNER JOIN `student_enrollment` on student_enrollment.student_no = student.student_no 
+		WHERE student_enrollment.a_level = 'A2' or student_enrollment.a_level = 'A3'
+		LIMIT 300";
 
 $result = mysqli_query($db, $sql);
 

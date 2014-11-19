@@ -19,12 +19,12 @@
 				<ul class="nav navbar-nav pull-left">
 					<li class="navbar-brand-sm"><a href="#">Software Project</a></li>
 					<li class="active"><a href="index.php">Home</a></li>
-                    <li><a href="email-page.html">Email</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
 							<?php include("dropDown.php"); ?>
 						</ul>
+                    <li><a href="planView.html">View All Plans</a></li>
 					</li>
 
 
@@ -68,10 +68,11 @@
             <div class="panel panel-default">
                 <div  class="panel-heading">
                     Students
-                    <button type="submit" class="btn btn-sm pull-right"><span class="glyphicon glyphicon glyphicon-list-alt icon-list-alt "></span></button>
+                    <!-- <button type="submit" class="btn btn-sm pull-right" id="st-format"><span class="glyphicon glyphicon glyphicon-list-alt icon-list-alt "></span></button> -->
+                    <input type="text" name="searchInput" id="searchInput" placeholder="search students" onkeyup="searchStudent();" />
                 </div>
                 <div id="students">
-                    <table id="student-table-javascript"></table>
+                    <table id="student-table-javascript" data-card-view="false"></table>
                 </div>
             </div>
         </div>
@@ -99,14 +100,22 @@
                   <div class="tab-pane active" id="course">
 
                     <table id="course-table-javascript">
-                    </table>
 
+                    </table>
+                <nav>
+                    <ul class="pagination">
+                        <li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li>
+                        <li><a href="#" class="plink">1</a></li>
+                        <li><a href="#" class="plink">2</a></li>
+                        <li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li>
+                      </ul>
+                    </nav> 
                   </div>
                   <div class="tab-pane" id="history">
                         <table id="history-table"></table>
                   </div>
                 </div>
-
+      
           </div>
 
         </div>
@@ -139,12 +148,34 @@
         });
 
 
-
+        // $("#st-format").click(function(){
+        //     console.log('click');
+            
     });
     //http://jsfiddle.net/taditdash/9Fh4c/
     function openfileDialog() {
         $("#fileLoader").click();
     }
+
+    // function searchStudent() {
+    //     var selectLimit = 300;
+    //     var searchInput = document.getElementById("searchInput").value;
+
+    //     $.ajax({
+    //         type: "GET",
+    //         url: 'searchStudents.php',
+    //         dataType: 'json',
+    //         data: {search: searchInput, limit: selectLimit},
+    //         success: function(data){
+    //             $('#student-table-javascript').bootstrapTable('load', data);
+
+    //         },
+    //         error:function(textStatus, errorThrown){
+    //             // console.log("error");
+    //             console.log(errorThrown);
+    //         }
+    //     });
+    // }
 
 </script>
 

@@ -1,12 +1,24 @@
-SoftwareProject
+Project todo
 ===============
 
-Fork this repo. 
 
-Develop branch will be the main branch to merge all the changes to. Master will be version locked.
+- add check next to student 
 
-More information at:
+- course inserts for the other program
+- course update based on program
 
-https://github.com/algonquinDevelopers/SoftwareProject/wiki/Project-How-to
+- plan table UI
+- plan table DB
 
-\iujnmijmijm
+- DB \r\n
+- DB multiple a_levels per student
+
+- saving plan to pdf or HTML
+
+
+- javascript error handeling 
+- php error handeling 
+
+- prepare statements
+
+- code consistency (variable name, sql statements etc) 
