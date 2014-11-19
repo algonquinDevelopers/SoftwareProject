@@ -6,80 +6,136 @@ MODULE.GradePage = {};
 
 // code for grading page
 MODULE.GradePage.init = function(){
-	"use strict";
+	 "use strict";
     
     // get request data to limit the students returned
-    var selectLimt = 100;
+    var selectLimit = 300;
 
+    //used for make the student plan
+    var studentNum;
+    var studentLevel;
+    // var JSONdata;
+    var courseLevel= 3;
     // get request data to select the level; 
-    var selectLevel = 6;
+    var selectLevel = 1;
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
         $('#students').slimScroll({
             position: 'left',
-            height: '550px',
+            height: '' + (window.innerHeight - 150),
             railVisible: true,
             allowPageScroll: false,
             alwaysVisible: true
         });
     });
 
+    MODULE.createCourseTable();
+    MODULE.createStudentTable();
+    MODULE.createGradeTable();
+    MODULE.createPlanHistoryTable();
+    makeButton();
+    loadCourse(courseLevel);
+
+
+    $('.plink').click(function () { 
+        // console.log($(this).html());
+        // loadCourse($(this).html());
+    });
+
+	//drop down menu
+    $('.dropdown-menu a').click(function(){
+        var visible = $(this).parents('ul').attr('visibleTag');
+        $(visible).html($(this).attr('value'));
+        
+        var programName = $(this).html();
+        $.ajax({
+            type: "GET",
+            url: 'selectStudents.php',
+            dataType: 'json',
+            data: { name: programName, limit: selectLimit},
+            success: function(data){
+                console.log("success");
+                $('#student-table-javascript').bootstrapTable('load', data);
+
+            },
+            error:function(textStatus, errorThrown){
+                // console.log("error");
+                console.log(errorThrown);
+        }
+        });
+    });
     //get the students names
     $.ajax({
         type: "GET",
         url: 'selectStudents.php',
-        dataType: 'json',
-        data: { limit: selectLimt},
+        data: { limit: selectLimit},
         success: function(data){
-            console.log("success");
-
-            makeStudentList(data);
+            $('#student-table-javascript').bootstrapTable('load', data);
         },
         error:function(textStatus, errorThrown){
-            console.log("error");
             console.log(errorThrown);
         }
     });
 
-    // makes a list element per student based on json data
-    // assign it to the list-group-item bootstrap class 
-    function makeStudentList(data){
-        // the previous hover and on click functions don't work for some reason.
-        // assigning them as attributes does 
-
-        //https://api.jquery.com/jquery.each/
-        $.each(data, function(key, val){
-            var $student =
-            $("<li>",
-            {
-                id: "name",
-                class: "list-group-item",
-                html: val.studentName,
-                click: function(){
-                    var name = $(this).text();
-                    console.log(name);
-                    getGrades(selectLevel, name);
-                },
-                // http://api.jquery.com/hover/#hover1
-                mouseenter: function() {
-                    $(this).css({"background-color": "grey"});
-                    $(this).css({"color":"lightgreen"});
-                },
-                mouseleave: function(){
-                    $(this).css({"background-color": "white"});
-                    $(this).css({"color":"black"});
-                }
-            },"</li>");
-            
-            $("#studentList").append($student);
+    function loadCourse(courseLevel){
+        $.ajax({
+            type: "GET",
+            url: 'selectCourse.php',
+            dataType: 'json',
+            data: {courseLevel: courseLevel},
+            success: function(data){
+                $('#course-table-javascript').bootstrapTable('load', data);
+            },
+            error:function(textStatus, errorThrown){
+                console.log("error");
+                console.log(errorThrown);           
+            }
         });
     }
-    
-    // get info about the grades as json, 
-    // this return courseNum , courseName, grade , aLevel for the student
-    function getGrades(level, name){
-        // var level = level;
+
+
+    $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
+
+    function onStudentRowClick(row, $element){
+            studentNum = $element.studentNumber;
+            $('#course-table-javascript').bootstrapTable('uncheckAll');
+            checkAndSelect(selectLevel, $element.studentName);
+            getGrades($element.student_name);
+    }
+
+    function getGrades(studentName){
+        $.ajax({
+            type: "GET",
+            url: 'selectGrades.php',
+            dataType: 'json',
+            data: { studentName: studentName},
+            success: function(data){
+                console.log(data[0].a_level);
+                // as long as json data doesn't have multiple a_level's this will work
+                var studentLevelString = data[0].a_level;
+                
+                studentLevel = parseInt(studentLevelString.slice(-1));
+                console.log(studentLevel + 1);
+                loadCourse(studentLevel);
+                $('#grade-table-javascript').bootstrapTable('load', data);
+                                console.table(data); 
+                highlightFailed();
+            },
+            error:function(textStatus, errorThrown){
+                console.log(errorThrown);
+            }
+        });
+    }
+
+    function activaTab(tab){
+        $('.nav-tabs a[href="#' + tab + '"]').tab('show');
+    };
+
+    function checkAndSelect(level, name){
+        var fail_cases = ["F"];
+        var grades;
+
         $.ajax({
             type: "GET",
             url: 'selectGrades.php',
@@ -87,32 +143,123 @@ MODULE.GradePage.init = function(){
             // get request for student name
             data: { studentName: name, level: level},
             success: function(data){
-                console.log( "Data Loaded: " , data );
-                if(data.length === 0){
-                    console.log(" no data");
-                    // work around until we have a way to select a level
-                    getGrades(level-1, name);
-                    return;
+                grades = data;
+                for(var i in grades){
+                    var row = grades[i];
+                    if(row.aLevel == "A1" && checkForFailed(fail_cases, row)) {
+                        courseTableSelect(row);
+                    }
                 }
-                // pass in json info about grades
-                showStudentGrades(data);
             }
         });
+    };
+
+    // change color for failed courses
+    function highlightFailed(){
+        var data = $('#grade-table-javascript').bootstrapTable('getData');
+        for(var i in data){
+            var table_row = data[i];
+            if(table_row.grade[0] == "F"){
+                // $("#grade-table-javascript tr[data-index='"+ i +"']").css("color", "red" );
+                $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
+            }
+        }
+    }
+
+    function checkForFailed(fail_cases, row){
+        for(var i in fail_cases){
+            var gradeLetter = row.grade;
+            if(gradeLetter == fail_cases[i]){
+               return false;
+            }
+            return true;
+        }
+    }
+
+    function courseTableSelect(row){
+        //gets table data its a array of objects every object reps a row
+        var data = $('#course-table-javascript').bootstrapTable('getData');    
+        // var studentCourse = row.courseName;
+        var studentCourseCode = row.courseNumber; 
+        // console.log("course code", studentCourseNumber);
+        for(var i in data){
+            var table_row = data[i];
+            // get the char at the end as a int of incr and select the next course
+            var ccn = parseInt(studentCourseCode.slice(-1));
+            // get the rest except the end 
+            //eg MAT8051 this get the MAT805
+            var ccl = studentCourseCode.slice(0, -1);
+
+            if(isNaN(ccn)) continue;
+            // console.log(studentCourseCode);
+            // CAD8407 Architectural CAD I goes from 07 to 09 at level 2
+            if(studentCourseCode == "CAD8407"){
+                ccn+=2;
+                // console.log('plus 2');
+            }else{
+                ccn++;
+            } 
+
+            var target_course = ccl + ccn;
+            if(table_row.courseCode === target_course){
+                // last character of n
+                // console.log(drow.courseCode, target_course, ccl, ccn);
+                var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']");
+
+                // $tr.prop( "checked", true ); 
+                //triiger the click event so the libary will know its selected prop doesn't work
+                $tr.trigger("click");
+            }
+        }
+    }
+
+    function pageNav(){
+        var navElememt= '<nav><ul class="pagination"><li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li><li><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li></ul></nav>';
+         $("#course-table-javascript").append(navElememt);
+    }
+
+    function makeButton(){
+        var $button =
+        $("<span>",
+        {
+            id: "name",
+            class: "btn btn-success btn-md center pull-right",
+            html: '<i class="glyphicon"></i>Assign',
+            click: function(){
+                // console.log("clicked assign");
+                assignStudentPlan();
+                activaTab('history');
+            },
+            
+        },"</span>");
+
+        $("#course-table-javascript").append($button);
     }
    
-    // pass in json info about grades
-    function showStudentGrades(gradeJson){
-        var html = '';
-        $.each(gradeJson, function(key, val){
-            console.log(key);
+    function insertPlanTable(courseCode) {
+        $.ajax({
+            type: "GET",
+            url: 'planInsert.php',
+            dataType: 'json',
+            // get request for student name
+            data: { courseCode: courseCode, studentNum: studentNum},
+            success: function(data){
+                // console.log( "Data Loaded: " , data );
+                $('#history-table').bootstrapTable('load', data);
 
-            html += '<tr>'+
-                    '<td>'+ val.courseNumber + '</td>'+
-                    '<td>'+ val.courseName +'</td>'+
-                    '<td>'+ val.grade + '</td>'+
-                    '<td>'+ val.aLevel +'</td>'+
-                    '</tr>';
-            $("#gradeList").html(html);
+            }
         });
+
     }
+
+    function assignStudentPlan() {
+        var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
+        for(var i in selectedData) {
+            var courseCode = selectedData[i].courseCode;
+            // console.log(studentNum);
+            insertPlanTable(courseCode);
+        }
+    }
+
+
 };
