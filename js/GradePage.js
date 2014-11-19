@@ -152,7 +152,7 @@ MODULE.GradePage.init = function(){
             // $(this).css("background-color" , "white);
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             //checkAndSelect(selectLevel, index.studentName); //fat table
-            checkAndSelect(selectLevel, index.student_name); 
+            // checkAndSelect(selectLevel, index.student_name); 
 			
             //getGrades(selectLevel, index.studentName);//fat table
 			//getGrades(selectLevel, index.student_name);

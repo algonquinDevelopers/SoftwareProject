@@ -1,9 +1,9 @@
 <?php
 $dbhost = 'localhost';
-$dbname = 'softwareproject';//new database
+$dbname = 'sprojectnew';//new database
 //$dbname = 'sproject';//for fat table
 $username = 'root';
-$pass = 'root';
+$pass = '';
 
 $db = mysqli_connect($dbhost,$username,$pass)
 or die('<div align="center">Warning: Could not connect to the database</div>');
