@@ -24,7 +24,7 @@ if (!empty($_GET['name'])){
 $sql = "SELECT DISTINCT student.student_name, student.student_no from student 
 		INNER JOIN `student_enrollment` on student_enrollment.student_no = student.student_no 
 		WHERE student_enrollment.grade is not null
-		AND student_enrollment.a_level = 'A4'
+		AND student_enrollment.a_level = 'A6'
 		LIMIT 300";
 
 

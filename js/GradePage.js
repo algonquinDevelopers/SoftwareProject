@@ -14,8 +14,8 @@ MODULE.GradePage.init = function(){
     //used for make the student plan
     var studentNum;
     var studentLevel  = 0;
-    // var JSONdata;
     var courseLevel= 3;
+
     // get request data to select the level; 
     var selectLevel = 1;
 
