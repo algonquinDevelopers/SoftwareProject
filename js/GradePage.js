@@ -226,6 +226,7 @@ MODULE.GradePage.init = function(){
             class: "btn btn-success btn-md center pull-right",
             html: '<i class="glyphicon"></i>Assign',
             click: function(){
+                // console.log("clicked assign");
                 assignStudentPlan();
                 activaTab('history');
             },
