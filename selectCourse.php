@@ -5,11 +5,7 @@ include("connect.php");
 
 $level = $_GET['courseLevel'];
 
-if (!empty($_GET['course_Level'])){
-	$level = 6;
-}
-
-$sql = "SELECT course_name, course_no, course_level FROM course WHERE course_level = $level AND course_level IS NOT NULL";
+$sql = "SELECT course_name, course_no, course_level FROM course WHERE course_level = 6";
 
 $result = mysqli_query($db,$sql);
 
