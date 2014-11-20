@@ -122,15 +122,12 @@ MODULE.GradePage.init = function(){
             dataType: 'json',
             data: { studentName: studentName},
             success: function(data){
-                // console.log(data[0].a_level);
                 // as long as json data doesn't have multiple a_level's this will work
-                // var studentLevelString = data[0].a_level;
+                var studentLevelString = data[0].a_level;
                 
                 studentLevel = parseInt(studentLevelString.slice(-1));
-                // console.log(studentLevel + 1);
                 loadCourse(studentLevel);
                 $('#grade-table-javascript').bootstrapTable('load', data);
-                                // console.table(data); 
                 highlightFailed();
             },
             error:function(textStatus, errorThrown){
