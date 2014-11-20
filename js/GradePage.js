@@ -44,6 +44,10 @@ MODULE.GradePage.init = function(){
     makeButton();
     loadCourseTable(courseLevel);
 
+    function makeLevelDropDown(){
+        levelDropDown
+    }
+
 
 
     $('#programDropDown a').click(function(){
@@ -67,6 +71,8 @@ MODULE.GradePage.init = function(){
                 }
             });
     });
+
+
 
 
 	//level drop down menu
