@@ -51,21 +51,21 @@ MODULE.GradePage.init = function(){
         $(visible).html($(this).attr('value'));
         currentProgram = $(this).html();
         //to select students in the program
-        $.ajax({
-        type: "GET",
-        url: 'selectStudents.php',
-        dataType: 'json',
-        data: { name: currentProgram, level: currentLevel, limit: selectLimit },
-        success: function(data){
-            console.log("student load success");
-            $('#student-table-javascript').bootstrapTable('load', data);
-            changeCourseTable();
-            },
-        error:function(textStatus, errorThrown, error){
-            console.log("student load", error);
-            console.log(errorThrown);
-            }
-        });
+            $.ajax({
+            type: "GET",
+            url: 'selectStudents.php',
+            dataType: 'json',
+            data: { name: currentProgram, level: currentLevel, limit: selectLimit },
+            success: function(data){
+                $('#student-table-javascript').bootstrapTable('load', data);
+                console.log("student load success");
+                changeCourseTable();
+                },
+            error:function(textStatus, errorThrown, error){
+                console.log("student load", error);
+                console.log(errorThrown);
+                }
+            });
     });
 
 
@@ -89,9 +89,6 @@ MODULE.GradePage.init = function(){
             error:function(textStatus, errorThrown, error){
                 console.log(error);
                 console.log(errorThrown);
-				//console.log(errorThrown.message);
-				//console.log(currentLevel);
-				//console.log(typeof currentLevel);
 			}
 		});
 	});
