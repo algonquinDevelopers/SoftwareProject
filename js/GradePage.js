@@ -101,9 +101,10 @@ MODULE.GradePage.init = function(){
                 // console.log(data[0]);
                 setStudentLevel(data);
                 // checkAndSelect(studentLevel, studentName);
-                loadCourseTable(courseLevel);
+                // loadCourseTable(courseLevel);
                 $('#grade-table-javascript').bootstrapTable('load', data);
                 highlightFailed();
+                checkAllCourses();
             },
             error:function(textStatus, errorThrown){
                 console.log(errorThrown);
@@ -133,7 +134,6 @@ MODULE.GradePage.init = function(){
             data: {courseLevel: courseLevel},
             success: function(data){
                 $('#course-table-javascript').bootstrapTable('load', data);
-                checkAllCourses();
             },
             error:function(textStatus, errorThrown){
                 console.log("course table load error");
@@ -182,7 +182,7 @@ MODULE.GradePage.init = function(){
     }
 
     function checkAllCourses(){
-        if(courseLevel === 6 || courseLevel === undefined) return;
+        // if(courseLevel === 6 || courseLevel === undefined) return;
         var data = $('#grade-table-javascript').bootstrapTable('getData');
         for(var i in data){
             var table_row = data[i];
