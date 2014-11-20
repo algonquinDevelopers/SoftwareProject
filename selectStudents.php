@@ -4,29 +4,29 @@
 include("connect.php");
 
 $limit = $_GET['limit'];
-// $sql = "";
 
-
-
-//$sql = mysqli_query($db, "SELECT DISTINCT studentName, studentNumber from studentStats where aLevel = 'A1' LIMIT $limit");
-
-if (!empty($_GET['name'])){
+if( (!empty($_GET['name']) && $_GET['name'] != null) && (!empty($_GET['level']) && $_GET['level'] != null) ){
 	$programName = $_GET['name'];
-	//echo $programName;
-	$sql = "SELECT DISTINCT student_name, student_no from student  LIMIT $limit";
-	//echo $sql;
-} else {
+	$programLevel = $_GET['level'];
+	$sql = "select distinct s.student_name, s.student_no, e.a_level from student s
+			inner join student_enrollment e on e.student_no = s.student_no inner join
+			program p on p.program_no = e.program_no where p.program_name = '$programName'
+			and e.a_level = '$programLevel'";
+}elseif ( (!empty($_GET['name']) && $_GET['name'] != null) && (empty($_GET['level']) || $_GET['level'] == null) ){	
+	$programName = $_GET['name'];
+	//echo($programName);
+	$sql = "select distinct s.student_name, s.student_no 
+			from student s, program p
+			where s.program_no = p.program_no 
+			and p.program_name = '$programName' 
+			LIMIT $limit";
 
+}else {
+	$sql = "SELECT DISTINCT student_name, student_no from student LIMIT $limit";
+	
+	//for fat table
+	//$sql = "select distinct studentName, studentNumber from studentstats LIMIT $limit";
 }
-
-// 
-		// WHERE student_enrollment.a_level = 'A2' or student_enrollment.a_level = 'A3'
-$sql = "SELECT DISTINCT student.student_name, student.student_no from student 
-		INNER JOIN `student_enrollment` on student_enrollment.student_no = student.student_no 
-		WHERE student_enrollment.grade is not null
-		AND student_enrollment.a_level = 'A6'
-		LIMIT 5000";
-
 
 $result = mysqli_query($db, $sql);
 
@@ -39,7 +39,6 @@ while($r = mysqli_fetch_array($result)) {
 // close connection
 header('Content-type: application/json');
 echo json_encode($rows); 
-
 ?>
 
 

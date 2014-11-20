@@ -18,14 +18,18 @@
 					<li class="navbar-brand-sm"><a href="#">Software Project</a></li>
 					<li class="active"><a href="index.php">Home</a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="visibleValue">Programs<span class="caret"></span></a>
-						<ul class="dropdown-menu" role="menu" visibleTag="#visibleValue">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedProgram">Programs<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" id="programDropDown" visibleTag="#selectedProgram">
 							<?php include("dropDown.php"); ?>
 						</ul>
-                    <li><a href="planView.html">View All Plans</a></li>
 					</li>
-
-
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedLevel">Levels<span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu" id="levelDropDown" visibleTag="#selectedLevel">
+							 <?php include("dropDownALevel.php");?>
+                        </ul>
+					</li>
+                    <li><a href="planView.html">View All Plans</a></li>
 				</ul>
                 <ul class="nav navbar-nav pull-right">
                     <li><a href="" data-toggle="modal" data-target=".bs-upload-modal-sm">Upload</a></li>

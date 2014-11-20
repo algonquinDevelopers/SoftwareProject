@@ -7,6 +7,7 @@ $name = $_GET['name'];
 
 $result = mysqli_query($db, "SELECT grade, courseNumber from studentStats WHERE studentName = 'qfnwl0, pqtuq' AND grade NOT IN ('F', 'W')");
 
+
 $rows = array();
 while($r = mysqli_fetch_array($result)) {
 	// if(check_grades($r)){

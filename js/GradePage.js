@@ -18,8 +18,13 @@ MODULE.GradePage.init = function(){
     var studentLevel  = 0;
     var courseLevel= 3;
 
+
+    var currentProgram = null;
+    var currentLevel = 1;
+
     // get request data to select the level; 
     var selectLevel = 1;
+
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
@@ -39,27 +44,56 @@ MODULE.GradePage.init = function(){
     makeButton();
     loadCourseTable(courseLevel);
 
-	//drop down menu
-    $('.dropdown-menu a').click(function(){
+
+
+    $('#programDropDown a').click(function(){
         var visible = $(this).parents('ul').attr('visibleTag');
         $(visible).html($(this).attr('value'));
- 
-        var programName = $(this).html();
-        $.ajax({
+        currentProgram = $(this).html();
+        //to select students in the program
+            $.ajax({
             type: "GET",
             url: 'selectStudents.php',
             dataType: 'json',
-            data: { name: programName, limit: selectLimit},
+            data: { name: currentProgram, level: currentLevel, limit: selectLimit },
+            success: function(data){
+                $('#student-table-javascript').bootstrapTable('load', data);
+                console.log("student load success");
+                changeCourseTable();
+                },
+            error:function(textStatus, errorThrown, error){
+                console.log("student load", error);
+                console.log(errorThrown);
+                }
+            });
+    });
+
+
+	//level drop down menu
+	$('#levelDropDown a').click(function(){
+		var visible = $(this).parents('ul').attr('visibleTag');
+		$(visible).html($(this).attr('value'));
+		
+		currentLevel = $(this).html();
+		$.ajax({
+            type: "GET",
+            url: 'selectStudents.php',
+            dataType: 'json',
+            data: { name: currentProgram, level: currentLevel, limit: selectLimit },
             success: function(data){
                 console.log("success");
                 $('#student-table-javascript').bootstrapTable('load', data);
-            },
-            error:function(textStatus, errorThrown){
-                console.log("drop down", errorThrown);
-        }
-        });
-    });
+				changeCourseTable();
 
+            },
+            error:function(textStatus, errorThrown, error){
+                console.log(error);
+                console.log(errorThrown);
+			}
+		});
+	});
+	
+    //get the students names
     $.ajax({
         type: "GET",
         url: 'selectStudents.php',
@@ -71,6 +105,7 @@ MODULE.GradePage.init = function(){
             console.log("loading student", errorThrown);
         }
     });
+
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
 
@@ -93,7 +128,7 @@ MODULE.GradePage.init = function(){
             type: "GET",
             url: 'selectGrades.php',
             dataType: 'json',
-            data: { studentName: studentName},
+            data: { studentName: studentName, level: currentLevel },
             success: function(data){
                 setStudentLevel(data);
                 $('#grade-table-javascript').bootstrapTable('load', data);
@@ -255,5 +290,31 @@ MODULE.GradePage.init = function(){
             insertPlanTable(courseCode);
         }
     }
+
+    //called when program or level is selected
+    function changeCourseTable(){
+    
+        $.ajax({
+            type: "GET",
+            url: 'selectCourse.php',
+            dataType: 'json',
+            data: { name: currentProgram, level: currentLevel },
+            success: function(data){
+                console.log("courses updated");
+                $('#course-table-javascript').bootstrapTable('load', data);
+
+            },
+            error:function(textStatus, errorThrown, error){
+                console.log(currentLevel);
+                console.log(typeof currentLevel);
+                console.log(currentProgram);
+                console.log("error");
+                console.log(errorThrown);     
+                console.log(errorThrown.message);
+                console.log(error);
+            }
+        });
+    
+    }//changeCourseTable()
 
 };
