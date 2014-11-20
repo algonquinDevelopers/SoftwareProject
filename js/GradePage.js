@@ -44,11 +44,6 @@ MODULE.GradePage.init = function(){
     loadCourseTable(courseLevel);
 
 
-    $('.plink').click(function () { 
-        // console.log($(this).html());
-        // loadCourse($(this).html());
-    });
-
 	//drop down menu
     $('.dropdown-menu a').click(function(){
         var visible = $(this).parents('ul').attr('visibleTag');
@@ -65,8 +60,7 @@ MODULE.GradePage.init = function(){
                 $('#student-table-javascript').bootstrapTable('load', data);
             },
             error:function(textStatus, errorThrown){
-                // console.log("error");
-                console.log(errorThrown);
+                console.log("drop down", errorThrown);
         }
         });
     });
@@ -126,7 +120,7 @@ MODULE.GradePage.init = function(){
                 checkAllCourses();
             },
             error:function(textStatus, errorThrown){
-                console.log(errorThrown);
+                console.log("Load grade table", errorThrown);
             }
         });
     }
