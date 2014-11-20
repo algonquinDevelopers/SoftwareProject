@@ -5,52 +5,58 @@ include("connect.php");
 
 $limit = $_GET['limit'];
 
-if( (!empty($_GET['name']) && $_GET['name'] != null) && (!empty($_GET['level']) && $_GET['level'] != null) ){
+
+
+if( $_GET['name'] != null && $_GET['level'] != null ){
 	$programName = $_GET['name'];
 	$programLevel = $_GET['level'];
-	$sql = "select distinct s.student_name, s.student_no 
-			from student s, program p, student_enrollment e 
-			where s.program_no = p.program_no
-			and s.program_no = e.program_no
-			and p.program_name = '$programName'
-			and e.a_level = (select max(e.a_level) 
-								from student_enrollment e, program p 
-								where e.program_no = p.program_no
-								and p.program_name = '$programName')
-			and e.a_level = '$programLevel'
-			limit $limit";
-}elseif ( (!empty($_GET['name']) &&$_GET['name'] != null) && (empty($_GET['level']) || $_GET['level'] == null) ){	
+	
+	$max_sql = mysqli_query($db,"select max(e.a_level) as max
+								 from student_enrollment e, program p
+								 where e.program_no = p.program_no
+								 and p.program_name = '$programName'");
+	$max= mysqli_fetch_assoc($max_sql);
+	$maxLevel = $max['max'];
+	$maxStrings = str_split($maxLevel);
+	$maxInt = intval($maxStrings[1]);
+	
+	$level = str_split($programLevel);
+	$levelInt = intval($level[1]);
+	
+	
+	if ( $levelInt > $maxInt ){
+		
+		$sql = "select distinct s.student_name, s.student_no
+				from student s
+				inner join student_enrollment e on e.student_no = s.student_no
+				inner join program p on p.program_no = e.program_no
+				where p.program_name = '$programName'
+				and e.a_level = '$maxLevel'
+				limit $limit";
+		
+	}else{
+	
+		$sql = "select distinct s.student_name, s.student_no
+				from student s
+				inner join student_enrollment e on e.student_no = s.student_no
+				inner join program p on p.program_no = e.program_no
+				where p.program_name = '$programName'
+				and e.a_level = '$programLevel'
+				limit $limit";
+	
+	}
+	
+}elseif ( $_GET['name'] != null && $_GET['level'] == null ){	
 	$programName = $_GET['name'];
-	//echo($programName);
 	$sql = "select distinct s.student_name, s.student_no 
-			from student s, program p
-			where s.program_no = p.program_no 
-			and p.program_name = '$programName' 
+			from student s
+			inner join program p on p.program_no = s.program_no
+			where p.program_name = '$programName' 
 			LIMIT $limit";
 	
-	/**
-	//this sql will take distinct students name and numbers only for most recent level
-	$sql = "select distinct s.student_name, s.student_no 
-			from student s, program p, student_enrollment e
-			where s.program_no = p.program_no 
-			and s.program_no = e.program_no
-			and p.program_name = '$programName' 
-			and e.a_level = (select max(e.a_level) 
-								from student_enrollment e, program p 
-								where e.program_no = p.program_no
-								and p.program_name = '$programName')
-			LIMIT $limit";
-	**/
-	
-	//for fat table
-	//$sql = "select distinct studentName, studentNumber from studentstats where pgmName = '$programName' LIMIT $limit";
-	
-	//echo($sql);
 }else {
 	$sql = "SELECT DISTINCT student_name, student_no from student LIMIT $limit";
 	
-	//for fat table
-	//$sql = "select distinct studentName, studentNumber from studentstats LIMIT $limit";
 }
 
 $result = mysqli_query($db, $sql);

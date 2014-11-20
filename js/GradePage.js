@@ -84,7 +84,7 @@ MODULE.GradePage.init = function(){
             },
             error:function(textStatus, errorThrown, error){
                 console.log(error);
-                console.log(errorThrown);
+                //console.log(errorThrown);
 				//console.log(errorThrown.message);
 				//console.log(currentLevel);
 				//console.log(typeof currentLevel);
@@ -105,6 +105,8 @@ MODULE.GradePage.init = function(){
         error:function(textStatus, errorThrown, error){
             console.log(error);
             console.log(errorThrown);
+			console.log(currentProgram);
+			console.log(currentLevel);
         }
     });
 
