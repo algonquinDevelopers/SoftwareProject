@@ -41,7 +41,7 @@ MODULE.GradePage.init = function(){
 		currentProgram = $(this).html();
 		
 		
-		//to select students in the program
+		//program drop down menu
 		$.ajax({
             type: "GET",
             url: 'selectStudents.php',
