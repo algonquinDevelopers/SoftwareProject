@@ -3,7 +3,7 @@
 // Connect to the MySQL database
 include("connect.php");
 
-$table = "studentstats"; // rename if required
+$table = "student"; // rename if required
 
 $limit = $_GET['limit'];
 
@@ -18,15 +18,13 @@ if (!empty($_GET['name'])){
 		$search = stripslashes($search);
 		$search = htmlspecialchars($search);
 		$search = mysqli_real_escape_string($db, $search);
-
 	if(is_string($search)) { // search by student name
 		
-		$sql = "SELECT DISTINCT studentName, studentNumber from " . $table . " WHERE studentName LIKE '%" . $search . "%' ORDER BY studentName ASC";
+		$sql = "SELECT DISTINCT student_name, student_no from " . $table . " WHERE student_name LIKE '%" . $search . "%' ORDER BY student_name ASC";
 	}
 	if(is_numeric($search)) { // search by student number
-		$sql = "SELECT DISTINCT studentName, studentNumber from " . $table . " WHERE studentNumber LIKE '%" . $search . "%' ORDER BY studentName ASC";
+		$sql = "SELECT DISTINCT student_name, student_no from " . $table . " WHERE student_no LIKE '%" . $search . "%' ORDER BY student_name ASC";
 	}
-	
 } else {
 	$sql = "SELECT DISTINCT studentName, studentNumber from " . $table . " where aLevel = 'A1' LIMIT $limit";
 }

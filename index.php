@@ -51,8 +51,11 @@
                 </div>
                 <div class="modal-body">
                     select your .csv data file to update to the database
-                    <input type="file" id="fileLoader" name="files" title="Load File" style="display:none;"/>
-                     <button type="load" class="btn btn-sm" onclick="openfileDialog();">Upload</button>
+                    <form action="insertdata.php" method="post" enctype="multipart/form-data">
+                        <input type="file" name="uploadFile">
+                        <input type="submit" name="submit" value="Upload File">
+                    </form>
+                     <!-- <button type="load" class="btn btn-sm" onclick="openfileDialog();">Upload</button> -->
                 </div>
             </div>
           </div>
@@ -130,17 +133,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
 
-<script type="text/javascript">
-
-    window.operateEvents = {
-        'click .student': function (e, value, row, index) {
-            alert('You click like icon, row: ' + JSON.stringify(row));
-            console.log(value, row, index);
-        }
-    };
-
-</script>
-
 <script src="js/createTable.js"></script>
 <script src="js/GradePage.js"></script>
 
@@ -168,25 +160,25 @@
         $("#fileLoader").click();
     }
 
-    // function searchStudent() {
-    //     var selectLimit = 300;
-    //     var searchInput = document.getElementById("searchInput").value;
+    function searchStudent() {
+        var selectLimit = 300;
+        var searchInput = document.getElementById("searchInput").value;
 
-    //     $.ajax({
-    //         type: "GET",
-    //         url: 'searchStudents.php',
-    //         dataType: 'json',
-    //         data: {search: searchInput, limit: selectLimit},
-    //         success: function(data){
-    //             $('#student-table-javascript').bootstrapTable('load', data);
+        $.ajax({
+            type: "GET",
+            url: 'searchStudents.php',
+            dataType: 'json',
+            data: {search: searchInput, limit: selectLimit},
+            success: function(data){
+                $('#student-table-javascript').bootstrapTable('load', data);
 
-    //         },
-    //         error:function(textStatus, errorThrown){
-    //             // console.log("error");
-    //             console.log(errorThrown);
-    //         }
-    //     });
-    // }
+            },
+            error:function(textStatus, errorThrown){
+                // console.log("error");
+                console.log(textStatus, errorThrown);
+            }
+        });
+    }
 
 </script>
 

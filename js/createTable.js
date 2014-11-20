@@ -55,7 +55,6 @@ MODULE.createStudentTable = function(){
             align: 'center',
             valign: 'middle',
             sortable: true,
-            events: operateEvents
         },
         {
             field: 'student_no',
@@ -63,7 +62,6 @@ MODULE.createStudentTable = function(){
             align: 'center',
             valign: 'middle',
             sortable: true,
-            events: operateEvents
         }
         ]
     });
