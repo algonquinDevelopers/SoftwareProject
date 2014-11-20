@@ -12,7 +12,7 @@ MODULE.GradePage.init = function(){
     var selectLimit = 1000;
 
     //used for make the student plan
-    var GstudentName;
+    var studentName;
     var studentRowIndex;
     var studentNum;
     var studentLevel  = 0;
@@ -20,10 +20,6 @@ MODULE.GradePage.init = function(){
 
     // get request data to select the level; 
     var selectLevel = 1;
-
-    var rowIndex;
-
-
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
@@ -43,12 +39,6 @@ MODULE.GradePage.init = function(){
     makeButton();
     loadCourseTable(courseLevel);
 
-
-    $('.plink').click(function () { 
-        // console.log($(this).html());
-        // loadCourse($(this).html());
-    });
-
 	//drop down menu
     $('.dropdown-menu a').click(function(){
         var visible = $(this).parents('ul').attr('visibleTag');
@@ -65,7 +55,6 @@ MODULE.GradePage.init = function(){
                 $('#student-table-javascript').bootstrapTable('load', data);
             },
             error:function(textStatus, errorThrown){
-                // console.log("error");
                 console.log(errorThrown);
         }
         });
@@ -87,19 +76,20 @@ MODULE.GradePage.init = function(){
 
     var $studentTable = $('#student-table-javascript').bootstrapTable();
 
-    void highlightStudent(){
-        $('#student-table-javascript tr').attr("bgColor", "#fff");
-        element[0].bgColor = '#AED4E9';
-    }
-
+    
 
     function onStudentRowClick(row, $element, element){
+        highlightStudent(element);
         studentNum = $element.studentNumber;
         studentRowIndex = element.data().index;
-        GstudentName = $element.student_name;
-
+        studentName = $element.student_name;
         $('#course-table-javascript').bootstrapTable('uncheckAll');
         loadGradesTable($element.student_name);
+    }
+
+    function highlightStudent(element){
+        $('#student-table-javascript tr').attr("bgColor", "#fff");
+        element[0].bgColor = '#AED4E9';
     }
 
     // this is
@@ -110,20 +100,10 @@ MODULE.GradePage.init = function(){
             dataType: 'json',
             data: { studentName: studentName},
             success: function(data){
-                // as long as json data doesn't have multiple a_level's this will work
-
-                var studentLevelString = data[0].a_level;
-                
-                studentLevel = parseInt(studentLevelString.slice(-1));
-                // loadCourse(studentLevel);
-
                 setStudentLevel(data);
-                // checkAndSelect(studentLevel, studentName);
-                // loadCourseTable(courseLevel);
-
                 $('#grade-table-javascript').bootstrapTable('load', data);
-                highlightFailed();
-                checkAllCourses();
+                highlightFailedCourses();
+                checkAllCourses(data);
             },
             error:function(textStatus, errorThrown){
                 console.log(errorThrown);
@@ -161,53 +141,26 @@ MODULE.GradePage.init = function(){
         });
     }
 
-    function activaTab(tab){
+    function openTab(tab){
         $('.nav-tabs a[href="#' + tab + '"]').tab('show');
     };
 
-    function checkAndSelect(level, name){
-        // console.log(level, name);
-        var fail_cases = ["F"];
-        var grades;
-
-        $.ajax({
-            type: "GET",
-            url: 'selectGrades.php',
-            dataType: 'json',
-            // get request for student name
-            data: { studentName: name, level: level},
-            success: function(data){
-                grades = data;
-                for(var i in grades){
-                    var row = grades[i];
-                    if(checkForFailed(fail_cases, row)) {
-                        courseTableSelect(row);
-                    }
-                }
-            }
-        });
-    };
-
     // change color for failed courses
-    function highlightFailed(){
+    function highlightFailedCourses(){
         var data = $('#grade-table-javascript').bootstrapTable('getData');
         for(var i in data){
             var table_row = data[i];
             if(table_row.grade[0] === "F"){
-                // $("#grade-table-javascript tr[data-index='"+ i +"']").css("color", "red" );
                 $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
             }
         }
     }
 
-    function checkAllCourses(){
-        // if(courseLevel === 6 || courseLevel === undefined) return;
-        var data = $('#grade-table-javascript').bootstrapTable('getData');
+    function checkAllCourses(data){
         for(var i in data){
             var table_row = data[i];
             if(table_row == undefined) return;
             if(table_row.grade[0] === "F"){
-                // $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
                 return;
             }
         }
@@ -264,15 +217,14 @@ MODULE.GradePage.init = function(){
     }
 
 
-    function checkRow(studentName){       
+    function checkRow(){       
     $studentTable.bootstrapTable('updateRow', {
         index: studentRowIndex,
             row: {
-               student_name: GstudentName + '<span style="float: right; color: green;" class="glyphicon glyphicon-ok"> </span>',
+               student_name: studentName + '<span style="float: right; color: green;" class="glyphicon glyphicon-ok"> </span>',
             }
     });
     }
-
 
     function makeButton(){
         var $button =
@@ -284,8 +236,8 @@ MODULE.GradePage.init = function(){
             click: function(){
                 // console.log("clicked assign");
                 assignStudentPlan();
-                activaTab('history');
                 checkRow();
+                openTab('plan');
             },
             
         },"</span>");
