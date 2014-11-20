@@ -83,21 +83,23 @@ MODULE.GradePage.init = function(){
         }
     });
 
-
-
-
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
-
 
     var $studentTable = $('#student-table-javascript').bootstrapTable();
 
-    function onStudentRowClick(row, $element, element){
-            studentNum = $element.studentNumber;
-            studentRowIndex = element.data().index;
-            GstudentName = $element.student_name;
+    void highlightStudent(){
+        $('#student-table-javascript tr').attr("bgColor", "#fff");
+        element[0].bgColor = '#AED4E9';
+    }
 
-            $('#course-table-javascript').bootstrapTable('uncheckAll');
-            loadGradesTable($element.student_name);
+
+    function onStudentRowClick(row, $element, element){
+        studentNum = $element.studentNumber;
+        studentRowIndex = element.data().index;
+        GstudentName = $element.student_name;
+
+        $('#course-table-javascript').bootstrapTable('uncheckAll');
+        loadGradesTable($element.student_name);
     }
 
     // this is

@@ -39,15 +39,7 @@ MODULE.createCourseTable = function(){
 
 MODULE.createStudentTable = function(){
     $('#student-table-javascript').bootstrapTable({
-        // search: true,
         smartDisplay: true,
-        // cardView: true,
-        // showToggle: true,
-        onClickRow: function(row, element){
-            $('#student-table-javascript tr').attr("bgColor", "#fff");
-            console.log();
-            element[0].bgColor = '#AED4E9';
-        },
         columns: [
         {
             field: 'student_name',
