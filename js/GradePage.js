@@ -12,12 +12,18 @@ MODULE.GradePage.init = function(){
     var selectLimit = 300;
 
     //used for make the student plan
+    var GstudentName;
+    var studentRowIndex;
     var studentNum;
     var studentLevel;
     // var JSONdata;
     var courseLevel= 3;
     // get request data to select the level; 
     var selectLevel = 1;
+
+    var rowIndex;
+
+
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
@@ -97,8 +103,13 @@ MODULE.GradePage.init = function(){
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
 
-    function onStudentRowClick(row, $element){
+    var $studentTable = $('#student-table-javascript').bootstrapTable();
+
+    function onStudentRowClick(row, $element, element){
             studentNum = $element.studentNumber;
+            studentRowIndex = element.data().index;
+            GstudentName = $element.student_name;
+
             $('#course-table-javascript').bootstrapTable('uncheckAll');
             checkAndSelect(selectLevel, $element.studentName);
             getGrades($element.student_name);
@@ -111,15 +122,15 @@ MODULE.GradePage.init = function(){
             dataType: 'json',
             data: { studentName: studentName},
             success: function(data){
-                console.log(data[0].a_level);
+                // console.log(data[0].a_level);
                 // as long as json data doesn't have multiple a_level's this will work
-                var studentLevelString = data[0].a_level;
+                // var studentLevelString = data[0].a_level;
                 
                 studentLevel = parseInt(studentLevelString.slice(-1));
-                console.log(studentLevel + 1);
+                // console.log(studentLevel + 1);
                 loadCourse(studentLevel);
                 $('#grade-table-javascript').bootstrapTable('load', data);
-                                console.table(data); 
+                                // console.table(data); 
                 highlightFailed();
             },
             error:function(textStatus, errorThrown){
@@ -213,9 +224,13 @@ MODULE.GradePage.init = function(){
         }
     }
 
-    function pageNav(){
-        var navElememt= '<nav><ul class="pagination"><li><a href="#"><span aria-hidden="true">&laquo;</span><span class="sr-only">Previous</span></a></li><li><a href="#">1</a></li><li><a href="#">2</a></li><li><a href="#"><span aria-hidden="true">&raquo;</span><span class="sr-only">Next</span></a></li></ul></nav>';
-         $("#course-table-javascript").append(navElememt);
+    function checkRow(studentName){       
+    $studentTable.bootstrapTable('updateRow', {
+        index: studentRowIndex,
+            row: {
+               student_name: GstudentName + '<span style="float: right; color: green;" class="glyphicon glyphicon-ok"> </span>',
+            }
+    });
     }
 
     function makeButton(){
@@ -229,6 +244,7 @@ MODULE.GradePage.init = function(){
                 // console.log("clicked assign");
                 assignStudentPlan();
                 activaTab('history');
+                checkRow();
             },
             
         },"</span>");
@@ -260,6 +276,12 @@ MODULE.GradePage.init = function(){
             insertPlanTable(courseCode);
         }
     }
+
+
+
+
+
+
 
 
 };

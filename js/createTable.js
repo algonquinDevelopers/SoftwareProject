@@ -45,6 +45,7 @@ MODULE.createStudentTable = function(){
         // showToggle: true,
         onClickRow: function(row, element){
             $('#student-table-javascript tr').attr("bgColor", "#fff");
+            console.log();
             element[0].bgColor = '#AED4E9';
         },
         columns: [
@@ -54,6 +55,7 @@ MODULE.createStudentTable = function(){
             align: 'center',
             valign: 'middle',
             sortable: true,
+            events: operateEvents
         },
         {
             field: 'student_no',
@@ -61,38 +63,7 @@ MODULE.createStudentTable = function(){
             align: 'center',
             valign: 'middle',
             sortable: true,
-        }
-        ]
-    });
-}
-
-MODULE.createEmailTable = function(){
-    $('#student-table-javascript').bootstrapTable({
-        // search: true,
-        onClickRow: function(row, element){
-            // element[0].bgColor = '#AED4E9';
-        },
-        columns: [
-        {
-            field: 'studentName',
-            title: 'Name',
-            align: 'center',
-            valign: 'middle',
-            sortable: true,
-        },
-        {
-            field: 'studentName',
-            title: 'Email',
-            align: 'center',
-            valign: 'middle',
-            sortable: true,
-        },
-        {
-            field: 'studentNumber',
-            title: 'Number',
-            align: 'center',
-            valign: 'middle',
-            sortable: true,
+            events: operateEvents
         }
         ]
     });

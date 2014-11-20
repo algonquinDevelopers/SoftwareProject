@@ -130,6 +130,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js"></script>
 <script src="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.js"></script>
 
+<script type="text/javascript">
+
+    window.operateEvents = {
+        'click .student': function (e, value, row, index) {
+            alert('You click like icon, row: ' + JSON.stringify(row));
+            console.log(value, row, index);
+        }
+    };
+
+</script>
+
 <script src="js/createTable.js"></script>
 <script src="js/GradePage.js"></script>
 
