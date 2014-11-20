@@ -8,61 +8,25 @@ $limit = $_GET['limit'];
 if( (!empty($_GET['name']) && $_GET['name'] != null) && (!empty($_GET['level']) && $_GET['level'] != null) ){
 	$programName = $_GET['name'];
 	$programLevel = $_GET['level'];
-	$sql = "select distinct s.student_name, s.student_no 
-			from student s, program p, student_enrollment e 
-			where s.program_no = p.program_no
-			and s.program_no = e.program_no
-			and p.program_name = '$programName'
-			and e.a_level = (select max(e.a_level) 
-								from student_enrollment e, program p 
-								where e.program_no = p.program_no
-								and p.program_name = '$programName')
-			and e.a_level = '$programLevel'
-			limit $limit";
-}elseif ( (!empty($_GET['name']) &&$_GET['name'] != null) && (empty($_GET['level']) || $_GET['level'] == null) ){	
+	$sql = "select distinct s.student_name, s.student_no, e.a_level from student s
+			inner join student_enrollment e on e.student_no = s.student_no inner join
+			program p on p.program_no = e.program_no where p.program_name = '$programName'
+			and e.a_level = '$programLevel'";
+}elseif ( (!empty($_GET['name']) && $_GET['name'] != null) && (empty($_GET['level']) || $_GET['level'] == null) ){	
 	$programName = $_GET['name'];
-
 	//echo($programName);
 	$sql = "select distinct s.student_name, s.student_no 
 			from student s, program p
 			where s.program_no = p.program_no 
 			and p.program_name = '$programName' 
 			LIMIT $limit";
-	
-	/**
-	//this sql will take distinct students name and numbers only for most recent level
-	$sql = "select distinct s.student_name, s.student_no 
-			from student s, program p, student_enrollment e
-			where s.program_no = p.program_no 
-			and s.program_no = e.program_no
-			and p.program_name = '$programName' 
-			and e.a_level = (select max(e.a_level) 
-								from student_enrollment e, program p 
-								where e.program_no = p.program_no
-								and p.program_name = '$programName')
-			LIMIT $limit";
-	**/
-	
-	//for fat table
-	//$sql = "select distinct studentName, studentNumber from studentstats where pgmName = '$programName' LIMIT $limit";
-	
-	//echo($sql);
+
 }else {
 	$sql = "SELECT DISTINCT student_name, student_no from student LIMIT $limit";
 	
 	//for fat table
 	//$sql = "select distinct studentName, studentNumber from studentstats LIMIT $limit";
-
 }
-
-// 
-		// WHERE student_enrollment.a_level = 'A2' or student_enrollment.a_level = 'A3'
-$sql = "SELECT DISTINCT student.student_name, student.student_no from student 
-		INNER JOIN `student_enrollment` on student_enrollment.student_no = student.student_no 
-		WHERE student_enrollment.grade is not null
-		AND student_enrollment.a_level = 'A6'
-		LIMIT 5000";
-
 
 $result = mysqli_query($db, $sql);
 
@@ -75,7 +39,6 @@ while($r = mysqli_fetch_array($result)) {
 // close connection
 header('Content-type: application/json');
 echo json_encode($rows); 
-
 ?>
 
 
