@@ -18,8 +18,6 @@ while($r = mysqli_fetch_array($result)) {
     array_push($rows, $r);
 }
 
-
-
 header('Content-type: application/json');
 echo json_encode($rows); 
 ?>
