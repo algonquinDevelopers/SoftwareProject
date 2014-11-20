@@ -23,7 +23,6 @@ MODULE.createCourseTable = function(){
             title: 'Name',
             align: 'center',
             valign: 'middle',
-            // sortable: true,
         },
         {
             field: 'course_level',
@@ -31,7 +30,6 @@ MODULE.createCourseTable = function(){
             align: 'center',
             valign: 'middle',
             sortable: true,
-            // sortable: true,
         }
         ]
     });		
@@ -62,10 +60,7 @@ MODULE.createStudentTable = function(){
 
 MODULE.createPlanHistoryTable = function(){
     $('#history-table').bootstrapTable({
-        // pageSize: 7,
         striped : true,
-        // pagination: true,
-        // clickToSelect: true,
         columns: [
         {
             field: 'course_no',
@@ -98,7 +93,6 @@ MODULE.createGradeTable = function(){
     $('#grade-table-javascript').bootstrapTable({
         pageSize: 7,
         striped : true,
-        // pagination: true,
         clickToSelect: true,
         columns: [
         {

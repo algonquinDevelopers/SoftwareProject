@@ -25,7 +25,7 @@ $sql = "SELECT DISTINCT student.student_name, student.student_no from student
 		INNER JOIN `student_enrollment` on student_enrollment.student_no = student.student_no 
 		WHERE student_enrollment.grade is not null
 		AND student_enrollment.a_level = 'A6'
-		LIMIT 300";
+		LIMIT 5000";
 
 
 $result = mysqli_query($db, $sql);

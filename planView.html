@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
-    <!-- <link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css"> -->
     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cosmo/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
 </head>
@@ -19,7 +18,6 @@
 
 <div class="nav">
     <div class="container">
-    <!-- http://getbootstrap.com/components/#navbar-component-alignment -->
 		<nav class="navbar navbar-inverse" role="navigation">
 			<div class="container-fluid">
 				<ul class="nav navbar-nav pull-left">
@@ -64,7 +62,6 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        
         makeTables();      
         function makeTables(){
             $.ajax({
@@ -81,8 +78,6 @@
                         $('#plans').append('<h3 style="padding-top: 20px; border-top: 1px solid #ccc;">' + element.student_name +'</h3>');
                         $('#plans').append('<h4>Program: Construction Engineering Technician</h4>');
                         $('#plans').append('<h4>Student Number: ' + element.student_no + '</h4>');
-
-
                     }
                     $('#plans').append('<p>' + element.course_no + ' ' + element.course_name + '</p>');
                     prev_name = element.student_name;
@@ -90,10 +85,7 @@
             }
         });
         }          
-
- 
     });
-
 </script>
 
 </body>
