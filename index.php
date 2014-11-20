@@ -93,7 +93,7 @@
                 <!-- maybe change id to c -->
                 <ul class="nav nav-tabs" role="tablist" id="course-tabs">
                   <li class="active"><a href="#course" role="tab" data-toggle="tab">Course</a></li>
-                  <li><a href="#history" role="tab" data-toggle="tab">History</a></li>
+                  <li><a href="#plan" role="tab" data-toggle="tab">Plan</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -111,7 +111,7 @@
                       </ul>
                     </nav> 
                   </div>
-                  <div class="tab-pane" id="history">
+                  <div class="tab-pane" id="plan">
                         <table id="history-table"></table>
                   </div>
                 </div>
