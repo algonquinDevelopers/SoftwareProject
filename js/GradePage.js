@@ -59,8 +59,7 @@ MODULE.GradePage.init = function(){
         }
         });
     });
-    
-    //get the students names
+
     $.ajax({
         type: "GET",
         url: 'selectStudents.php',
@@ -74,10 +73,6 @@ MODULE.GradePage.init = function(){
     });
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
-
-    var $studentTable = $('#student-table-javascript').bootstrapTable();
-
-    
 
     function onStudentRowClick(row, $element, element){
         highlightStudent(element);
@@ -93,7 +88,6 @@ MODULE.GradePage.init = function(){
         element[0].bgColor = '#AED4E9';
     }
 
-    // this is
     function loadGradesTable(studentName){
         $.ajax({
             type: "GET",
@@ -178,6 +172,8 @@ MODULE.GradePage.init = function(){
         }
     }
 
+    //THIS DOESN"T WORK. 
+    //IT WILL ONLY WORK IF THE COURSE CODE INCREMNET BY 1 PER LEVEL
     function courseTableSelect(row){
         //gets table data its a array of objects every object reps a row
         var data = $('#course-table-javascript').bootstrapTable('getData');    
@@ -197,34 +193,28 @@ MODULE.GradePage.init = function(){
             // CAD8407 Architectural CAD I goes from 07 to 09 at level 2
             if(studentCourseCode === "CAD8407" || studentCourseCode === "ENG4001"){
                 ccn+=2;
-                // console.log('plus 2');
             }else{
                 ccn++;
             } 
 
             var target_course = ccl + ccn;
-            // console.log(table_row);
             if(table_row.course_no === target_course){
-            // console.log("target course" ,target_course);
                 // last character of n
-                // console.log(drow.courseCode, target_course, ccl, ccn);
                 var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']");
-
-                // $tr.prop( "checked", true ); 
-                //triiger the click event so the libary will know its selected prop doesn't work
+                // click row table row to check it
                 $tr.trigger("click");
             }
         }
     }
 
-
     function checkRow(){       
-    $studentTable.bootstrapTable('updateRow', {
-        index: studentRowIndex,
-            row: {
-               student_name: studentName + '<span style="float: right; color: green;" class="glyphicon glyphicon-ok"> </span>',
-            }
-    });
+        var $studentTable = $('#student-table-javascript').bootstrapTable();
+        $studentTable.bootstrapTable('updateRow', {
+            index: studentRowIndex,
+                row: {
+                   student_name: studentName + '<span style="float: right; color: green;" class="glyphicon glyphicon-ok"> </span>',
+                }
+        });
     }
 
     function makeButton(){
@@ -235,7 +225,6 @@ MODULE.GradePage.init = function(){
             class: "btn btn-success btn-md center pull-right",
             html: '<i class="glyphicon"></i>Assign',
             click: function(){
-                // console.log("clicked assign");
                 assignStudentPlan();
                 checkRow();
                 openTab('plan');
@@ -251,12 +240,9 @@ MODULE.GradePage.init = function(){
             type: "GET",
             url: 'planInsert.php',
             dataType: 'json',
-            // get request for student name
             data: { courseCode: courseCode, studentNum: studentNum},
             success: function(data){
-                // console.log( "Data Loaded: " , data );
                 $('#history-table').bootstrapTable('load', data);
-
             }
         });
 
@@ -266,7 +252,6 @@ MODULE.GradePage.init = function(){
         var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
         for(var i in selectedData) {
             var courseCode = selectedData[i].courseCode;
-            // console.log(studentNum);
             insertPlanTable(courseCode);
         }
     }
