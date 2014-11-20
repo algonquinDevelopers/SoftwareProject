@@ -14,7 +14,6 @@ MODULE.createCourseTable = function(){
             checkbox: true
         },
         {
-            //field: 'courseCode',
             field: 'course_no',
 			title: 'Code',
             align: 'center',
@@ -23,20 +22,16 @@ MODULE.createCourseTable = function(){
             clickToSelect: false,
         },
         {
-            //field: 'courseName',
             field: 'course_name',
 			title: 'Name',
             align: 'center',
             valign: 'middle',
-            // sortable: true,
         },
         {
-            //field: 'courseLevel',
             field: 'course_level',
 			title: 'Level',
             align: 'center',
             valign: 'middle',
-            // sortable: true,
         }
         ]
     });		
@@ -50,16 +45,14 @@ MODULE.createStudentTable = function(){
         },
         columns: [
         {
-            //field: 'studentName',//for fat table
-			field: 'student_name',
+        	field: 'student_name',
             title: 'Name',
             align: 'center',
             valign: 'middle',
             sortable: true,
         },
         {
-            //field: 'studentNumber',//for fat table
-			field: 'student_no',
+        	field: 'student_no',
             title: 'Number',
             align: 'center',
             valign: 'middle',
@@ -111,7 +104,6 @@ MODULE.createGradeTable = function(){
         clickToSelect: true,
         columns: [
         {
-            //field: 'courseNumber',
             field: 'course_no',
 			title: 'code ',
             align: 'center',
@@ -119,7 +111,6 @@ MODULE.createGradeTable = function(){
             sortable: true,
         },
         {
-            //field: 'courseName',
             field: 'course_name',
 			title: 'Name <span class="glyphicon glyphicon-chevron-down"></span>',
             align: 'center',
@@ -136,7 +127,6 @@ MODULE.createGradeTable = function(){
         },
         {
             width: 1,
-            //field: 'aLevel',
             field: 'a_level',
 			title: 'Level <span class="glyphicon glyphicon-chevron-down"></span>',
             align: 'center',
