@@ -266,6 +266,7 @@ MODULE.GradePage.init = function(){
             class: "btn btn-success btn-md center pull-right",
             html: '<i class="glyphicon"></i>Assign',
             click: function(){
+                //todo: don't assign if no student is selected
                 assignStudentPlan();
                 checkRow();
                 openTab('plan');
