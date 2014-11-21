@@ -4,6 +4,9 @@ var MODULE = MODULE || {};
 // http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html
 MODULE.createCourseTable = function(){
 	$('#course-table-javascript').bootstrapTable({
+        // height: 600,
+        // pageSize: 7,
+        // striped : true,
         clickToSelect: true,
         columns: [
         {
@@ -11,25 +14,26 @@ MODULE.createCourseTable = function(){
             checkbox: true
         },
         {
-            field: 'course_no',
+            field: 'courseCode',
             title: 'Code',
             align: 'center',
             valign: 'middle',
-            clickToSelect: false,
             sortable: true,
+            clickToSelect: false,
         },
         {
-            field: 'course_name',
+            field: 'courseName',
             title: 'Name',
             align: 'center',
             valign: 'middle',
+            // sortable: true,
         },
         {
-            field: 'course_level',
+            field: 'courseLevel',
             title: 'Level',
             align: 'center',
             valign: 'middle',
-            sortable: true,
+            // sortable: true,
         }
         ]
     });		
@@ -37,17 +41,56 @@ MODULE.createCourseTable = function(){
 
 MODULE.createStudentTable = function(){
     $('#student-table-javascript').bootstrapTable({
+        // search: true,
         smartDisplay: true,
+        // cardView: true,
+        // showToggle: true,
+        onClickRow: function(row, element){
+            $('#student-table-javascript tr').attr("bgColor", "#fff");
+            element[0].bgColor = '#AED4E9';
+        },
         columns: [
         {
-            field: 'student_name',
+            field: 'studentName',
             title: 'Name',
             align: 'center',
             valign: 'middle',
             sortable: true,
         },
         {
-            field: 'student_no',
+            field: 'studentNumber',
+            title: 'Number',
+            align: 'center',
+            valign: 'middle',
+            sortable: true,
+        }
+        ]
+    });
+}
+
+MODULE.createEmailTable = function(){
+    $('#student-table-javascript').bootstrapTable({
+        // search: true,
+        onClickRow: function(row, element){
+            // element[0].bgColor = '#AED4E9';
+        },
+        columns: [
+        {
+            field: 'studentName',
+            title: 'Name',
+            align: 'center',
+            valign: 'middle',
+            sortable: true,
+        },
+        {
+            field: 'studentName',
+            title: 'Email',
+            align: 'center',
+            valign: 'middle',
+            sortable: true,
+        },
+        {
+            field: 'studentNumber',
             title: 'Number',
             align: 'center',
             valign: 'middle',
@@ -58,29 +101,25 @@ MODULE.createStudentTable = function(){
 }
 
 
-MODULE.createPlanHistoryTable = function(){
-    $('#history-table').bootstrapTable({
-        striped : true,
-        columns: [
+
+MODULE.createPlanTable = function(){
+    $('#plan-table').bootstrapTable({
+
+    striped : true,
+
+    columns: [
         {
-            field: 'course_no',
-            title: 'Course Number',
+            field: 'student_no',
+            title: 'Student Number',
             align: 'center',
             valign: 'middle',
             sortable: true
         },
+
         {
             width: 1,
-            field: 'student_no',
-            title: 'Student Number',
-            align: 'center',
-            valign: 'top',
-            sortable: true
-        },
-        {
-            width: 1,
-            field: 'plan_version',
-            title: 'Plan Version',
+            field: 'course_no',
+            title: 'Course Number',
             align: 'center',
             valign: 'middle',
             sortable: true
@@ -89,21 +128,43 @@ MODULE.createPlanHistoryTable = function(){
     });
 }
 
+
+MODULE.createCurrentPlanTable = function(){
+    $('#current-plan-table').bootstrapTable({
+        // pageSize: 7,
+        striped : true,
+        // pagination: true,
+        // clickToSelect: true,
+        columns: [
+        {
+            width: 1,
+            field: 'course_no',
+            title: 'Course Number',
+            align: 'center',
+            valign: 'top',
+            sortable: true
+        },
+
+        ]
+    });
+}
+
 MODULE.createGradeTable = function(){
     $('#grade-table-javascript').bootstrapTable({
         pageSize: 7,
         striped : true,
+        // pagination: true,
         clickToSelect: true,
         columns: [
         {
-            field: 'course_no',
+            field: 'courseNumber',
             title: 'Code ',
             align: 'center',
             valign: 'middle',
             sortable: true,
         },
         {
-            field: 'course_name',
+            field: 'courseName',
             title: 'Name',
             align: 'center',
             valign: 'middle',
@@ -119,7 +180,7 @@ MODULE.createGradeTable = function(){
         },
         {
             width: 1,
-            field: 'a_level',
+            field: 'aLevel',
             title: 'Level',
             align: 'center',
             valign: 'middle',
