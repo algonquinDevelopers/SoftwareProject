@@ -26,7 +26,7 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedLevel">Levels<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" id="levelDropDown" visibleTag="#selectedLevel">
-							 <!-- <?php include("dropDownALevel.php");?> -->
+							 <?php include("dropDownALevel.php");?>
                         </ul>
 					</li>
                     <li><a href="planView.html">View All Plans</a></li>
