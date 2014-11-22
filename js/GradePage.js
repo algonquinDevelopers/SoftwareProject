@@ -47,7 +47,7 @@ MODULE.GradePage.init = function(){
     function makeLevelDropDown(){
         $.ajax({
             type: "GET",
-            url: 'dropDownALevel.php',
+            url: 'selectDropDownLevels.php',
             dataType: 'json',
             data: { programName: currentProgram},
             success: function(data){
@@ -75,7 +75,7 @@ MODULE.GradePage.init = function(){
         
         makeLevelDropDown();
 		//to select students in the program
-        $.ajax({
+            $.ajax({
             type: "GET",
             url: 'selectStudents.php',
             dataType: 'json',
@@ -89,7 +89,7 @@ MODULE.GradePage.init = function(){
                 console.log("student load", error);
                 console.log(errorThrown);
             }
-        });
+            });
     });
 
 
