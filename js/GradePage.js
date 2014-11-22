@@ -22,10 +22,6 @@ MODULE.GradePage.init = function(){
     var currentProgram = null;
     var currentLevel = null;
 
-    // get request data to select the level; 
-    var selectLevel = 1;
-
-
     //http://rocha.la/jQuery-slimScroll
     $(function(){
         $('#students').slimScroll({
@@ -45,6 +41,7 @@ MODULE.GradePage.init = function(){
     //loadCourseTable(courseLevel);
 
     function makeLevelDropDown(){
+        console.log("level drop down");
         $.ajax({
             type: "GET",
             url: 'selectDropDownLevels.php',
@@ -53,7 +50,7 @@ MODULE.GradePage.init = function(){
             success: function(data){
                 var html ='';
                 data.forEach(function(element){
-                    html += '<li><a role="menuitem" href="javascript:void(0)" value='+ element.a_level +'>'+ element.a_level +'</a></li>';
+                    html += '<li><a role="menuitem" value='+ element.a_level +'>'+ element.a_level +'</a></li>';
                 });
                 $('#levelDropDown').html(html);
             },
@@ -66,14 +63,14 @@ MODULE.GradePage.init = function(){
 
 
 
+
     $('#programDropDown a').click(function(){
         var visible = $(this).parents('ul').attr('visibleTag');
         $(visible).html($(this).attr('value'));
 		
         currentProgram = $(this).html();
-        console.log(currentProgram);
-        
         makeLevelDropDown();
+        resetTable('#grade-table-javascript');
 		//to select students in the program
             $.ajax({
             type: "GET",
@@ -93,16 +90,22 @@ MODULE.GradePage.init = function(){
     });
 
 
-
+    function resetTable(tableId){
+       //setting table data to an empty array will clear all rows 
+       $(tableId).bootstrapTable('load', []);
+    }
 
 	//level drop down menu
-	$('#levelDropDown a').on("click", function(){
+	$('#levelDropDown').on("click", "a", function(){
 		var visible = $(this).parents('ul').attr('visibleTag');
 		$(visible).html($(this).attr('value'));
 		
 		currentLevel = $(this).html();
 		courseLevel = parseInt(currentLevel.charAt(1));
-		
+        resetTable('#grade-table-javascript');
+	    if(courseLevel != 6){
+            courseLevel++;
+        }	
 		$.ajax({
             type: "GET",
             url: 'selectStudents.php',
@@ -240,7 +243,7 @@ MODULE.GradePage.init = function(){
     }
 
     //THIS DOESN"T WORK. 
-    //IT WILL ONLY WORK IF THE COURSE CODE INCREMNET BY 1 PER LEVEL
+    //IT WILL ONLY WORK IF THE COURSE CODE INCREMENT BY 1 PER LEVEL
     function courseTableSelect(row){
         //gets table data its a array of objects every object reps a row
         var data = $('#course-table-javascript').bootstrapTable('getData');    
