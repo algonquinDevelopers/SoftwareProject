@@ -45,7 +45,23 @@ MODULE.GradePage.init = function(){
     //loadCourseTable(courseLevel);
 
     function makeLevelDropDown(){
-        levelDropDown
+        $.ajax({
+            type: "GET",
+            url: 'selectDropDownLevels.php',
+            dataType: 'json',
+            data: { programName: currentProgram},
+            success: function(data){
+                var html ='';
+                data.forEach(function(element){
+                    html += '<li><a role="menuitem" href="javascript:void(0)" value='+ element.a_level +'>'+ element.a_level +'</a></li>';
+                });
+                $('#levelDropDown').html(html);
+            },
+            error:function(textStatus, errorThrown, error){
+                console.log("student level drop down load", error);
+                console.log(errorThrown);
+            }
+        });
     }
 
 
@@ -55,7 +71,9 @@ MODULE.GradePage.init = function(){
         $(visible).html($(this).attr('value'));
 		
         currentProgram = $(this).html();
+        console.log(currentProgram);
         
+        makeLevelDropDown();
 		//to select students in the program
             $.ajax({
             type: "GET",
@@ -66,11 +84,11 @@ MODULE.GradePage.init = function(){
                 $('#student-table-javascript').bootstrapTable('load', data);
                 console.log("student load success");
                 changeCourseTable();
-                },
+            },
             error:function(textStatus, errorThrown, error){
                 console.log("student load", error);
                 console.log(errorThrown);
-                }
+            }
             });
     });
 
