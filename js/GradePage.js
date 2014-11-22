@@ -42,6 +42,7 @@ MODULE.GradePage.init = function(){
 
     function makeLevelDropDown(){
         console.log("level drop down");
+   
         $.ajax({
             type: "GET",
             url: 'selectDropDownLevels.php',
@@ -59,6 +60,7 @@ MODULE.GradePage.init = function(){
                 console.log(errorThrown);
             }
         });
+        
     }
 
 
@@ -71,6 +73,9 @@ MODULE.GradePage.init = function(){
         currentProgram = $(this).html();
         makeLevelDropDown();
         resetTable('#grade-table-javascript');
+        if(currentLevel == null){
+           return; 
+        }
 		//to select students in the program
             $.ajax({
             type: "GET",
@@ -106,6 +111,9 @@ MODULE.GradePage.init = function(){
 	    if(courseLevel != 6){
             courseLevel++;
         }	
+        if(currentLevel !== null && currentProgram !== null){
+            $('#message').hide();
+        }
 		$.ajax({
             type: "GET",
             url: 'selectStudents.php',
@@ -126,17 +134,17 @@ MODULE.GradePage.init = function(){
 	});
 	
     //get the students names
-    $.ajax({
-        type: "GET",
-        url: 'selectStudents.php',
-        data: { limit: selectLimit},
-        success: function(data){
-            $('#student-table-javascript').bootstrapTable('load', data);
-        },
-        error:function(textStatus, errorThrown){
-            console.log("loading student", errorThrown);
-        }
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: 'selectStudents.php',
+    //     data: { limit: selectLimit},
+    //     success: function(data){
+    //         $('#student-table-javascript').bootstrapTable('load', data);
+    //     },
+    //     error:function(textStatus, errorThrown){
+    //         console.log("loading student", errorThrown);
+    //     }
+    // });
 
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);

@@ -77,6 +77,7 @@
                     <table id="grade-table-javascript"></table>
                 </div>
             </div>
+            <div id="message">Please select a program and level </div>
         <div>
         </div>
         </div>
