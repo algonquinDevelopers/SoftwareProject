@@ -75,21 +75,8 @@ MODULE.GradePage.init = function(){
         
         makeLevelDropDown();
 		//to select students in the program
-            $.ajax({
-            type: "GET",
-            url: 'selectStudents.php',
-            dataType: 'json',
-            data: { name: currentProgram, level: currentLevel, limit: selectLimit },
-            success: function(data){
-                $('#student-table-javascript').bootstrapTable('load', data);
-                console.log("student load success");
-                changeCourseTable();
-            },
-            error:function(textStatus, errorThrown, error){
-                console.log("student load", error);
-                console.log(errorThrown);
-            }
-            });
+        <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
     });
 
 

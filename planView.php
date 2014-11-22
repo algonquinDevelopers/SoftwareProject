@@ -2,7 +2,6 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.2.0/cosmo/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/custom.css">
 </head>
@@ -40,6 +39,9 @@
     <!-- <h1>Students</h1> -->
     <div class="row">
         <div class="col-md-6">
+
+        
+           </div> 
             <div id="plans">
             <h2> Plans for next semester</h2>
 
@@ -51,7 +53,7 @@
                     from student s, student_enrollment se, course c
                     where se.student_no = s.student_no
                     and se.course_no = c.course_no
-                    LIMIT 1000";
+                    LIMIT 10";
 
 
 
@@ -74,8 +76,19 @@
             ?>
 
 
+
             </div>    
         </div>
+
+        <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.js"></script> -->
+        <script>
+        $(document).ready(function(){
+            var doc = document;
+            $.post( "export.php", {html: doc});
+        });
+        </script>
+
     </div>
 
     </div>
