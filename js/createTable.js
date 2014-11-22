@@ -70,6 +70,13 @@ MODULE.createPlanHistoryTable = function(){
             sortable: true
         },
         {
+            field: 'course_name',
+            title: 'Course Name',
+            align: 'center',
+            valign: 'middle',
+            sortable: true
+        },
+        {
             width: 1,
             field: 'student_no',
             title: 'Student Number',
@@ -80,9 +87,9 @@ MODULE.createPlanHistoryTable = function(){
         {
             width: 1,
             field: 'plan_version',
-            title: 'Plan Version',
+            title: 'plan version',
             align: 'center',
-            valign: 'middle',
+            valign: 'top',
             sortable: true
         }
         ]

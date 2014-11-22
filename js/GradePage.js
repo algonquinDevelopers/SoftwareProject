@@ -132,30 +132,20 @@ MODULE.GradePage.init = function(){
 			}
 		});
 	});
-	
-    //get the students names
-    // $.ajax({
-    //     type: "GET",
-    //     url: 'selectStudents.php',
-    //     data: { limit: selectLimit},
-    //     success: function(data){
-    //         $('#student-table-javascript').bootstrapTable('load', data);
-    //     },
-    //     error:function(textStatus, errorThrown){
-    //         console.log("loading student", errorThrown);
-    //     }
-    // });
-
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
 
     function onStudentRowClick(row, $element, element){
         highlightStudent(element);
-        studentNum = $element.studentNumber;
+        studentNum = $element.student_no;
         studentRowIndex = element.data().index;
         studentName = $element.student_name;
+        // console.log(studentName);
+        // console.log(jQuery(row).text());
+        // console.log(element.html());
         $('#course-table-javascript').bootstrapTable('uncheckAll');
         loadGradesTable($element.student_name);
+        getStudentPlan();    
     }
 
     function highlightStudent(element){
@@ -307,6 +297,7 @@ MODULE.GradePage.init = function(){
                 assignStudentPlan();
                 checkRow();
                 openTab('plan');
+                getStudentPlan();
             },
             
         },"</span>");
@@ -315,27 +306,62 @@ MODULE.GradePage.init = function(){
     }
    
     function insertPlanTable(courseCode) {
-        console.log("whar");
+        console.log(courseCode, studentNum);
         $.ajax({
-            type: "GET",
+            type: "POST",
             url: 'planInsert.php',
             dataType: 'json',
-            data: { courseCode: courseCode, studentNum: studentNum},
+            data: { course_no: courseCode, student_no: studentNum},
+        });
+    }
+
+    function getStudentPlan(){
+        $.ajax({
+            type: 'GET',
+            url: 'planInsert.php',
+            dataType: 'json',
+            data: {student_no: studentNum},
             success: function(data){
                 $('#history-table').bootstrapTable('load', data);
             }
-        });
-
+        }); 
     }
 
     function assignStudentPlan() {
-        var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
-        console.log(selectedData);
-        for(var i in selectedData) {
-            var courseCode = selectedData[i].courseCode;
-            insertPlanTable(courseCode);
-        }
+        $.ajax({
+            type: 'POST',
+            url: 'planInsert.php',
+            data: {student_no_to_delete: studentNum},
+            success: function(data){
+                var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
+                console.log(selectedData);
+                for(var i in selectedData) {
+                    var course_no = selectedData[i].course_no;
+                    insertPlanTable(course_no);
+                }
+                getStudentPlan();
+            },
+            error:function(textStatus, errorThrown, error){
+                console.log("error");
+                console.log(errorThrown);     
+                console.log(errorThrown.message);
+                console.log(error);
+            }
+        });
+        
     }
+
+    // function deletePreviousPlan(){
+    //      $.ajax({
+    //         type: 'POST',
+    //         url: 'planInsert.php',
+    //         dataType: 'json',
+    //         data: {student_no_to_delete: studentNum},
+    //         success: function(data){
+                
+    //         }
+    //     });
+    // }
 
     //called when program or level is selected
     function changeCourseTable(){

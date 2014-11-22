@@ -32,8 +32,9 @@ else if ( $_GET['name'] != null && $_GET['level'] == null ){
 			order by c.course_level desc";
 }
 else{
+		$sql = "select distinct course_name, course_no, course_level from course order by course_level";
+
 }
-	$sql = "select distinct course_name, course_no, course_level from course order by course_level";
 
 
 $result = mysqli_query($db,$sql);

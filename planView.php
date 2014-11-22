@@ -46,11 +46,14 @@
             <?php
 
             include("connect.php");
-
-            $sql = "SELECT DISTINCT s.student_name, s.student_no, se.course_no, c.course_name
-                    from student s, student_enrollment se, course c
-                    where se.student_no = s.student_no
-                    and se.course_no = c.course_no
+                        // where s.program_no = p.program_no 
+            // and p.program_name = '$programName'    
+            $sql = "SELECT DISTINCT s.student_name, pl.student_no, pl.course_no, c.course_name, p.program_name
+                    from student s, course c, plan pl, program p
+                    where  pl.student_no = s.student_no 
+                    and pl.course_no = c.course_no
+                    and s.program_no = p.program_no
+                    order by s.student_name
                     LIMIT 1000";
 
 
@@ -61,7 +64,7 @@
             while($r = mysqli_fetch_array($result)) {
                 if($r['student_name'] != $prev_name){
                     echo '<h3 style="padding-top: 20px; border-top: 1px solid #ccc;">' . $r['student_name'] .'</h3>';
-                    echo '<h4>Program: Construction Engineering Technician</h4>';
+                    echo '<h4>Program Name: '. $r['program_name'] .'</h4>';
                     echo '<h4>Student Number: '. $r['student_no'] .'</h4>';
                 }
                 echo '<p>'. $r['course_no'] .' '. $r['course_name'] .'</p>';
