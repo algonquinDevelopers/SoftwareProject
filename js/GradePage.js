@@ -278,6 +278,7 @@ MODULE.GradePage.init = function(){
     }
    
     function insertPlanTable(courseCode) {
+        console.log("whar");
         $.ajax({
             type: "GET",
             url: 'planInsert.php',
