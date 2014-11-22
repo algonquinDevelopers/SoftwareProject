@@ -20,7 +20,7 @@
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" id="selectedProgram">Programs<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu" id="programDropDown" visibleTag="#selectedProgram">
-							<?php include("dropDown.php"); ?>
+							<?php include("programDropDown.php"); ?>
 						</ul>
 					</li>
 					<li class="dropdown">
