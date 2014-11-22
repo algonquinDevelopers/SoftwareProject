@@ -2,22 +2,22 @@ Project todo
 ===============
 
 
-- [x] add check next to student - DONE
+- [x] add check next to student
 
 - [ ] course inserts for the other program
-- [x] course update based on program - DONE
+- [x] course update based on program
 
-- [x] plan table UI - DONE
-- [x] plan table DB - DONE
+- [x] plan table UI
+- [x] plan table DB
 
-- [x] DB \r\n - DONE 
-- [x] DB multiple a_levels per student - DONE
+- [x] DB \r\n 
+- [x] DB multiple a_levels per student
 
 - [ ] saving plan to pdf or HTML 
 
 
-- [ ] javascript error handeling -
-- [ ] php error handeling -
+- [ ] javascript error handeling
+- [ ] php error handeling
 
 - [ ] prepare statements
 
