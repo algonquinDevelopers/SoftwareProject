@@ -12,7 +12,7 @@ if ( $_GET['name'] != null && $_GET['level'] != null ){
 	
 	$program = $_GET['name'];
 	$level = $_GET['level'];
-	$next = $level + 1;
+	$next = $level;
 	
 	$sql = "select distinct c.course_name, c.course_no, c.course_level
 			from course c, program p, program_course a
