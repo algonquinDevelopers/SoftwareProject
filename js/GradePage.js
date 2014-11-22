@@ -16,15 +16,11 @@ MODULE.GradePage.init = function(){
     var studentRowIndex;
     var studentNum;
     var studentLevel  = 0;
-    var courseLevel= 3;
+    var courseLevel = null;
 
 
     var currentProgram = null;
-    var currentLevel = 1;
-
-    // get request data to select the level; 
-    var selectLevel = 1;
-
+    var currentLevel = null;
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
@@ -42,19 +38,45 @@ MODULE.GradePage.init = function(){
     MODULE.createGradeTable();
     MODULE.createPlanHistoryTable();
     makeButton();
-    loadCourseTable(courseLevel);
+    //loadCourseTable(courseLevel);
 
     function makeLevelDropDown(){
-        levelDropDown
+        console.log("level drop down");
+   
+        $.ajax({
+            type: "GET",
+            url: 'selectDropDownLevels.php',
+            dataType: 'json',
+            data: { programName: currentProgram},
+            success: function(data){
+                var html ='';
+                data.forEach(function(element){
+                    html += '<li><a role="menuitem" value='+ element.a_level +'>'+ element.a_level +'</a></li>';
+                });
+                $('#levelDropDown').html(html);
+            },
+            error:function(textStatus, errorThrown, error){
+                console.log("student level drop down load", error);
+                console.log(errorThrown);
+            }
+        });
+        
     }
+
 
 
 
     $('#programDropDown a').click(function(){
         var visible = $(this).parents('ul').attr('visibleTag');
         $(visible).html($(this).attr('value'));
+		
         currentProgram = $(this).html();
-        //to select students in the program
+        makeLevelDropDown();
+        resetTable('#grade-table-javascript');
+        if(currentLevel == null){
+           return; 
+        }
+		//to select students in the program
             $.ajax({
             type: "GET",
             url: 'selectStudents.php',
@@ -64,23 +86,34 @@ MODULE.GradePage.init = function(){
                 $('#student-table-javascript').bootstrapTable('load', data);
                 console.log("student load success");
                 changeCourseTable();
-                },
+            },
             error:function(textStatus, errorThrown, error){
                 console.log("student load", error);
                 console.log(errorThrown);
-                }
+            }
             });
     });
 
 
-
+    function resetTable(tableId){
+       //setting table data to an empty array will clear all rows 
+       $(tableId).bootstrapTable('load', []);
+    }
 
 	//level drop down menu
-	$('#levelDropDown a').click(function(){
+	$('#levelDropDown').on("click", "a", function(){
 		var visible = $(this).parents('ul').attr('visibleTag');
 		$(visible).html($(this).attr('value'));
 		
 		currentLevel = $(this).html();
+		courseLevel = parseInt(currentLevel.charAt(1));
+        resetTable('#grade-table-javascript');
+	    if(courseLevel != 6){
+            courseLevel++;
+        }	
+        if(currentLevel !== null && currentProgram !== null){
+            $('#message').hide();
+        }
 		$.ajax({
             type: "GET",
             url: 'selectStudents.php',
@@ -90,27 +123,28 @@ MODULE.GradePage.init = function(){
                 console.log("success");
                 $('#student-table-javascript').bootstrapTable('load', data);
 				changeCourseTable();
-
+				
             },
             error:function(textStatus, errorThrown, error){
                 console.log(error);
                 console.log(errorThrown);
+				
 			}
 		});
 	});
 	
     //get the students names
-    $.ajax({
-        type: "GET",
-        url: 'selectStudents.php',
-        data: { limit: selectLimit},
-        success: function(data){
-            $('#student-table-javascript').bootstrapTable('load', data);
-        },
-        error:function(textStatus, errorThrown){
-            console.log("loading student", errorThrown);
-        }
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     url: 'selectStudents.php',
+    //     data: { limit: selectLimit},
+    //     success: function(data){
+    //         $('#student-table-javascript').bootstrapTable('load', data);
+    //     },
+    //     error:function(textStatus, errorThrown){
+    //         console.log("loading student", errorThrown);
+    //     }
+    // });
 
 
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
@@ -160,23 +194,26 @@ MODULE.GradePage.init = function(){
             courseLevel = 6;
         }
     }
-
+/**
     function loadCourseTable(courseLevel){
         $.ajax({
             type: "GET",
             url: 'selectCourse.php',
             dataType: 'json',
-            data: {courseLevel: courseLevel},
+            data: {level: courseLevel},
             success: function(data){
                 $('#course-table-javascript').bootstrapTable('load', data);
+				
             },
-            error:function(textStatus, errorThrown){
+            error:function(textStatus, errorThrown, error){
                 console.log("course table load error");
                 console.log(errorThrown);           
+				console.log(error);
             }
         });
     }
-
+**/
+	
     function openTab(tab){
         $('.nav-tabs a[href="#' + tab + '"]').tab('show');
     };
@@ -214,7 +251,7 @@ MODULE.GradePage.init = function(){
     }
 
     //THIS DOESN"T WORK. 
-    //IT WILL ONLY WORK IF THE COURSE CODE INCREMNET BY 1 PER LEVEL
+    //IT WILL ONLY WORK IF THE COURSE CODE INCREMENT BY 1 PER LEVEL
     function courseTableSelect(row){
         //gets table data its a array of objects every object reps a row
         var data = $('#course-table-javascript').bootstrapTable('getData');    
@@ -307,16 +344,13 @@ MODULE.GradePage.init = function(){
             type: "GET",
             url: 'selectCourse.php',
             dataType: 'json',
-            data: { name: currentProgram, level: currentLevel },
+            data: { name: currentProgram, level: courseLevel },
             success: function(data){
                 console.log("courses updated");
                 $('#course-table-javascript').bootstrapTable('load', data);
 
             },
             error:function(textStatus, errorThrown, error){
-                console.log(currentLevel);
-                console.log(typeof currentLevel);
-                console.log(currentProgram);
                 console.log("error");
                 console.log(errorThrown);     
                 console.log(errorThrown.message);
