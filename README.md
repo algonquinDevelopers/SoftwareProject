@@ -5,7 +5,7 @@ Project todo
 - add check next to student - DONE
 
 - course inserts for the other program
-- course update based on program
+- course update based on program - DONE
 
 - plan table UI
 - plan table DB
@@ -13,10 +13,10 @@ Project todo
 - DB \r\n - DONE 
 - DB multiple a_levels per student - ?
 
-- saving plan to pdf or HTML
+- saving plan to pdf or HTML 
 
 
-- javascript error handeling 
+- javascript error handeling -
 - php error handeling 
 
 - prepare statements
