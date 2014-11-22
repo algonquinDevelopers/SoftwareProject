@@ -70,6 +70,7 @@ MODULE.GradePage.init = function(){
 		
         currentProgram = $(this).html();
         makeLevelDropDown();
+        resetTable('#grade-table-javascript');
 		//to select students in the program
             $.ajax({
             type: "GET",
