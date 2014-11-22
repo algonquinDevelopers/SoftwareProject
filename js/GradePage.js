@@ -96,7 +96,7 @@ MODULE.GradePage.init = function(){
 
 
 	//level drop down menu
-	$('#levelDropDown a').click(function(){
+	$('#levelDropDown a').on("click", function(){
 		var visible = $(this).parents('ul').attr('visibleTag');
 		$(visible).html($(this).attr('value'));
 		
