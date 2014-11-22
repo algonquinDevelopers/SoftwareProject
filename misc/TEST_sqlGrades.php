@@ -32,3 +32,27 @@ function check_grades($r){
 }
 
 ?>
+
+
+function makeTables(){
+            $.ajax({
+            type: "GET",
+            url: 'selectPlan.php',
+            dataType: 'json',
+            // get request for student name
+            success: function(data){
+                var prev_name;
+                data.forEach(function(element){
+                    if(prev_name !==  element.student_name){
+                        console.log(prev_name);
+
+                        $('#plans').append('<h3 style="padding-top: 20px; border-top: 1px solid #ccc;">' + element.student_name +'</h3>');
+                        $('#plans').append('<h4>Program: Construction Engineering Technician</h4>');
+                        $('#plans').append('<h4>Student Number: ' + element.student_no + '</h4>');
+                    }
+                    $('#plans').append('<p>' + element.course_no + ' ' + element.course_name + '</p>');
+                    prev_name = element.student_name;
+               }) 
+            }
+        });
+        }     
