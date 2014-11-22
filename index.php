@@ -28,7 +28,7 @@
 						<ul class="dropdown-menu" role="menu" id="levelDropDown" visibleTag="#selectedLevel">
                         </ul>
 					</li>
-                    <li><a href="planView.html">View All Plans</a></li>
+                    <li><a href="planView.php">View All Plans</a></li>
 				</ul>
                 <ul class="nav navbar-nav pull-right">
                     <li><a href="" data-toggle="modal" data-target=".bs-upload-modal-sm">Upload</a></li>

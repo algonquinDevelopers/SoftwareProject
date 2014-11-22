@@ -12,14 +12,13 @@ if ( $_GET['name'] != null && $_GET['level'] != null ){
 	
 	$program = $_GET['name'];
 	$level = $_GET['level'];
-	$next = $level;
 	
 	$sql = "select distinct c.course_name, c.course_no, c.course_level
 			from course c, program p, program_course a
 			where c.course_no = a.course_no
 			and p.program_no = a.program_no
 			and p.program_name = '$program'
-			and c.course_level = $next
+			and c.course_level = $level
 			order by c.course_level desc";
 			//c.course_level in ($level , $next)
 }
