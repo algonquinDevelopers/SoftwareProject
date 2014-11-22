@@ -21,8 +21,8 @@
 			<div class="container-fluid">
 				<ul class="nav navbar-nav pull-left">
 					<li class="navbar-brand-sm"><a href="#">Software Project</a></li>
-					<li class="active"><a href="index.php">Home</a></li>
-                    <li><a href="planView.html">View All Plans</a></li>
+					<li ><a href="index.php">Home</a></li>
+                    <li class="active"><a href="planView.html">View All Plans</a></li>
 					</li>
 
 				</ul>
