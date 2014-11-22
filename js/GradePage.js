@@ -264,7 +264,7 @@ MODULE.GradePage.init = function(){
         {
             id: "name",
             class: "btn btn-success btn-md center pull-right",
-            html: '<i class="glyphicon"></i>Assign',
+            html: '<i class="glyphicon"></i>Assign Plan',
             click: function(){
                 //todo: don't assign if no student is selected
                 assignStudentPlan();
@@ -293,6 +293,7 @@ MODULE.GradePage.init = function(){
 
     function assignStudentPlan() {
         var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
+        console.log(selectedData);
         for(var i in selectedData) {
             var courseCode = selectedData[i].courseCode;
             insertPlanTable(courseCode);
