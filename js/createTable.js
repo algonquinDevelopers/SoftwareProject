@@ -83,14 +83,6 @@ MODULE.createPlanHistoryTable = function(){
             align: 'center',
             valign: 'top',
             sortable: true
-        },
-        {
-            width: 1,
-            field: 'plan_version',
-            title: 'plan version',
-            align: 'center',
-            valign: 'top',
-            sortable: true
         }
         ]
     });
