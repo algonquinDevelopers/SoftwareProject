@@ -33,9 +33,9 @@
 		<div class="row">
 			<div class="col-md-6">
 			   </div> 
+                <h2 class="pull-right"><a href="export.php">Save to PDF</a></h2>
 				<div id="plans">
 				<h2> Plans for next semester</h2>
-				<h2><a href="export.php">Save to PDF</a></h2>
 				<?php
 	            include("connect.php");
 		            $sql = "SELECT DISTINCT s.student_name, pl.student_no, pl.course_no, c.course_name, p.program_name
