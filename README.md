@@ -3,7 +3,7 @@ Project todo
 
 
 - [x] add check next to student
-- [ ] fix viewing grade error
+- [x] fix viewing grade error
 
 
 
@@ -19,7 +19,7 @@ Project todo
 - [x] DB \r\n 
 - [x] DB multiple a_levels per student
 
-- [ ] saving plan to pdf or HTML 
+- [x] saving plan to pdf or HTML 
 
 
 - [ ] javascript error handeling
