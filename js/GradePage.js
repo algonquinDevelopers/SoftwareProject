@@ -16,6 +16,7 @@ MODULE.GradePage.init = function(){
     var studentRowIndex;
     var studentNum;
     var courseLevel = null;
+	var forFailed = null;
 
 
     var currentProgram = null;
@@ -105,9 +106,9 @@ MODULE.GradePage.init = function(){
 		currentLevel = $(this).html();
 		courseLevel = parseInt(currentLevel.charAt(1));
         resetTable('#grade-table-javascript');
-	    if(courseLevel != 6){
-            courseLevel++;
-        }	
+   
+		courseLevel++;
+        	
         if(currentLevel !== null && currentProgram !== null){
             $('#message').hide();
         }
@@ -137,6 +138,9 @@ MODULE.GradePage.init = function(){
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
 
     function onStudentRowClick(row, $element, element){
+		
+		loadCourseTable();
+		
         highlightStudent(element);
         studentNum = $element.student_no;
         studentRowIndex = element.data().index;
@@ -177,7 +181,7 @@ MODULE.GradePage.init = function(){
         var data = $('#grade-table-javascript').bootstrapTable('getData');
         for(var i in data){
             var table_row = data[i];
-            if(table_row.grade[0] === "F"){
+            if(table_row.grade[0] === "F"){ 
                 $("#grade-table-javascript tr[data-index='"+ i +"']").addClass("failed-course");
             }
         }
@@ -189,10 +193,14 @@ MODULE.GradePage.init = function(){
             var table_row = data[i];
             if(table_row == undefined) return;
             if(table_row.grade[0] === "F"){
+				forFailed = courseLevel - 1;
+				loadCourseTable();
+				
+				forFailed = null;
                 return;
             }
         }
-        $("#course-table-javascript").bootstrapTable('checkAll');  
+		$("#course-table-javascript").bootstrapTable('checkAll');  
     }
 
 
@@ -259,7 +267,7 @@ MODULE.GradePage.init = function(){
             type: "GET",
             url: 'selectCourse.php',
             dataType: 'json',
-            data: { name: currentProgram, level: courseLevel },
+            data: { name: currentProgram, level: courseLevel, currentLevel: forFailed },
             success: function(data){
                 console.log("courses updated");
                 $('#course-table-javascript').bootstrapTable('load', data);
