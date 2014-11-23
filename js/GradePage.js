@@ -140,11 +140,10 @@ MODULE.GradePage.init = function(){
         studentNum = $element.student_no;
         studentRowIndex = element.data().index;
         studentName = $element.student_name;
-        // console.log(studentName);
-        // console.log(jQuery(row).text());
-        // console.log(element.html());
+
         $('#course-table-javascript').bootstrapTable('uncheckAll');
-        loadGradesTable($element.student_name);
+        // loadGradesTable($element.student_name);
+        loadGradesTable($element.student_no);
         getStudentPlan();    
     }
 
@@ -153,12 +152,12 @@ MODULE.GradePage.init = function(){
         element[0].bgColor = '#AED4E9';
     }
 
-    function loadGradesTable(studentName){
+    function loadGradesTable(student_no){
         $.ajax({
             type: "GET",
             url: 'selectGrades.php',
             dataType: 'json',
-            data: { studentName: studentName, level: currentLevel },
+            data: { student_no: student_no, level: currentLevel },
             success: function(data){
                 setStudentLevel(data);
                 $('#grade-table-javascript').bootstrapTable('load', data);
