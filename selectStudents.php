@@ -20,7 +20,7 @@ if( !empty($_GET['name']) && !empty($_GET['level']) && !empty($_GET['limit']) ){
 	if ($stmt = $db->prepare($query)) {
 		//Binds variables to prepd statement
         //"si" means first param is a string, second is an int."
-	    $stmt -> bind_param("sii", $programName, $programLevel, $limit);
+	    $stmt->bind_param("sii", $programName, $programLevel, $limit);
 	    $stmt->execute();
 	}
 
