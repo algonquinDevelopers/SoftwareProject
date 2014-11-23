@@ -4,23 +4,23 @@
 include("connect.php");
 
 //Prepared Statements
-if( !empty($_GET['name']) && !empty($_GET['level']) && !empty($_GET['limit']) ){
-  
-	$programName = $_GET['name'];
-	$programLevel = $_GET['level'];
-	$limit = $_GET['limit'];
 
-    //Prepared Statement for security and easier "understandability"
+$limit = $_GET['limit'];
+
+if( (!empty($_GET['name']) && $_GET['name'] != null) && (!empty($_GET['level']) && $_GET['level'] != null) ){
+
 	$query = "SELECT distinct s.student_name, s.student_no, e.a_level from student s
 			inner join student_enrollment e on e.student_no = s.student_no inner join
-			program p on p.program_no = e.program_no where p.program_name = (?)
-			and e.a_level = (?)
-			LIMIT (?)";
+			program p on p.program_no = e.program_no where p.program_name = ?
+			and e.a_level = ?
+			LIMIT ?";
 
-	if ($stmt = $db->prepare($query)) {
-		//Binds variables to prepd statement
-        //"si" means first param is a string, second is an int."
-	    $stmt->bind_param("sii", $programName, $programLevel, $limit);
+	if ($stmt = $db->prepare($query))
+	{
+	    $programName = $_GET['name'];
+	    $programLevel = $_GET['level'];
+	    $limit = $_GET['limit'];
+	    $stmt -> bind_param("ssi", $programName, $programLevel, $limit);
 	    $stmt->execute();
 	}
 
@@ -31,10 +31,10 @@ if( !empty($_GET['name']) && !empty($_GET['level']) && !empty($_GET['limit']) ){
 	    array_push($rows, $r);
 	}
 
+	// close connection
 	header('Content-type: application/json');
 	echo json_encode($rows); 
 }
-
 ?>
 
 

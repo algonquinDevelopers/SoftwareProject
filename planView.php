@@ -38,20 +38,23 @@
 				<h2> Plans for next semester</h2>
 				<?php
 	            include("connect.php");
-		            $sql = "SELECT DISTINCT s.student_name, pl.student_no, pl.course_no, c.course_name, p.program_name
-		                    from student s, course c, plan pl, program p
-		                    where  pl.student_no = s.student_no 
-		                    and pl.course_no = c.course_no
-		                    and s.program_no = p.program_no
-		                    order by s.student_name
-		                    LIMIT 1000";
 
+	            $query = "SELECT DISTINCT s.student_name, pl.student_no, pl.course_no, c.course_name, p.program_name
+	                    from student s, course c, plan pl, program p
+	                    where  pl.student_no = s.student_no 
+	                    and pl.course_no = c.course_no
+	                    and s.program_no = p.program_no
+	                    order by s.student_name
+	                    LIMIT 1000";
 
+					if ($stmt = $db->prepare($query)) {
+					    $stmt->execute();
+					}
 
-		            $result = mysqli_query($db, $sql);
+					$result = $stmt->get_result();
 
 		            $prev_name = '';
-		            while($r = mysqli_fetch_array($result)) {
+		            while($r = $result->fetch_assoc()) {
 		                if($r['student_name'] != $prev_name){
 		                    echo '<h3 style="padding-top: 20px; border-top: 1px solid #ccc;">' . $r['student_name'] .'</h3>';
 		                    echo '<h4>Program Name: '. $r['program_name'] .'</h4>';

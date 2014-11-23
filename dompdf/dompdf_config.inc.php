@@ -243,7 +243,7 @@ def("DOMPDF_DEFAULT_FONT", "serif");
  * @var int
  */
 // def("DOMPDF_DPI", 96);
-def("DOMPDF_DPI", 96);
+def("DOMPDF_DPI", 46);
 
 
 /**
