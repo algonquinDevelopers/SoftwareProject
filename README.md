@@ -2,23 +2,31 @@ Project todo
 ===============
 
 
-- add check next to student - DONE
-
-- course inserts for the other program
-- course update based on program
-
-- plan table UI
-- plan table DB
-
-- DB \r\n - DONE 
-- DB multiple a_levels per student - ?
-
-- saving plan to pdf or HTML
+- [x] add check next to student
+- [ ] fix viewing grade error
 
 
-- javascript error handeling 
-- php error handeling 
 
-- prepare statements
 
-- code consistency (variable name, sql statements etc) 
+- [ ] course inserts for the other program
+- [x] course update based on program
+
+
+- [x] plan table UI
+- [x] plan table DB
+
+
+- [x] DB \r\n 
+- [x] DB multiple a_levels per student
+
+- [ ] saving plan to pdf or HTML 
+
+
+- [ ] javascript error handeling
+- [ ] php error handeling
+
+
+- [ ] prepare statements
+
+
+- [ ] code consistency (variable name, sql statements etc) 

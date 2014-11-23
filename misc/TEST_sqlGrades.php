@@ -32,3 +32,68 @@ function check_grades($r){
 }
 
 ?>
+
+
+function makeTables(){
+            $.ajax({
+            type: "GET",
+            url: 'selectPlan.php',
+            dataType: 'json',
+            // get request for student name
+            success: function(data){
+                var prev_name;
+                data.forEach(function(element){
+                    if(prev_name !==  element.student_name){
+                        console.log(prev_name);
+
+                        $('#plans').append('<h3 style="padding-top: 20px; border-top: 1px solid #ccc;">' + element.student_name +'</h3>');
+                        $('#plans').append('<h4>Program: Construction Engineering Technician</h4>');
+                        $('#plans').append('<h4>Student Number: ' + element.student_no + '</h4>');
+                    }
+                    $('#plans').append('<p>' + element.course_no + ' ' + element.course_name + '</p>');
+                    prev_name = element.student_name;
+               }) 
+            }
+        });
+        }     
+
+
+dropdown lelvel
+
+<?php
+include("connect.php");
+
+$sql = "SELECT distinct a_level from student_enrollment order by a_level";
+
+$result = mysqli_query($db,$sql);
+while ( $row = mysqli_fetch_array($result))
+{
+    echo "<li><a role=\"menuitem\" href=\"javascript:void(0)\" value=\"$row[0]\">$row[0]</a></li>";
+}
+
+?>
+
+<?php
+
+include("connect.php");
+
+$sql = "SELECT DISTINCT s.student_name, s.student_no, se.course_no, c.course_name
+        from student s, student_enrollment se, course c
+        where se.student_no = s.student_no
+        and se.course_no = c.course_no
+        LIMIT 1000";
+
+
+
+$result = mysqli_query($db, $sql);
+
+
+$rows = array();
+while($r = mysqli_fetch_array($result)) {
+    array_push($rows, $r);
+}
+
+// close connection
+header('Content-type: application/json');
+echo json_encode($rows); 
+?>
