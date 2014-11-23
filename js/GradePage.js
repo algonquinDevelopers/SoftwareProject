@@ -77,21 +77,8 @@ MODULE.GradePage.init = function(){
            return; 
         }
 		//to select students in the program
-            $.ajax({
-            type: "GET",
-            url: 'selectStudents.php',
-            dataType: 'json',
-            data: { name: currentProgram, level: currentLevel, limit: selectLimit },
-            success: function(data){
-                $('#student-table-javascript').bootstrapTable('load', data);
-                console.log("student load success");
-                changeCourseTable();
-            },
-            error:function(textStatus, errorThrown, error){
-                console.log("student load", error);
-                console.log(errorThrown);
-            }
-            });
+        <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+
     });
 
 
@@ -140,11 +127,10 @@ MODULE.GradePage.init = function(){
         studentNum = $element.student_no;
         studentRowIndex = element.data().index;
         studentName = $element.student_name;
-        // console.log(studentName);
-        // console.log(jQuery(row).text());
-        // console.log(element.html());
+
         $('#course-table-javascript').bootstrapTable('uncheckAll');
-        loadGradesTable($element.student_name);
+        // loadGradesTable($element.student_name);
+        loadGradesTable($element.student_no);
         getStudentPlan();    
     }
 
@@ -153,12 +139,12 @@ MODULE.GradePage.init = function(){
         element[0].bgColor = '#AED4E9';
     }
 
-    function loadGradesTable(studentName){
+    function loadGradesTable(student_no){
         $.ajax({
             type: "GET",
             url: 'selectGrades.php',
             dataType: 'json',
-            data: { studentName: studentName, level: currentLevel },
+            data: { student_no: student_no, level: currentLevel },
             success: function(data){
                 setStudentLevel(data);
                 $('#grade-table-javascript').bootstrapTable('load', data);

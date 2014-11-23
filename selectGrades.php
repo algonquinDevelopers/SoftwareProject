@@ -4,7 +4,8 @@ include("connect.php");
 // 'Caterina Roberts'
 
 	// $error = $name;
-$name = $_GET['studentName'];
+// $name = $_GET['studentName'];
+$studentNum = $_GET['student_no'];
 $level = $_GET['level'];
 	// add A to level
 	
@@ -27,7 +28,7 @@ $level = $_GET['level'];
 							from student_enrollment e, course c, student s
 							where e.course_no = c.course_no
 							and e.student_no = s.student_no
-							and s.student_name = '$name'
+							and s.student_no = $studentNum
 							and e.grade != ''
 							order by e.a_level");
 							//and e.a_level = '$level' //there is no a_level = A1, so exclude from the query for now
