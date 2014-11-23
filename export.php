@@ -1,8 +1,8 @@
 <?php
 
 require_once("dompdf/dompdf_config.inc.php");
-$html = $_POST['html'];
-// $html = "planView.php";
+
+$html = "planView.php";
 
 $dompdf = new DOMPDF();
 $dompdf->load_html_file($html);
