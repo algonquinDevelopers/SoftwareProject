@@ -2,6 +2,10 @@ var MODULE = MODULE || {};
 
 // http://wenzhixin.net.cn/p/bootstrap-table/docs/documentation.html
 // http://wenzhixin.net.cn/p/bootstrap-table/docs/examples.html
+
+//Code for creating all the tables
+
+
 MODULE.createCourseTable = function(){
 	$('#course-table-javascript').bootstrapTable({
         clickToSelect: true,
