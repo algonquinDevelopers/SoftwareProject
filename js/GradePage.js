@@ -12,9 +12,9 @@ MODULE.GradePage.init = function(){
     var selectLimit = 1000;
 
     //used for make the student plan
-    var studentName;
-    var studentRowIndex;
-    var studentNum;
+    var studentName = null;
+    var studentRowIndex = 0;
+    var studentNum = 0;
     var courseLevel = null;
 
     var currentProgram = null;
