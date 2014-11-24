@@ -21,7 +21,7 @@
 					// ON DUPLICATE KEY UPDATE course_no='$courseCode', student_no='$studentNum', plan_version=1, term='2013F'";
 		if(isset($courseCode) && isset($studentNum)){
 			$insertQuery = "INSERT INTO plan (course_no, student_no, plan_version) 
-							VALUES ('$courseCode', $studentNum, 1)";
+							VALUES (?, ?, 1)";
 
 			if ($stmt = $db->prepare($insertQuery)) {
 			    $stmt->bind_param("si", $courseCode, $studentNum);

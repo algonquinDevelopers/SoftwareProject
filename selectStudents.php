@@ -5,8 +5,6 @@ include("connect.php");
 
 //Prepared Statements
 
-$limit = $_GET['limit'];
-
 if( (!empty($_GET['name']) && $_GET['name'] != null) && (!empty($_GET['level']) && $_GET['level'] != null) ){
 
 	$query = "SELECT distinct s.student_name, s.student_no, e.a_level from student s
