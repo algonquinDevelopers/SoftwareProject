@@ -6,8 +6,6 @@ Project todo
 - [x] fix viewing grade error
 
 
-
-
 - [ ] course inserts for the other program
 - [x] course update based on program
 
@@ -23,7 +21,7 @@ Project todo
 
 
 - [x] javascript error handeling
-- [x] php error handeling
+- [ ] php error handeling - nearly done
 
 
 - [ ] prepare statements

@@ -5,6 +5,7 @@ var MODULE = MODULE || {};
 MODULE.GradePage = {};
 
 // code for grading page
+// main method of the appilcation.
 MODULE.GradePage.init = function(){
 	 'use strict';
     
