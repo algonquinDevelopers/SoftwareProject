@@ -132,7 +132,7 @@
     function searchStudent() {
         var selectLimit = 300;
         var searchInput = document.getElementById("searchInput").value;
-
+        
         $.ajax({
             type: "GET",
             url: 'searchStudents.php',
