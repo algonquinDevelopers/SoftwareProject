@@ -70,7 +70,7 @@ MODULE.GradePage.init = function(){
             click: function(){
                 //todo: don't assign if no student is selected
                 assignStudentPlan();
-                checkRow();
+                // checkRow();
                 openTab('plan');
                 getStudentPlan();
             },
@@ -263,7 +263,6 @@ MODULE.GradePage.init = function(){
             success: function(data){
                 console.log("courses updated");
                 $('#course-table-javascript').bootstrapTable('load', data);
-
             },
             error:function(textStatus, errorThrown, error){
                 console.log("error");
@@ -292,6 +291,12 @@ MODULE.GradePage.init = function(){
             data: {student_no: studentNum},
             success: function(data){
                 $('#history-table').bootstrapTable('load', data);
+            },
+            error:function(textStatus, errorThrown, error){
+                console.log("delete error");
+                console.log(errorThrown);     
+                console.log(errorThrown.message);
+                console.log(error);
             }
         }); 
     }
@@ -311,7 +316,7 @@ MODULE.GradePage.init = function(){
                 getStudentPlan();
             },
             error:function(textStatus, errorThrown, error){
-                console.log("error");
+                console.log("delete error");
                 console.log(errorThrown);     
                 console.log(errorThrown.message);
                 console.log(error);
