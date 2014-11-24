@@ -60,28 +60,6 @@ MODULE.GradePage.init = function(){
         
     }
 
-    function makeButton(){
-        var $button =
-        $("<span>",
-        {
-            id: "name",
-            class: "btn btn-success btn-md center pull-right",
-            html: '<i class="glyphicon"></i>Assign Plan',
-            click: function(){
-                //todo: don't assign if no student is selected
-                assignStudentPlan();
-                addCheckToRow();
-                openTab('plan');
-                loadPlanTable();
-            },
-            
-        },"</span>");
-
-        $("#course-table-javascript").append($button);
-    }
-
-
-
     $('#programDropDown a').click(function(){
         var visible = $(this).parents('ul').attr('visibleTag');
         $(visible).html($(this).attr('value'));
@@ -108,6 +86,28 @@ MODULE.GradePage.init = function(){
         loadStudentTable(currentProgram, currentStudentLevel);
 	});
 
+    function makeButton(){
+        var $button =
+        $("<span>",
+        {
+            id: "name",
+            class: "btn btn-success btn-md center pull-right",
+            html: '<i class="glyphicon"></i>Assign Plan',
+            click: function(){
+                //todo: don't assign if no student is selected
+                assignStudentPlan();
+                addCheckToRow();
+                openTab('plan');
+                loadPlanTable();
+            },
+            
+        },"</span>");
+
+        $("#course-table-javascript").append($button);
+    }
+
+
+    // Student Table Functions
 
     function loadStudentTable(currentProgram, currentStudentLevel){
         $.ajax({
@@ -128,6 +128,7 @@ MODULE.GradePage.init = function(){
         });
     }
 
+
     $('#student-table-javascript').bootstrapTable().on('click-row.bs.table', onStudentRowClick);
 
     function onStudentRowClick(row, $element, element){
@@ -146,7 +147,7 @@ MODULE.GradePage.init = function(){
         element[0].bgColor = '#AED4E9';
     }
 
-
+    //Grade table functions
 
     function loadGradesTable(student_no){
         $.ajax({
@@ -164,6 +165,8 @@ MODULE.GradePage.init = function(){
             }
         });
     }
+
+    //Course table fucntions
 
     // change color for failed courses
     function highlightFailedCourses(){
@@ -250,13 +253,16 @@ MODULE.GradePage.init = function(){
 
             },
             error:function(textStatus, errorThrown, error){
-                console.log("error");
+                console.log("load course error");
                 console.log(errorThrown);     
                 console.log(errorThrown.message);
                 console.log(error);
             }
         });
     }
+
+
+    //Plan table functions
 
     //insert 1 course into the plan table
     function insertPlanTable(courseCode) {
@@ -314,7 +320,7 @@ MODULE.GradePage.init = function(){
         
     }
 
-    /// table helper functions
+    // Table helper functions
 
     //clear all rows in the table
     function resetTable(tableId){
