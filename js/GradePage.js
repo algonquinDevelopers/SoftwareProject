@@ -181,6 +181,7 @@ MODULE.GradePage.init = function(){
 
     //checks all courses if no grade is F
     // also set prevLevel to select 
+    // if there is not data in table method returns
     function updateAllCourses(data){
         for(var i in data){
             var table_row = data[i];
@@ -268,7 +269,7 @@ MODULE.GradePage.init = function(){
     function insertPlanTable(courseCode) {
         $.ajax({
             type: "POST",
-            url: 'planInsert.php',
+            url: 'planHandler.php',
             dataType: 'json',
             data: { course_no: courseCode, student_no: studentNum},
         });
@@ -278,7 +279,7 @@ MODULE.GradePage.init = function(){
     function loadPlanTable(){
         $.ajax({
             type: 'GET',
-            url: 'planInsert.php',
+            url: 'planHandler.php',
             dataType: 'json',
             data: {student_no: studentNum},
             success: function(data){
@@ -299,7 +300,7 @@ MODULE.GradePage.init = function(){
     function assignStudentPlan() {
         $.ajax({
             type: 'POST',
-            url: 'planInsert.php',
+            url: 'planHandler.php',
             data: {student_no_to_delete: studentNum},
             success: function(data){
                 var selectedData = $('#course-table-javascript').bootstrapTable('getSelections');
