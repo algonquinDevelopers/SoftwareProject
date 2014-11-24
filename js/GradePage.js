@@ -6,7 +6,7 @@ MODULE.GradePage = {};
 
 // code for grading page
 MODULE.GradePage.init = function(){
-	 "use strict";
+	 'use strict';
     
     // get request data to limit the students returned
     var selectLimit = 1000;
@@ -17,9 +17,8 @@ MODULE.GradePage.init = function(){
     var studentNum;
     var courseLevel = null;
 
-
     var currentProgram = null;
-    var currentLevel = null;
+    var currentStudentLevel = null;
 
     //http://rocha.la/jQuery-slimScroll
     $(function(){
@@ -70,9 +69,9 @@ MODULE.GradePage.init = function(){
             click: function(){
                 //todo: don't assign if no student is selected
                 assignStudentPlan();
-                // checkRow();
+                addCheckToRow();
                 openTab('plan');
-                getStudentPlan();
+                loadPlanTable();
             },
             
         },"</span>");
@@ -89,10 +88,6 @@ MODULE.GradePage.init = function(){
         currentProgram = $(this).html();
         makeLevelDropDown();
         resetTable('#grade-table-javascript');
-        // if(currentLevel == null){
-        //    return; 
-        // }
-        // loadStudentTable(currentProgram, currentLevel);
     });
 
 
@@ -101,30 +96,28 @@ MODULE.GradePage.init = function(){
 	$('#levelDropDown').on("click", "a", function(){
 		var visible = $(this).parents('ul').attr('visibleTag');
 		$(visible).html($(this).attr('value'));
-		
-		currentLevel = $(this).html();
-		courseLevel = parseInt(currentLevel.charAt(1));
+	   	
+		currentStudentLevel = $(this).html();
+		courseLevel = parseInt(currentStudentLevel.charAt(1));
         resetTable('#grade-table-javascript');
-	    if(courseLevel != 6){
-            courseLevel++;
-        }	
-        if(currentLevel !== null && currentProgram !== null){
+
+        if(currentStudentLevel !== null && currentProgram !== null){
             $('#message').hide();
         }
-        loadStudentTable(currentProgram, currentLevel);
+        loadStudentTable(currentProgram, currentStudentLevel);
 	});
 
 
-    function loadStudentTable(currentProgram, currentLevel){
+    function loadStudentTable(currentProgram, currentStudentLevel){
         $.ajax({
             type: "GET",
             url: 'selectStudents.php',
             dataType: 'json',
-            data: { name: currentProgram, level: currentLevel, limit: selectLimit },
+            data: { name: currentProgram, level: currentStudentLevel, limit: selectLimit },
             success: function(data){
                 console.log("success");
                 $('#student-table-javascript').bootstrapTable('load', data);
-                loadCourseTable();
+                // loadCourseTable();
                 
             },
             error:function(textStatus, errorThrown, error){
@@ -144,7 +137,7 @@ MODULE.GradePage.init = function(){
 
         $('#course-table-javascript').bootstrapTable('uncheckAll');
         loadGradesTable($element.student_no);
-        getStudentPlan();    
+        loadPlanTable();    
     }
 
     function highlightStudent(element){
@@ -153,24 +146,23 @@ MODULE.GradePage.init = function(){
     }
 
 
+
     function loadGradesTable(student_no){
         $.ajax({
             type: "GET",
             url: 'selectGrades.php',
             dataType: 'json',
-            data: { student_no: student_no, level: currentLevel },
+            data: { student_no: student_no, level: currentStudentLevel },
             success: function(data){
                 $('#grade-table-javascript').bootstrapTable('load', data);
                 highlightFailedCourses();
-                checkAllCourses(data);
+                updateAllCourses(data);
             },
             error:function(textStatus, errorThrown){
                 console.log("Load grade table", errorThrown);
             }
         });
     }
-	
-
 
     // change color for failed courses
     function highlightFailedCourses(){
@@ -184,65 +176,31 @@ MODULE.GradePage.init = function(){
     }
 
     //checks all courses if no grade is F
-    function checkAllCourses(data){
+    // also set prevLevel to select 
+    function updateAllCourses(data){
         for(var i in data){
             var table_row = data[i];
             if(table_row == undefined) return;
             if(table_row.grade[0] === "F"){
+                loadCourseTableNextLevelPlus();
                 return;
             }
         }
-        $("#course-table-javascript").bootstrapTable('checkAll');  
+        loadCourseTableNextLevel();
     }
 
-
-
-    //THIS DOESN"T WORK. 
-    //IT WILL ONLY WORK IF THE COURSE CODE INCREMENT BY 1 PER LEVEL
-    function courseTableSelect(row){
-        var data = $('#course-table-javascript').bootstrapTable('getData');    
-
-        var studentCourseCode = row.course_no; 
-
-        for(var i in data){
-            var table_row = data[i];
-            // get the char at the end as a int of incr and select the next course
-            var ccn = parseInt(studentCourseCode.slice(-1));
-            // get the rest except the end 
-            //eg MAT8051 this get the MAT805
-            var ccl = studentCourseCode.slice(0, -1);
-
-            //some courses end with a letter. 
-            if(isNaN(ccn)) continue;
-
-            // CAD8407 Architectural CAD I goes from 07 to 09 at level 2
-            if(studentCourseCode === "CAD8407" || studentCourseCode === "ENG4001"){
-                ccn+=2;
-            }else{
-                ccn++;
-            } 
-
-            var target_course = ccl + ccn;
-            if(table_row.course_no === target_course){
-                var $tr = $("#course-table-javascript .bs-checkbox input[data-index='"+ i +"']");
-                // click row table row to check the check box
-                $tr.trigger("click");
-            }
-        }
-    }
-
-    function checkForFailed(fail_cases, row){
-        for(var i in fail_cases){
-            var gradeLetter = row.grade;
-            if(gradeLetter == fail_cases[i]){
-               return false;
-            }
-            return true;
-        }
-    }
 
     // adds check mark to student row
+    // if student name has a check ( a span tag ) then it doesn't add another check
     function addCheckToRow(){       
+        // console.log("doesnt contain span  ", studentName, studentName.search("span") === -1);
+        // search return -1 is the string is not found
+        if(studentName.search("span") !== -1){
+            return;
+        }
+        //T_T why no immutable strings
+        // var studentNameRow = studentName + '<span style="float: right; color: green;" class="glyphicon glyphicon-ok"> </span>';
+
         var $studentTable = $('#student-table-javascript').bootstrapTable();
         //todo: check if name has tags and then return
         $studentTable.bootstrapTable('updateRow', {
@@ -253,16 +211,42 @@ MODULE.GradePage.init = function(){
         });
     }
 
-     //called when program or level is selected
-    function loadCourseTable(){
+    //load course table when student is clicked. Loads courses in next level
+    function loadCourseTableNextLevel(){
+        // onlt
         $.ajax({
             type: "GET",
             url: 'selectCourse.php',
             dataType: 'json',
-            data: { name: currentProgram, level: courseLevel },
+            data: { name: currentProgram, nextLevel: courseLevel + 1, currentLevel: null},
             success: function(data){
                 console.log("courses updated");
                 $('#course-table-javascript').bootstrapTable('load', data);
+                // check all courses. assuming student has passed everything 
+                $("#course-table-javascript").bootstrapTable('checkAll');  
+            },
+            error:function(textStatus, errorThrown, error){
+                console.log("load course error");
+                console.log(errorThrown);     
+                console.log(errorThrown.message);
+                console.log(error);
+            }
+        });
+    }
+
+     //load course table when student is clicked. Loads courses in next level and current course level level
+    function loadCourseTableNextLevelPlus(){
+        // if you preLevel is null only next level courses are selected
+        // else then prevLevel and next level courses are loaded
+        $.ajax({
+            type: "GET",
+            url: 'selectCourse.php',
+            dataType: 'json',
+            data: { name: currentProgram, nextLevel: courseLevel + 1, currentLevel: courseLevel},
+            success: function(data){
+                console.log("courses updated");
+                $('#course-table-javascript').bootstrapTable('load', data);
+
             },
             error:function(textStatus, errorThrown, error){
                 console.log("error");
@@ -273,8 +257,8 @@ MODULE.GradePage.init = function(){
         });
     }
 
+    //insert 1 course into the plan table
     function insertPlanTable(courseCode) {
-        console.log(courseCode, studentNum);
         $.ajax({
             type: "POST",
             url: 'planInsert.php',
@@ -283,7 +267,8 @@ MODULE.GradePage.init = function(){
         });
     }
 
-    function getStudentPlan(){
+    // loads plan table based on current selected student's student number
+    function loadPlanTable(){
         $.ajax({
             type: 'GET',
             url: 'planInsert.php',
@@ -301,6 +286,9 @@ MODULE.GradePage.init = function(){
         }); 
     }
 
+
+    // assigns all the selected courses to the plan.
+    // todo: remove delete. send a array of courses to php and have php loop and excute insert statements
     function assignStudentPlan() {
         $.ajax({
             type: 'POST',
@@ -313,7 +301,7 @@ MODULE.GradePage.init = function(){
                     var course_no = selectedData[i].course_no;
                     insertPlanTable(course_no);
                 }
-                getStudentPlan();
+                loadPlanTable();
             },
             error:function(textStatus, errorThrown, error){
                 console.log("delete error");
@@ -325,11 +313,15 @@ MODULE.GradePage.init = function(){
         
     }
 
+    /// table helper functions
+
+    //clear all rows in the table
     function resetTable(tableId){
        //setting table data to an empty array will clear all rows 
        $(tableId).bootstrapTable('load', []);
     }
 
+    // opens a bootstrap tab
     function openTab(tab){
         $('.nav-tabs a[href="#' + tab + '"]').tab('show');
     };
