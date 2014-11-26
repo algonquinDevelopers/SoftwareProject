@@ -5,31 +5,63 @@ include("connect.php");
 
 $table = "student"; // rename if required
 
-$limit = $_GET['limit'];
 
 
 if (!empty($_GET['name'])){
-	$programName = $_GET['name'];
-	//echo $programName;
-	$sql = "SELECT DISTINCT studentName, studentNumber from " . $table . " where pgmName = '$programName' LIMIT $limit";
-	//echo $sql;
+
+    $query = "SELECT DISTINCT studentName, studentNumber from $table where pgmName = (?) LIMIT (?)";
+
+    if ($stmt = $db->prepare($query))
+    {
+        $programName = $_GET['name'];
+        $limit = $_GET['limit'];
+        $stmt -> bind_param("si",$programName, $limit);
+        $stmt->execute();
+    }
+
+
+
 } elseif(!empty($_GET['search'])) {
+
 		$search = $_GET['search'];
 		$search = stripslashes($search);
 		$search = htmlspecialchars($search);
 		$search = mysqli_real_escape_string($db, $search);
+
 	if(is_string($search)) { // search by student name
-		
-		$sql = "SELECT DISTINCT student_name, student_no from " . $table . " WHERE student_name LIKE '%" . $search . "%' ORDER BY student_name ASC";
+
+        $query = "SELECT DISTINCT student_name, student_no from $table WHERE student_name LIKE CONCAT ('%', (?), '%') ORDER BY student_name ASC";
+
+        if($stmt = $db->prepare($query))
+        {
+            $stmt->bind_param("s", $search);
+            $stmt->execute();
+        }
 	}
 	if(is_numeric($search)) { // search by student number
-		$sql = "SELECT DISTINCT student_name, student_no from " . $table . " WHERE student_no LIKE '%" . $search . "%' ORDER BY student_name ASC";
+
+		$query = "SELECT DISTINCT student_name, student_no from $table WHERE student_no LIKE CONCAT ('%', (?), '%') ORDER BY student_name ASC";
+
+        if ($stmt= $db->prepare($query))
+        {
+            $stmt->bind_param("s", $search );
+            $stmt->execute();
+        }
 	}
 } else {
-	$sql = "SELECT DISTINCT studentName, studentNumber from " . $table . " where aLevel = 'A1' LIMIT $limit";
+	// this doesn't work. 
+	//the course table won't load with this because course table updates based on what is was selected in the level dropdown
+
+    // $query = "SELECT DISTINCT studentName, studentNumber from $table where aLevel = 'A1' LIMIT (?)";
+
+    // if($stmt = $db->prepare($query)) {
+// 
+        // $stmt->bind_param("i", $limit);
+        // $stmt->execute();
+    // }
 }
 
-$result = mysqli_query($db, $sql);
+$result = $stmt->get_result();
 
 
 $rows = array();
@@ -42,5 +74,3 @@ header('Content-type: application/json');
 echo json_encode($rows); 
 
 ?>
-
-
