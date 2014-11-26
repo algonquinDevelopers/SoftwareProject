@@ -131,9 +131,9 @@
 <script src="js/GradePage.js"></script>
 
 <script type="text/javascript">
-
+    var gradePage;
     $(document).ready(function(){
-        MODULE.GradePage.init();
+        gradePage = MODULE.GradePage.init();
         
 
         $('#course-tabs a').click(function (e) {
@@ -146,6 +146,11 @@
     function searchStudent() {
         var selectLimit = 300;
         var searchInput = document.getElementById("searchInput").value;
+
+        if(searchInput === ""){
+           gradePage.loadStudentTable(); 
+           return;
+        }
         
         $.ajax({
             type: "GET",

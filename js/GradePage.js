@@ -83,7 +83,7 @@ MODULE.GradePage.init = function(){
         if(currentStudentLevel !== null && currentProgram !== null){
             $('#message').hide();
         }
-        loadStudentTable(currentProgram, currentStudentLevel);
+        loadStudentTable();
 	});
 
     function makeButton(){
@@ -109,7 +109,7 @@ MODULE.GradePage.init = function(){
 
     // Student Table Functions
 
-    function loadStudentTable(currentProgram, currentStudentLevel){
+    function loadStudentTable(){
         $.ajax({
             type: "GET",
             url: 'selectStudents.php',
@@ -334,4 +334,5 @@ MODULE.GradePage.init = function(){
         $('.nav-tabs a[href="#' + tab + '"]').tab('show');
     };
 
+    return {loadStudentTable: loadStudentTable};
 };
