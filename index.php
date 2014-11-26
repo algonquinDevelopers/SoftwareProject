@@ -2,13 +2,19 @@
 <html>
 <head>
     <!-- libraries used
+
     Javascript:
     JQuery 1.11, jquery.com
     Bootstrap-table: http://wenzhixin.net.cn/p/bootstrap-table/docs/index.html
+
     CSS:
     Bootstrap 3.2, getbootstrap.com/
     Cosmo Theme: http://bootswatch.com/cosmo/
     Bootstrap-table css : http://wenzhixin.net.cn/p/bootstrap-table/docs/index.html
+    
+    Php:
+    DomPdf: https://github.com/dompdf/dompdf
+
      -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://rawgit.com/wenzhixin/bootstrap-table/master/dist/bootstrap-table.min.css">
