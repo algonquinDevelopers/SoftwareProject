@@ -76,7 +76,7 @@ if ($uploadOk == 0) {
 
 /*insert data code starts */
 
-define ( 'CSV_PATH', 'C:/wamp/www/SoftwareProject/' );
+define ( 'CSV_PATH', 'C:/wamp/www/SoftwareProjectV1/' );
 
 // path where your CSV file is located
 
