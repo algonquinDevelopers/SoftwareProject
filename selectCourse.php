@@ -3,16 +3,54 @@
 // Connect to the MySQL database
 include("connect.php");
 
-$sql = "SELECT courseName, courseCode FROM course";
+$program = $_GET['name'];
+$nextLevel = $_GET['nextLevel'];
+$currentLevel = $_GET['currentLevel'];
 
-$result = mysqli_query($db,$sql);
+$stmt;
+
+
+if ( $_GET['name'] != null && $_GET['nextLevel'] != null && $_GET['currentLevel']  ){
+
+	$query = "SELECT distinct c.course_name, c.course_no, c.course_level
+			from course c, program p, program_course a
+			where c.course_no = a.course_no
+			and p.program_no = a.program_no
+			and p.program_name = ?
+			and c.course_level in (? , ?)
+			order by c.course_level desc";
+
+	if ($stmt = $db->prepare($query)) {
+	    $stmt -> bind_param("sii", $program, $currentLevel, $nextLevel);
+	    $stmt->execute();
+	}
+
+} else if( $_GET['name'] != null && $_GET['nextLevel'] != null ){
+
+	$query = "SELECT distinct c.course_name, c.course_no, c.course_level
+			from course c, program p, program_course a
+			where c.course_no = a.course_no
+			and p.program_no = a.program_no
+			and p.program_name = ?
+			and c.course_level = ?
+			order by c.course_level desc";
+
+	if ($stmt = $db->prepare($query)) {
+	    $stmt -> bind_param("si", $program, $nextLevel);
+	    $stmt->execute();
+	}
+
+
+}
+
+$result = $stmt->get_result();
 
 $rows = array();
-while($r = mysqli_fetch_array($result)) {
-	    array_push($rows, $r);
-    }
+while($r = $result->fetch_assoc()) {
+    array_push($rows, $r);
+}
 
-// CLOSE CONNECTION
-	header('Content-type: application/json');
-	echo json_encode($rows); 
+header('Content-type: application/json');
+echo json_encode($rows);
+
 ?>

@@ -1,0 +1,20 @@
+.content{
+    border-radius: 5px;
+}
+
+.content h1{
+    font-size: 16px;
+    text-transform:uppercase;
+}
+
+.selected {
+    font-weight: bold;
+}
+
+#students{
+    margin-left: 10px;
+}
+
+.failed-course{
+    color: #FF5900;
+}
