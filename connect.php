@@ -1,8 +1,8 @@
 <?php
 $dbhost = 'localhost';
-$dbname = 'sproject';
+$dbname = 'sprojectnew';
 $username = 'root';
-$pass = 'root';
+$pass = '';
 
 $db = mysqli_connect($dbhost,$username,$pass)
 or die('<div align="center">Warning: Could not connect to the database</div>');
